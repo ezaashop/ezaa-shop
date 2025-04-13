@@ -6,14 +6,14 @@ import Container from "./container";
 const TopNav = () => {
   return (
     <div className="hidden md:flex items-center bg-signature h-12 text-white text-sm font-medium">
-      <Container className="flex justify-between items-center w-full">
+      <Container className="w-full flex justify-between items-center">
         {/* Left Side: Contact Info */}
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
             <FaPhoneAlt size={14} />
             <span>+92 312 123 4567</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2">   
             <FaEnvelope size={14} />
             <span>support@ezaa.com</span>
           </div>

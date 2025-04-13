@@ -29,6 +29,15 @@ export const H3 = ({
   </h3>
 );
 
+export const H4 = ({
+  children,
+  className,
+}: React.HTMLAttributes<HTMLHeadingElement>) => (
+  <h4 className={cn("text-xl md:text-2xl font-semibold", className)}>
+    {children}
+  </h4>
+);
+
 export const Paragraph = ({
   children,
   className,
@@ -40,7 +49,7 @@ export const Small = ({
   children,
   className,
 }: React.HTMLAttributes<HTMLElement>) => (
-  <small className={cn("text-sm text-muted-foreground", className)}>
+  <small className={cn("text-xs text-muted-foreground", className)}>
     {children}
   </small>
 );

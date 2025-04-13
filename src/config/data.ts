@@ -1,3 +1,4 @@
+import { FooterContent } from "@/types";
 import { FaApple, FaFacebookSquare, FaInstagramSquare, FaTwitterSquare } from "react-icons/fa";
 import { IoLogoGooglePlaystore } from "react-icons/io5";
 

@@ -29,7 +29,11 @@ const Footer = () => {
             </Small>
             <div className="flex items-center gap-3">
               {footerContent.socialLinks.map((social, index) => (
-                <Link key={index} href={social.href} className="p-2 bg-signature rounded-md">
+                <Link
+                  key={index}
+                  href={social.href}
+                  className="p-2 bg-signature rounded-md"
+                >
                   <social.icon className="text-xl" />
                 </Link>
               ))}
@@ -58,7 +62,7 @@ const Footer = () => {
             <p className="text-sm">{footerContent.contact.phone}</p>
             <p className="text-sm mb-4">{footerContent.contact.email}</p>
             <div className="flex flex-col sm:flex-row gap-2 mt-4">
-              <div className="flex gap-2 mt-4">
+              <div className="flex gap-2 mt-4 w-full">
                 {footerContent.appLinks.map((app, i) => (
                   <Link
                     key={i}

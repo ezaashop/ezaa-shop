@@ -16,7 +16,7 @@ const Container = ({ children, title, section, className, ...rest }: Props) => {
       {title && <PageTitle title={title} />}
       <div
         className={cn(
-          `max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8`,
+          `max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8`,
           className
         )}
         {...rest}

@@ -1,19 +1,48 @@
+"use client";
+
 import { Search } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { FaUserCircle } from "react-icons/fa";
 import Brand from "./brand";
 import CartButton from "./cart";
 import Container from "./container";
-import MyImage from "./my-image";
+import { H3 } from "./typography";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { FaUserCircle } from "react-icons/fa";
 
 const Navbar = () => {
+  const pathname = usePathname();
+  const login = pathname.includes("/login");
+  const signup = pathname.includes("/signup");
+  const auth = login || signup;
   return (
     <div className="h-18 flex items-center">
-      <Container className="w-full flex items-center justify-between">
-        <Brand />
-        <SearchBar />
-        <ActionButtons />
+      <Container className="w-full flex items-center">
+        <div className="flex-1 flex justify-start items-center">
+          <Brand />
+          {auth && (
+            <H3 className="text-signature ml-4">
+              {login ? "Login" : "Sign Up"}
+            </H3>
+          )}
+        </div>
+        {auth ? (
+          <>
+            <Link href="#" className="text-signature">
+              Need help?
+            </Link>
+          </>
+        ) : (
+          <>
+            <div className="flex-1 flex justify-center">
+              <SearchBar />
+            </div>
+            <div className="flex-1 flex justify-end">
+              <ActionButtons />
+            </div>
+          </>
+        )}
       </Container>
     </div>
   );
@@ -27,7 +56,7 @@ const SearchBar = () => {
       <Input
         type="text"
         placeholder="Search here..."
-        className="pl-4 pr-10 bg-secondary text-signature placeholder:text-signature/50"
+        className="pl-4 pr-10 bg-secondary text-signature placeholder:text-signature"
       />
       <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 text-signature w-5 h-5" />
     </div>
@@ -37,7 +66,9 @@ const SearchBar = () => {
 const ActionButtons = () => {
   return (
     <div className="flex items-center gap-4">
-      <CartButton />
+      <Link href={"/cart"}>
+        <CartButton />
+      </Link>
       <Button variant="signature" className="text-white">
         <FaUserCircle />
         <span className="hidden sm:inline-block ml-2 uppercase">
