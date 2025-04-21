@@ -1,21 +1,21 @@
-"use client";
+"use client"
 
-import { Search } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { FaUserCircle } from "react-icons/fa";
-import Brand from "./brand";
-import CartButton from "./cart";
-import Container from "./container";
-import { H3 } from "./typography";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import { Search } from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { FaUserCircle } from "react-icons/fa"
+import Brand from "./brand"
+import CartButton from "./cart"
+import Container from "./container"
+import { H3 } from "./typography"
+import { Button } from "./ui/button"
+import { Input } from "./ui/input"
 
 const Navbar = () => {
-  const pathname = usePathname();
-  const login = pathname.includes("/login");
-  const signup = pathname.includes("/signup");
-  const auth = login || signup;
+  const pathname = usePathname()
+  const login = pathname.includes("/login")
+  const signup = pathname.includes("/signup")
+  const auth = login || signup
   return (
     <div className="h-18 flex items-center">
       <Container className="w-full flex items-center">
@@ -45,10 +45,10 @@ const Navbar = () => {
         )}
       </Container>
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
 
 const SearchBar = () => {
   return (
@@ -56,12 +56,12 @@ const SearchBar = () => {
       <Input
         type="text"
         placeholder="Search here..."
-        className="pl-4 pr-10 bg-secondary text-signature placeholder:text-signature"
+        className="pl-4 pr-10 bg-secondary text-signature"
       />
-      <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 text-signature w-5 h-5" />
+      <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5" />
     </div>
-  );
-};
+  )
+}
 
 const ActionButtons = () => {
   return (
@@ -76,5 +76,5 @@ const ActionButtons = () => {
         </span>
       </Button>
     </div>
-  );
-};
+  )
+}

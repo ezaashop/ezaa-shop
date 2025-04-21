@@ -34,9 +34,10 @@ const LoginForm = () => {
   const onSubmit = async (data: Auth) => {
     try {
       login(data, {
-        onSuccess: (res) => {
+        onSuccess: ({ data }) => {
           router.push("/");
-          console.log("Login successful:", res);
+          localStorage.setItem("token", data.access_token);
+          localStorage.setItem("userid", data.user.id);
         },
         onError: (err) => {
           console.log("Login failed:", err);

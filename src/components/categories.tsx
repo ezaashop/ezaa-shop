@@ -4,7 +4,8 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { useProductStore } from "@/store/product-store";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
+import { setSelectedCategoryId } from "@/lib/store/slices/productSlice";
 import Image from "next/image";
 
 type CategoriesProps = {
@@ -12,17 +13,12 @@ type CategoriesProps = {
 };
 
 const Categories = ({ carousel }: CategoriesProps) => {
-  const categories = useProductStore((state) => state.categories);
-  const selectedCategoryId = useProductStore(
-    (state) => state.selectedCategoryId
+  const dispatch = useAppDispatch();
+  const { categories, selectedCategoryId } = useAppSelector(
+    (store) => store.product
   );
-  
-  const setSelectedCategory = useProductStore(
-    (state) => state.setSelectedCategory
-  );
-
   const handleCategorySelect = (id: string) => {
-    setSelectedCategory(id); // Update the selected category in the store
+    dispatch(setSelectedCategoryId(id)); // Update the selected category in the store
   };
 
   const renderCard = (cat: (typeof categories)[number]) => (

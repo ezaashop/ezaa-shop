@@ -1,20 +1,20 @@
-import Link from "next/link";
-import Image from "next/image";
-import Container from "./container";
-import Brand from "./brand";
-import { Small } from "./typography";
+import Link from "next/link"
+import Image from "next/image"
+import Container from "./container"
+import Brand from "./brand"
+import { Small } from "./typography"
 import {
   FaFacebookSquare,
   FaTwitterSquare,
   FaInstagramSquare,
-} from "react-icons/fa";
-import { footerContent } from "@/config/data";
+} from "react-icons/fa"
+import { footerContent } from "@/config/data"
 
 const iconMap = {
   facebook: <FaFacebookSquare className="text-xl" />,
   twitter: <FaTwitterSquare className="text-xl" />,
   instagram: <FaInstagramSquare className="text-xl" />,
-};
+}
 
 const Footer = () => {
   return (
@@ -89,7 +89,7 @@ const Footer = () => {
         </Container>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

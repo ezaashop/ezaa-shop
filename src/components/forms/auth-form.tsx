@@ -1,22 +1,22 @@
-import Link from "next/link";
-import MyImage from "../my-image";
-import { H3, H4, Small } from "../typography";
-import { cn } from "@/lib/utils";
-import { FaFacebook } from "react-icons/fa";
-import { FcGoogle  } from "react-icons/fc";
+import Link from "next/link"
+import MyImage from "../my-image"
+import { H3, H4, Small } from "../typography"
+import { cn } from "@/lib/utils"
+import { FaFacebook } from "react-icons/fa"
+import { FcGoogle  } from "react-icons/fc"
 
-import { Button } from "../ui/button";
+import { Button } from "../ui/button"
 
 const AuthForm = ({
   children,
   type,
   className,
 }: {
-  children: React.ReactNode;
-  type: "login" | "signup";
-  className?: string;
+  children: React.ReactNode
+  type: "login" | "signup"
+  className?: string
 }) => {
-  const login = type === "login";
+  const login = type === "login"
 
   return (
     <div
@@ -82,7 +82,7 @@ const AuthForm = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AuthForm;
+export default AuthForm

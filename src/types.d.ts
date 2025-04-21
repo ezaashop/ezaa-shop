@@ -1,3 +1,9 @@
+type AsyncResponse<T> = {
+  data: any;
+  error: string | null;
+  status: "success" | "error";
+};
+
 type Auth = {
   email: string;
   password: string;
@@ -9,7 +15,7 @@ type Signup = Auth & {
   phone: string;
 };
 
-export interface User {
+interface User {
   id: number;
   user_type: string;
   fname: string | null;
@@ -29,8 +35,7 @@ export interface User {
   token: string | null;
 }
 
-
-export interface Wallet {
+interface Wallet {
   id: number;
   user_id: number;
   wallet_amount: number;
@@ -40,7 +45,7 @@ export interface Wallet {
   updated_at: string;
 }
 
-export interface ReferalCode {
+interface ReferalCode {
   id: number;
   user_id: number;
   code: string;
@@ -48,7 +53,7 @@ export interface ReferalCode {
   updated_at: string;
 }
 
-export interface BankAccount {
+interface BankAccount {
   id: number;
   user_id: number;
   account_title: string;
@@ -59,7 +64,7 @@ export interface BankAccount {
   updated_at: string;
 }
 
-export interface AuthResponse {
+interface AuthResponse {
   status: "success" | "error";
   message: string;
   user: User;
@@ -122,3 +127,41 @@ type Subcategory = {
   name: string;
   categoryId: string;
 };
+
+// types/product.ts
+
+interface ProductImage {
+  id: number;
+  product_id: number;
+  image: string;
+  cover_status: number;
+  created_at: string;
+  updated_at: string;
+}
+
+interface ProductDetail {
+  id: number;
+  product_id: number;
+  price: string;
+  selling_price: string;
+  size: string;
+  weight: string;
+  created_at: string;
+  updated_at: string;
+}
+
+interface Product {
+  id: number;
+  category_id: number;
+  subcategory_id: number;
+  name: string;
+  commision: string;
+  colour: string; // Assuming this is a JSON string. If it's parsed, change to: string[]
+  description: string;
+  weight: string | null;
+  created_at: string;
+  updated_at: string;
+  status: number;
+  product_image: ProductImage[];
+  product_deatils: ProductDetail[]; // Typo retained to match original. Prefer renaming to `product_details` for clarity
+}

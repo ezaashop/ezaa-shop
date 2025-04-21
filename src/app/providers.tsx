@@ -1,7 +1,7 @@
-"use client"
+"use client";
 import { ThemeProvider } from "@/components/theme-provider";
 import queryClient from "@/lib/queryClient";
-import StoreProvider from "@/redux/storeProvider";
+import StoreProvider from "@/lib/store/StoreProvider";
 import { QueryClientProvider } from "@tanstack/react-query";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
@@ -14,4 +14,4 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default Providers
+export default Providers;

@@ -1,40 +1,29 @@
 // components/Subcategories.tsx
 "use client";
-import { useProductStore } from "@/store/product-store";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
+import { setSelectedSubCategoryId } from "@/lib/store/slices/productSlice";
 
 const Subcategories = () => {
-  const subcategories = useProductStore((state) => state.subcategories);
-  const selectedCategoryId = useProductStore(
-    (state) => state.selectedCategoryId
-  );
-  const selectedSubcategoryId = useProductStore(
-    (state) => state.selectedSubcategoryId
-  );
-  const setSelectedSubcategory = useProductStore(
-    (state) => state.setSelectedSubcategory
-  );
-
-  const filteredSubcategories = subcategories.filter(
-    (subcat) => subcat.categoryId === selectedCategoryId
+  const dispatch = useAppDispatch();
+  const { subCategories, selectedSubCategoryId } = useAppSelector(
+    (state) => state.product
   );
 
   const handleSubcategorySelect = (id: string) => {
-    setSelectedSubcategory(id); // Update the selected subcategory in the store
+    dispatch(setSelectedSubCategoryId(id)); // Update the selected subcategory in the store
   };
 
   return (
     <div className="flex flex-wrap gap-4">
-      {filteredSubcategories.map((subcat) => (
+      {subCategories.map(({ id, name }) => (
         <div
-          key={subcat.id}
+          key={id}
           className={`p-4 cursor-pointer ${
-            subcat.id === selectedSubcategoryId
-              ? "border-2 border-blue-500"
-              : ""
+            id === selectedSubCategoryId ? "border-2 border-blue-500" : ""
           }`}
-          onClick={() => handleSubcategorySelect(subcat.id)}
+          onClick={() => handleSubcategorySelect(id)}
         >
-          {subcat.name}
+          {name}
         </div>
       ))}
     </div>

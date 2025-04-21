@@ -1,5 +1,6 @@
 "use client";
-import StoreProvider from "@/redux/storeProvider";
+
+import StoreProvider from "@/lib/store/StoreProvider";
 import { ThemeProvider } from "./theme-provider";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {

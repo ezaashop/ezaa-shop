@@ -6,13 +6,13 @@ const isBrowser = typeof window !== "undefined";
 
 // Standard Axios instance (for JSON requests)
 export const api = axios.create({
-  baseURL: baseUrl,
+  baseURL: `${baseUrl}/api`,
   withCredentials: true,
 });
 
 // Multipart Axios instance (for image/file uploads)
 export const multiPartApi = axios.create({
-  baseURL: baseUrl,
+  baseURL: `${baseUrl}/api`,
   withCredentials: true,
   headers: {
     // No need to set Content-Type manually for multipart/form-data

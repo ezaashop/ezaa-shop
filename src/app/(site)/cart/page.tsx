@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { useState } from "react";
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
+import { useState } from "react"
 
 const dummyCartItems = [
   {
@@ -27,24 +27,24 @@ const dummyCartItems = [
     quantity: 1,
     image: "/images/product.png",
   },
-];
+]
 
 export default function CartPage() {
-  const [cart, setCart] = useState(dummyCartItems);
-  const [selected, setSelected] = useState<string[]>([]);
+  const [cart, setCart] = useState(dummyCartItems)
+  const [selected, setSelected] = useState<string[]>([])
 
   const toggleSelect = (id: string) => {
     setSelected((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
-  };
+    )
+  }
 
   const getTotal = () => {
     return cart
       .filter((item) => selected.includes(item.id))
       .reduce((acc, item) => acc + item.price * item.quantity, 0)
-      .toFixed(2);
-  };
+      .toFixed(2)
+  }
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
@@ -56,8 +56,8 @@ export default function CartPage() {
               <Checkbox
                 checked={selected.length === cart.length}
                 onCheckedChange={() => {
-                  if (selected.length === cart.length) setSelected([]);
-                  else setSelected(cart.map((item) => item.id));
+                  if (selected.length === cart.length) setSelected([])
+                  else setSelected(cart.map((item) => item.id))
                 }}
               />
               <span>Select All</span>
@@ -143,5 +143,5 @@ export default function CartPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

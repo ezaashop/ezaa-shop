@@ -1,5 +1,5 @@
 // hooks/useAuth.ts
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, UseQueryOptions } from "@tanstack/react-query";
 import {
   registerUser,
   loginUser,
@@ -12,75 +12,60 @@ import {
   getUserInfo,
   updateUserInfo,
 } from "@/services/authService";
+import { AsyncResponse, AuthResponse, User } from "@/types";
 
-// ✅ Register Hook
-export const useRegister = () => {
-  return useMutation({
+export const useRegister = () =>
+  useMutation({
     mutationFn: registerUser,
   });
-};
 
-// ✅ Login Hook
-export const useLogin = () => {
-  return useMutation({
+export const useLogin = () =>
+  useMutation({
     mutationFn: loginUser,
   });
-};
 
-// ✅ Logout Hook
-export const useLogout = () => {
-  return useMutation({
+export const useLogout = () =>
+  useMutation({
     mutationFn: logoutUser,
   });
-};
 
-// ✅ Forgot Password Hook
-export const useForgotPassword = () => {
-  return useMutation({
+export const useForgotPassword = () =>
+  useMutation({
     mutationFn: forgotPassword,
   });
-};
 
-// ✅ Verify OTP Hook
-export const useVerifyOTP = () => {
-  return useMutation({
+export const useVerifyOTP = () =>
+  useMutation({
     mutationFn: verifyOTP,
   });
-};
 
-// ✅ Resend OTP Hook
-export const useResendOTP = () => {
-  return useMutation({
+export const useResendOTP = () =>
+  useMutation({
     mutationFn: resendOTP,
   });
-};
 
-// ✅ Reset Password Hook
-export const useResetPassword = () => {
-  return useMutation({
+export const useResetPassword = () =>
+  useMutation({
     mutationFn: resetPassword,
   });
-};
 
-// ✅ Google Login Hook
-export const useGoogleLogin = () => {
-  return useMutation({
+export const useGoogleLogin = () =>
+  useMutation({
     mutationFn: loginWithGoogle,
   });
-};
 
-// ✅ Get User Info Hook (Fetch user data)
-export const useUserInfo = (userId: string) => {
-  return useQuery({
+export const useUserInfo = (
+  userId: string,
+  options: Partial<UseQueryOptions<AsyncResponse<User>>> = {}
+) =>
+  useQuery<AsyncResponse<User>>({
     queryKey: ["user", userId],
     queryFn: () => getUserInfo(userId),
-    enabled: !!userId, // Only run the query if userId exists
+    enabled: !!userId,
+    ...options,
   });
-};
 
-// // ✅ Update User Info Hook (Update name/image)
-// export const useUpdateUserInfo = () => {
-//   return useMutation({
+// export const useUpdateUserInfo = () =>
+//   useMutation({
 //     mutationFn: updateUserInfo,
 //   });
-// };

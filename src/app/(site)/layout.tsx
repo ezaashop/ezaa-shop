@@ -1,5 +1,11 @@
+import FetchWrapper from "@/components/fetch-wrapper";
+
 const SiteLayout = ({ children }: { children: React.ReactNode }) => {
-  return <div className="h-full">{children}</div>;
+  return (
+    <FetchWrapper>
+      <div className="h-full">{children}</div>;
+    </FetchWrapper>
+  );
 };
 
 export default SiteLayout;

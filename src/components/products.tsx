@@ -1,16 +1,16 @@
 // components/Products.tsx
 "use client";
-import { useProductStore } from "@/store/product-store";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import Image from "next/image";
 
- const Products = () => {
-  const products = useProductStore((state) => state.products);
-  const selectedSubcategoryId = useProductStore(
-    (state) => state.selectedSubcategoryId
+const Products = () => {
+  const dispatch = useAppDispatch();
+  const { products, selectedSubCategoryId } = useAppSelector(
+    (store) => store.product
   );
 
   const filteredProducts = products.filter(
-    (product) => product.subcategoryId === selectedSubcategoryId
+    (product) => product.subcategoryId === selectedSubCategoryId
   );
 
   return (

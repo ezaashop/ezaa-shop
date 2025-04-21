@@ -1,16 +1,16 @@
-"use client";
+"use client"
 
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
-import { Minus, Plus } from "lucide-react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Star } from "lucide-react";
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
+import { Badge } from "@/components/ui/badge"
+import { useState } from "react"
+import { Minus, Plus } from "lucide-react"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import { Star } from "lucide-react"
 
 const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(1)
   const product = {
     id: "123",
     title: "Wireless Speaker",
@@ -49,7 +49,7 @@ const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
         time: "1 Month Ago",
       },
     ],
-  };
+  }
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -76,7 +76,7 @@ const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
       {/* Right Content Section */}
       <div>
         <div className="text-sm text-muted-foreground mb-2">
-          Product &gt;{" "}
+          Product &gt{" "}
           <span className="text-red-500 font-medium">{product.title}</span>
         </div>
         <h2 className="text-2xl font-bold mb-2">{product.title}</h2>
@@ -183,7 +183,7 @@ const ProductPage = ({ params }: { params: Promise<{ id: string }> }) => {
         </Tabs>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ProductPage;
+export default ProductPage

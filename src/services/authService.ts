@@ -1,109 +1,40 @@
+// services/authService.ts
+import { asyncHandler } from "@/lib/asyncHandler";
 import { api } from "@/lib/axios";
 import { Login, Signup } from "@/types";
-import { formatApiError } from "@/utils/forApiErrors";
 
-// ✅ Register
-export const registerUser = async (data: Signup) => {
-  try {
-    const res = await api.post("/register", data);
-    return res.data;
-  } catch (error: any) {
-    throw formatApiError(error);
-  }
-};
+export const registerUser = (data: Signup) =>
+  asyncHandler(() => api.post("/register", data).then((res) => res.data));
 
-// ✅ Login
-export const loginUser = async (data: Login) => {
-  try {
-    const res = await api.post("/login", data);
-    return res.data;
-  } catch (error: any) {
-    throw formatApiError(error);
-  }
-};
+export const loginUser = (data: Login) =>
+  asyncHandler(() => api.post("/login", data).then((res) => res.data));
 
-// ✅ Logout
-export const logoutUser = async (userId: string) => {
-  try {
-    const res = await api.post("/logout", { userId });
-    return res.data;
-  } catch (error: any) {
-    throw formatApiError(error);
-  }
-};
+export const logoutUser = (userId: string) =>
+  asyncHandler(() => api.post("/logout", { userId }).then((res) => res.data));
 
-// ✅ Forgot Password
-export const forgotPassword = async (email: string) => {
-  try {
-    const res = await api.post("/forgetPassword", { email });
-    return res.data;
-  } catch (error: any) {
-    throw formatApiError(error);
-  }
-};
+export const forgotPassword = (email: string) =>
+  asyncHandler(() =>
+    api.post("/forgetPassword", { email }).then((res) => res.data)
+  );
 
-// ✅ Verify OTP
-export const verifyOTP = async (data: { otp: string; email: string }) => {
-  try {
-    const res = await api.post("/otpVerify", data);
-    return res.data;
-  } catch (error: any) {
-    throw formatApiError(error);
-  }
-};
+export const verifyOTP = (data: { otp: string; email: string }) =>
+  asyncHandler(() => api.post("/otpVerify", data).then((res) => res.data));
 
-// ✅ Resend OTP
-export const resendOTP = async (email: string) => {
-  try {
-    const res = await api.post("/otpResend", { email });
-    return res.data;
-  } catch (error: any) {
-    throw formatApiError(error);
-  }
-};
+export const resendOTP = (email: string) =>
+  asyncHandler(() => api.post("/otpResend", { email }).then((res) => res.data));
 
-// ✅ Reset Password
-export const resetPassword = async (data: {
-  email: string;
-  newPassword: string;
-}) => {
-  try {
-    const res = await api.post("/resetPassword", data);
-    return res.data;
-  } catch (error: any) {
-    throw formatApiError(error);
-  }
-};
+export const resetPassword = (data: { email: string; newPassword: string }) =>
+  asyncHandler(() => api.post("/resetPassword", data).then((res) => res.data));
 
-// ✅ Google Login
-export const loginWithGoogle = async (token: string) => {
-  try {
-    const res = await api.post("/loginGoogle", { token });
-    return res.data;
-  } catch (error: any) {
-    throw formatApiError(error);
-  }
-};
+export const loginWithGoogle = (token: string) =>
+  asyncHandler(() =>
+    api.post("/loginGoogle", { token }).then((res) => res.data)
+  );
 
-// ✅ Get User Info
-export const getUserInfo = async (userId: string) => {
-  try {
-    const res = await api.get(`/getInfo/${userId}`);
-    return res.data;
-  } catch (error: any) {
-    throw formatApiError(error);
-  }
-};
+export const getUserInfo = (userId: string) =>
+  asyncHandler(() => api.get(`/getInfo/${userId}`).then((res) => res.data));
 
-// ✅ Update User Info (with optional image)
-export const updateUserInfo = async (
-  userId: string,
-  data: { name?: string; image?: string } // base64 or filename/URL depending on backend setup
-) => {
-  try {
-    const res = await api.put(`/updateInfo/${userId}`, data);
-    return res.data;
-  } catch (error: any) {
-    throw formatApiError(error);
-  }
-};
+export const updateUserInfo = (userId: string, data: any) =>
+  asyncHandler(() =>
+    api.post(`updateInfo/${userId}`, data).then((res) => res.data)
+  );
