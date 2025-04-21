@@ -1,10 +1,7 @@
-import Footer from "@/components/footer";
-import Navbar from "@/components/navbar";
 import Providers from "@/app/providers";
-import TopNav from "@/components/top-nav";
+import AuthWrapper from "@/components/auth-wrapper";
 import type { Metadata } from "next";
 import "./globals.css";
-import AuthWrapper from "@/components/auth-wrapper";
 
 export const metadata: Metadata = {
   title: "Ezaa Shop",
@@ -24,10 +21,7 @@ export default async function RootLayout({
       <body className={`flex flex-col min-h-screen`}>
         <Providers>
           <AuthWrapper />
-          <TopNav />
-          <Navbar />
           <div className="flex-1">{children}</div>
-          <Footer />
         </Providers>
       </body>
     </html>

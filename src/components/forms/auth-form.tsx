@@ -31,6 +31,7 @@ const AuthForm = ({
         alt={type}
         fill
         className="absolute inset-0 object-cover"
+        hasBaseUrl={false}
       />
       <div className="absolute inset-0 bg-black/60" />
 
