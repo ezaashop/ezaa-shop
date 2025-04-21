@@ -78,7 +78,7 @@ const LoginForm = () => {
         className="w-full font-semibold text-white"
         disabled={isSubmitting || isPending}
       >
-        {isPending ? <Loader /> : "Login"} {/* Show loader when pending */}
+        {isPending ? <Loader /> : "Login"}
       </Button>
 
       {/* Show error message if login fails */}

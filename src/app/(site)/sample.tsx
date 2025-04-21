@@ -92,7 +92,7 @@ const Subcategories = () => {
                   selectedSubCategoryId == subcategory.id
                     ? "border bg-signature/20"
                     : "bg-secondary"
-                } text-white rounded-full text-sm font-semibold whitespace-nowrap`}
+                } text-foreground rounded-full text-sm font-semibold whitespace-nowrap`}
               >
                 {subcategory.name}
               </div>

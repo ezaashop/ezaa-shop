@@ -5,66 +5,57 @@ import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/lib/store/hooks";
 import { setToken, setUser, setUserId } from "@/lib/store/slices/authSlice";
 import { useUserInfo } from "@/hooks/useAuth";
+
 const AuthWrapper = () => {
   const dispatch = useAppDispatch();
-  const { token, userId, user } = useAppSelector((store) => store.auth);
-  const {
-    data: userInfo,
-    isPending,
-    isError,
-  } = useUserInfo(userId || "", {
+  const { token, userId } = useAppSelector((store) => store.auth);
+  const { data: userInfo } = useUserInfo(userId || "", {
     enabled: !!userId,
   });
 
-  const [loading, setLoading] = useState(true);
   const pathname = usePathname();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!token && !userId) {
-      const storedToken = localStorage.getItem("token");
-      const storedUserId = localStorage.getItem("userid");
-      if (storedToken && storedUserId) {
-        dispatch(setToken(storedToken));
-        dispatch(setUserId(storedUserId));
-      }
-    }
-  }, [token, userId, dispatch]);
+  const [checkedStorage, setCheckedStorage] = useState(false);
+  const [hasRedirected, setHasRedirected] = useState(false); // prevent multiple redirects
 
+  // STEP 1: Check localStorage on mount
   useEffect(() => {
-    // Either token & userId present (auth done)
-    if (token && userId) {
-      setLoading(false);
+    const storedToken = localStorage.getItem("token");
+    const storedUserId = localStorage.getItem("userid");
+
+    if (storedToken && storedUserId) {
+      dispatch(setToken(storedToken));
+      dispatch(setUserId(storedUserId));
     }
 
-    // OR if no token & userId after checking localStorage
-    if (!token && !userId) {
-      setLoading(false); // Stop loading so redirect can happen
-    }
-  }, [token, userId]);
+    setCheckedStorage(true); // we've checked/init from localStorage
+  }, [dispatch]);
 
+  // STEP 2: Set user data if fetched
   useEffect(() => {
-    if (userInfo) {
-      dispatch(setUser(userInfo?.data?.user));
-      setLoading(false);
+    if (userInfo?.data?.user) {
+      dispatch(setUser(userInfo.data.user));
     }
   }, [userInfo, dispatch]);
 
+  // STEP 3: Wait until storage check is done, then apply auth logic
   useEffect(() => {
-    const isAuthenticated = token && userId;
+    if (!checkedStorage || hasRedirected) return;
 
-    if (!loading) {
-      // If not authenticated, and path is not an auth route
-      if (!isAuthenticated && !pathname?.startsWith("/auth")) {
-        router.push("/auth/login");
-      }
+    const isAuthenticated = !!token && !!userId;
+    const isAuthRoute = pathname?.startsWith("/auth");
 
-      // If authenticated, and path is an auth route (like /auth/login)
-      if (isAuthenticated && pathname?.startsWith("/auth")) {
-        router.push("/");
-      }
+    if (!isAuthenticated && !isAuthRoute) {
+      setHasRedirected(true);
+      router.replace("/auth/login");
     }
-  }, [token, userId, pathname, router, loading]);
+
+    if (isAuthenticated && isAuthRoute) {
+      setHasRedirected(true);
+      router.replace("/");
+    }
+  }, [checkedStorage, token, userId, pathname, router, hasRedirected]);
 
   return null;
 };
