@@ -5,17 +5,18 @@ import Hero from "@/components/hero";
 import Products from "@/components/products";
 import Subcategories from "@/components/subcategories";
 import Sample from "./sample";
+import Container from "@/components/container";
 
 const HomePage = () => {
   return (
-    <div>
+    <Container>
       {/* <CategoryNav /> */}
       <Hero />
-      {/* <Categories />
+      <Categories />
       <Subcategories />
-      <Products /> */}
-      <Sample />
-    </div>
+      <Products />
+      {/* <Sample /> */}
+    </Container>
   );
 };
 

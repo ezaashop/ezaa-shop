@@ -1,13 +1,12 @@
 "use client";
 
-import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { cn } from "@/lib/utils";
+import { Heart } from "lucide-react";
 import MyImage from "../my-image";
 
 interface ProductCardProps {
@@ -27,7 +26,7 @@ export const ProductCard = ({
     <div className="w-full  bg-secondary p-3 rounded-2xl shadow hover:shadow-md transition-all relative">
       <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-white">
         {image.length > 0 ? (
-          <Carousel opts={{ loop: true }}>
+          <Carousel opts={{ loop: true }} autoplay>
             <CarouselContent>
               {image.map(({ image }, idx) => (
                 <CarouselItem key={idx}>

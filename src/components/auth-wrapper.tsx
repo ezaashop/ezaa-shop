@@ -6,7 +6,7 @@ import { useAppSelector, useAppDispatch } from "@/lib/store/hooks";
 import { setToken, setUser, setUserId } from "@/lib/store/slices/authSlice";
 import { useUserInfo } from "@/hooks/useAuth";
 
-const AuthWrapper = () => {
+const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
   const { token, userId } = useAppSelector((store) => store.auth);
   const { data: userInfo } = useUserInfo(userId || "", {
@@ -23,14 +23,15 @@ const AuthWrapper = () => {
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     const storedUserId = localStorage.getItem("userid");
-
-    if (storedToken && storedUserId) {
-      dispatch(setToken(storedToken));
-      dispatch(setUserId(storedUserId));
+    if (!token || !userId) {
+      if (storedToken && storedUserId) {
+        dispatch(setToken(storedToken));
+        dispatch(setUserId(storedUserId));
+      }
     }
 
-    setCheckedStorage(true); // we've checked/init from localStorage
-  }, [dispatch]);
+    setCheckedStorage(true);
+  }, [dispatch, pathname]);
 
   // STEP 2: Set user data if fetched
   useEffect(() => {
@@ -57,7 +58,12 @@ const AuthWrapper = () => {
     }
   }, [checkedStorage, token, userId, pathname, router, hasRedirected]);
 
-  return null;
+  const isLoadingAuth = !checkedStorage || (!token || !userId && !pathname?.startsWith("/auth"));
+
+  // ✅ BLOCK ALL CHILD RENDERING until check completes
+  if (isLoadingAuth) return null;
+
+  return <>{children}</>;
 };
 
 export default AuthWrapper;

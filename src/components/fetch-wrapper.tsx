@@ -19,7 +19,7 @@ const FetchWrapper = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
   const { token, userId } = useAppSelector((store) => store.auth);
 
-  const { data: categories } = useCategories();
+  const { data: categories, isPending } = useCategories();
   const selectedCategoryId = useAppSelector(
     (store) => store.product.selectedCategoryId
   );

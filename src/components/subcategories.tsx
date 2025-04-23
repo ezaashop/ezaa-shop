@@ -1,31 +1,50 @@
-// components/Subcategories.tsx
 "use client";
+
+import { H3 } from "@/components/typography";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { setSelectedSubCategoryId } from "@/lib/store/slices/productSlice";
 
 const Subcategories = () => {
   const dispatch = useAppDispatch();
   const { subCategories, selectedSubCategoryId } = useAppSelector(
-    (state) => state.product
+    (store) => store.product
   );
-
-  const handleSubcategorySelect = (id: string) => {
-    dispatch(setSelectedSubCategoryId(id)); // Update the selected subcategory in the store
-  };
-
+  if (!subCategories?.length) return;
   return (
-    <div className="flex flex-wrap gap-4">
-      {subCategories.map(({ id, name }) => (
-        <div
-          key={id}
-          className={`p-4 cursor-pointer ${
-            id === selectedSubCategoryId ? "border-2 border-blue-500" : ""
-          }`}
-          onClick={() => handleSubcategorySelect(id)}
-        >
-          {name}
-        </div>
-      ))}
+    <div className="my-8">
+      <H3 className="text-center mb-6">Subcategories</H3>
+      <Carousel
+        opts={{
+          align: "start",
+          dragFree: true,
+        }}
+        className="w-full px-4"
+      >
+        <CarouselContent>
+          {subCategories.map((subcategory) => (
+            <CarouselItem
+              key={subcategory.id}
+              className="basis-auto cursor-pointer"
+              onClick={() => dispatch(setSelectedSubCategoryId(subcategory.id))}
+            >
+              <div
+                className={`px-4 py-2 ${
+                  selectedSubCategoryId == subcategory.id
+                    ? "border bg-signature/20"
+                    : "bg-secondary"
+                } text-foreground rounded-full text-sm font-semibold whitespace-nowrap`}
+              >
+                {subcategory.name}
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
     </div>
   );
 };

@@ -17,7 +17,7 @@ const MyImage = ({
 }: MyImageProps) => {
   const imgSrc = hasBaseUrl ? baseUrl + "/" + src : src;
   return (
-    <Image src={imgSrc} alt={alt} className={cn("", className)} {...rest} />
+    <Image src={imgSrc} alt={alt} className={cn("object-cover ", className)} {...rest} />
   );
 };
 

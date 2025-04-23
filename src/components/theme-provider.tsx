@@ -6,16 +6,21 @@ import {
 } from "next-themes";
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
-  return (
-    <>{children}</>
-    // <NextThemesProvider
-    //   {...props}
-    //   attribute="class"
-    //   defaultTheme="dark"
-    //   enableSystem={true}
-    //   storageKey="portfolio-theme"
-    // >
-    //   {children}
-    // </NextThemesProvider>
-  );
+  const isDev = process.env.NODE_ENV === "development";
+
+  if (isDev) {
+    return (
+      <NextThemesProvider
+        {...props}
+        attribute="class"
+        defaultTheme="dark"
+        enableSystem={true}
+        storageKey="portfolio-theme"
+      >
+        {children}
+      </NextThemesProvider>
+    );
+  }
+
+  return <>{children}</>;
 }

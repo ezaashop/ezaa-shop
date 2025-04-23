@@ -20,8 +20,9 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <body className={`flex flex-col min-h-screen`}>
         <Providers>
-          <AuthWrapper />
-          <div className="flex-1">{children}</div>
+          <AuthWrapper>
+            <div className="flex-1">{children}</div>
+          </AuthWrapper>
         </Providers>
       </body>
     </html>

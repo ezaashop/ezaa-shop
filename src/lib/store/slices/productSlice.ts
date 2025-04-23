@@ -1,9 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {
-  useCategories,
-  useSubCategories,
-  useProduct,
-} from "@/hooks/useProducts"; // Import hooks
 
 // Define the initial state
 interface ProductState {
