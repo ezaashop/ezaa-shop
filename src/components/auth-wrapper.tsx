@@ -58,39 +58,7 @@ const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
     }
   }, [checkedStorage, token, userId, pathname, router, hasRedirected]);
 
-  // THIS
-  // const isLoadingAuth = !checkedStorage || (!token || !userId && !pathname?.startsWith("/auth"));
-  // // ✅ BLOCK ALL CHILD RENDERING until check completes
-  // if (isLoadingAuth) return null;
-
-  // OR THIS
-  // if (!checkedStorage) return null;
-
-  // OR THIS
-  // STEP 3: Wait until storage check is done, then apply auth logic
-  useEffect(() => {
-    if (!checkedStorage || hasRedirected) return;
-
-    const isAuthenticated = !!token && !!userId;
-    const isAuthRoute = pathname?.startsWith("/auth");
-
-    if (!isAuthenticated && !isAuthRoute) {
-      setHasRedirected(true);
-      router.replace("/auth/login");
-    }
-
-    if (isAuthenticated && isAuthRoute) {
-      setHasRedirected(true);
-      router.replace("/");
-    }
-  }, [checkedStorage, token, userId, pathname, router, hasRedirected]);
-
-  // ✅ FIXED LOGIC
-  const isAuthRoute = pathname?.startsWith("/auth");
-  const isLoadingAuth =
-    !checkedStorage || (!isAuthRoute && (!token || !userId));
-
-  if (isLoadingAuth) return null;
+  if (!checkedStorage) return null;
 
   return <>{children}</>;
 };
