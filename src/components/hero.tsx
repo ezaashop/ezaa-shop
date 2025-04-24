@@ -5,14 +5,11 @@ import {
 } from "@/components/ui/carousel";
 import Image from "next/image";
 import Img1 from "../../public/images/img-1.jpg";
-import Img2 from "../../public/images/img-2.jpg";
-import Img3 from "../../public/images/img-3.jpg";
-import { H1, H2, Paragraph, Small } from "./typography";
-import { Button } from "./ui/button";
 
 const Hero = () => {
   // const images = [Img1, Img2, Img3];
   const images = [Img1];
+  if (!images || images.length === 0) return;
   return (
     <div className="relative w-full">
       {/* Uncomment if needed */}

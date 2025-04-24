@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   getCategories,
   getSubCategories,
@@ -46,12 +46,20 @@ export const useProductDetailByIdAndUser = (
     enabled: !!productId && !!userId,
   });
 
-// Add to cart
-export const useAddToCart = () =>
-  useMutation({
+// Add to cart and revalidate user's cart info
+export const useAddToCart = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
     mutationFn: ({ userId, items }: { userId: string; items: any }) =>
       addToCart(userId, items),
+    onSuccess: (_data, { userId }) => {
+      queryClient.invalidateQueries({
+        queryKey: ["userCart", userId],
+      });
+    },
   });
+};
 
 // Get user cart info
 export const useUserCartInfo = (userId: string) =>
@@ -61,11 +69,19 @@ export const useUserCartInfo = (userId: string) =>
     enabled: !!userId,
   });
 
-// Add review
-export const useAddReview = () =>
-  useMutation({
+// Add review and revalidate product detail
+export const useAddReview = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
     mutationFn: ({ userId, reviewData }: any) => addReview(userId, reviewData),
+    onSuccess: (_data, { userId, reviewData }) => {
+      queryClient.invalidateQueries({
+        queryKey: ["productDetailWithUser", reviewData.productId, userId],
+      });
+    },
   });
+};
 
 // Get product by productId and userId
 export const useProduct = (productId: string, userId: string) =>
@@ -83,9 +99,11 @@ export const usePopularProducts = (userId: string) =>
     enabled: !!userId,
   });
 
-// Filter products
-export const useFilterProducts = () =>
-  useMutation({
+// Filter products and optionally revalidate product listings
+export const useFilterProducts = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
     mutationFn: ({
       categoryId,
       subCategoryId,
@@ -97,4 +115,11 @@ export const useFilterProducts = () =>
       userId: string;
       filterParams?: any;
     }) => filterProducts(categoryId, subCategoryId, userId, filterParams),
+    onSuccess: (_data, { categoryId, subCategoryId, userId }) => {
+      // If you have a key to cache filtered products, you can invalidate here too
+      queryClient.invalidateQueries({
+        queryKey: ["filteredProducts", categoryId, subCategoryId, userId],
+      });
+    },
   });
+};
