@@ -14,6 +14,7 @@ import { useAddFavorite, useRemoveFavorite } from "@/hooks/useFavorites";
 import { useState } from "react";
 import { addProduct } from "@/lib/store/slices/cartSlice"; // ✅ cart slice
 import { addFavorite, removeFavorite } from "@/lib/store/slices/favoriteSlice";
+import { toast } from "sonner";
 
 interface ProductCardProps {
   id: string;
@@ -57,24 +58,12 @@ export const ProductCard = ({
 
     if (isFavorite) {
       dispatch(removeFavorite(id));
-      removeFavoriteMutate(
-        { product_id: id },
-        {
-          onSettled: () => {
-            setIsSubmitting(false);
-          },
-        }
-      );
+      setIsSubmitting(false);
+      toast.success("Removed from favorites!");
     } else {
-      dispatch(addFavorite(favoriteProductData)); // <-- Pass full data here
-      addFavoriteMutate(
-        { product_id: id },
-        {
-          onSettled: () => {
-            setIsSubmitting(false);
-          },
-        }
-      );
+      dispatch(addFavorite(favoriteProductData));
+      setIsSubmitting(false);
+      toast.success("Added to favorites!");
     }
   };
 
@@ -89,6 +78,7 @@ export const ProductCard = ({
         quantity: 1,
       })
     );
+    toast.success("Added to cart!");
   };
 
   return (

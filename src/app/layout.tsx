@@ -2,6 +2,7 @@ import Providers from "@/app/providers";
 import AuthWrapper from "@/components/auth-wrapper";
 import type { Metadata } from "next";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Ezaa Shop",
@@ -21,6 +22,7 @@ export default async function RootLayout({
       <body className={`flex flex-col min-h-screen`}>
         <Providers>
           <AuthWrapper>
+            <Toaster />
             <div className="flex-1">{children}</div>
           </AuthWrapper>
         </Providers>
