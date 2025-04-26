@@ -1,21 +1,37 @@
 // hooks/useFavorites.ts
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   addFavorite,
   getFavorites,
   removeFavorite,
+  FavoriteProductData,
 } from "@/services/favoriteService";
-import { FavoriteProductData } from "@/services/favoriteService";
 
-export const useAddFavorite = (userId: string) =>
-  useMutation({
+export const useAddFavorite = (userId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
     mutationFn: (data: FavoriteProductData) => addFavorite(userId, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["favorites", userId],
+      });
+    },
   });
+};
 
-export const useRemoveFavorite = (userId: string) =>
-  useMutation({
+export const useRemoveFavorite = (userId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
     mutationFn: (data: FavoriteProductData) => removeFavorite(userId, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["favorites", userId],
+      });
+    },
   });
+};
 
 export const useGetFavorites = (userId: string) =>
   useQuery({

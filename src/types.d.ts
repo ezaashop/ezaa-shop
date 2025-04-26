@@ -151,7 +151,7 @@ interface ProductDetail {
 }
 
 interface Product {
-  id: number;
+  id: string;
   category_id: number;
   subcategory_id: number;
   name: string;
@@ -164,4 +164,21 @@ interface Product {
   status: number;
   product_image: ProductImage[];
   product_deatils: ProductDetail[]; // Typo retained to match original. Prefer renaming to `product_details` for clarity
+}
+
+interface CartProductItem {
+  product_id: number;
+  quantity: number;
+  price: number;
+  sub_total: number;
+}
+
+interface CartState {
+  total_amount: number;
+  coupoun_code: string;
+  coupoun_amount: number;
+  phone_number: string;
+  shipping_address: string;
+  products: CartProductItem[];
+  image: File | null;
 }

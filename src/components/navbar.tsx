@@ -1,21 +1,22 @@
-"use client"
+"use client";
 
-import { Search } from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { FaUserCircle } from "react-icons/fa"
-import Brand from "./brand"
-import CartButton from "./cart"
-import Container from "./container"
-import { H3 } from "./typography"
-import { Button } from "./ui/button"
-import { Input } from "./ui/input"
+import { Search } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { FaUserCircle } from "react-icons/fa";
+import Brand from "./brand";
+import CartButton from "./cart";
+import Container from "./container";
+import { H3 } from "./typography";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import Favorites from "./favorites";
 
 const Navbar = () => {
-  const pathname = usePathname()
-  const login = pathname.includes("/login")
-  const signup = pathname.includes("/signup")
-  const auth = login || signup
+  const pathname = usePathname();
+  const login = pathname.includes("/login");
+  const signup = pathname.includes("/signup");
+  const auth = login || signup;
   return (
     <div className="h-18 flex items-center">
       <Container className="w-full flex items-center">
@@ -45,10 +46,10 @@ const Navbar = () => {
         )}
       </Container>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
 
 const SearchBar = () => {
   return (
@@ -60,15 +61,14 @@ const SearchBar = () => {
       />
       <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5" />
     </div>
-  )
-}
+  );
+};
 
 const ActionButtons = () => {
   return (
     <div className="flex items-center gap-4">
-      <Link href={"/cart"}>
-        <CartButton />
-      </Link>
+      <Favorites />
+      <CartButton />
       <Button variant="signature" className="text-white">
         <FaUserCircle />
         <span className="hidden sm:inline-block ml-2 uppercase">
@@ -76,5 +76,5 @@ const ActionButtons = () => {
         </span>
       </Button>
     </div>
-  )
-}
+  );
+};

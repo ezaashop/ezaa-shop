@@ -45,13 +45,13 @@ const Products = () => {
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {products.map(
           ({ id, product_image, name, product_deatils }: Product) => (
-            <Link key={id} href={`/products/${id}`}>
-              <ProductCard
-                image={product_image}
-                title={name}
-                product_deatils={product_deatils}
-              />
-            </Link>
+            <ProductCard
+              key={id}
+              id={id}
+              image={product_image}
+              title={name}
+              product_deatils={product_deatils}
+            />
           )
         )}
       </div>

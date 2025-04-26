@@ -1,19 +1,20 @@
 "use client";
 
-import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
-import { useEffect } from "react";
-import {
-  setCategories,
-  setSubCategories,
-  setSelectedCategoryId,
-  setSelectedSubCategoryId,
-  setProducts,
-} from "@/lib/store/slices/productSlice";
 import {
   useCategories,
-  useSubCategories,
   useProduct,
+  useSubCategories,
 } from "@/hooks/useProducts";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
+
+import {
+  setCategories,
+  setProducts,
+  setSelectedCategoryId,
+  setSelectedSubCategoryId,
+  setSubCategories,
+} from "@/lib/store/slices/productSlice";
+import { useEffect } from "react";
 
 const FetchWrapper = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
