@@ -31,7 +31,7 @@ const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
     }
 
     setCheckedStorage(true);
-  }, [dispatch, pathname]);
+  }, [dispatch, pathname, token, userId]);
 
   // STEP 2: Set user data if fetched
   useEffect(() => {
