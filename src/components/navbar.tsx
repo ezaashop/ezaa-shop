@@ -1,24 +1,46 @@
 "use client";
 
-import { Search } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaUserCircle } from "react-icons/fa";
+import { useEffect, useState } from "react";
 import Brand from "./brand";
 import CartButton from "./cart";
 import Container from "./container";
-import { H3 } from "./typography";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 import Favorites from "./favorites";
+import SearchProducts from "./search";
+import { H3 } from "./typography";
+import User from "./user";
 
 const Navbar = () => {
   const pathname = usePathname();
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setIsVisible(currentScrollY < lastScrollY || currentScrollY < 50);
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
   const login = pathname.includes("/login");
   const signup = pathname.includes("/signup");
   const auth = login || signup;
   return (
-    <div className="h-18 flex items-center">
+    <motion.header
+      className={cn(
+        "sticky top-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-md border-b"
+      )}
+      initial={{ y: 0 }}
+      animate={{ y: isVisible ? 0 : "-100%" }}
+      transition={{ duration: 0.3 }}
+    >
       <Container className="w-full flex items-center">
         <div className="flex-1 flex justify-start items-center">
           <Brand />
@@ -36,45 +58,28 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <div className="flex-1 flex justify-center">
-              <SearchBar />
-            </div>
+            {/* <div className="flex-1 flex justify-center">
+              <SearchProducts />
+              </div> */}
             <div className="flex-1 flex justify-end">
               <ActionButtons />
             </div>
           </>
         )}
       </Container>
-    </div>
+    </motion.header>
   );
 };
 
 export default Navbar;
 
-const SearchBar = () => {
-  return (
-    <div className="relative w-full max-w-sm">
-      <Input
-        type="text"
-        placeholder="Search here..."
-        className="pl-4 pr-10 bg-secondary text-signature"
-      />
-      <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5" />
-    </div>
-  );
-};
-
 const ActionButtons = () => {
   return (
     <div className="flex items-center gap-4">
+      <SearchProducts />
       <Favorites />
       <CartButton />
-      <Button variant="signature" className="text-white">
-        <FaUserCircle />
-        <span className="hidden sm:inline-block ml-2 uppercase">
-          My Account
-        </span>
-      </Button>
+      <User />
     </div>
   );
 };

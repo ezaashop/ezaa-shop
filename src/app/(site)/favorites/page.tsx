@@ -9,8 +9,6 @@ import Link from "next/link";
 const FavoritesPage = () => {
   const { favorites } = useAppSelector((store) => store.favorite);
 
-  console.log(favorites, "favorites");
-
   if (favorites.length === 0) {
     return (
       <Container className="flex flex-col items-center justify-center min-h-[50vh] text-center">
@@ -29,17 +27,9 @@ const FavoritesPage = () => {
     <Container>
       <h1 className="text-3xl font-bold mb-6 text-center">Your Favorites</h1>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-        {favorites.map(
-          ({ products: { id, product_image, name, product_deatils } }) => (
-            <ProductCard
-              key={id}
-              id={id}
-              image={product_image}
-              title={name}
-              product_deatils={product_deatils}
-            />
-          )
-        )}
+        {favorites.map(({ products }: any) => (
+          <ProductCard key={products.id} product={products} />
+        ))}
       </div>
     </Container>
   );

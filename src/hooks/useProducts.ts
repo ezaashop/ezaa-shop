@@ -28,21 +28,21 @@ export const useSubCategories = (categoryId: string) =>
   });
 
 // Get product detail by detail ID
-export const useProductDetailById = (productDetailId: string) =>
+export const useProductDetailByIdAndUser = (productDetailId: string, userId: string) =>
   useQuery({
     queryKey: ["productDetail", productDetailId],
-    queryFn: () => getProductDetailById(productDetailId),
+    queryFn: () => getProductDetailById(productDetailId, userId),
     enabled: !!productDetailId,
   });
 
 // Get product detail by product and user ID
-export const useProductDetailByIdAndUser = (
+export const useProductDetailById = (
   productId: string,
   userId: string
 ) =>
   useQuery({
     queryKey: ["productDetailWithUser", productId, userId],
-    queryFn: () => getProductDetailByIdAndUser(productId, userId),
+    queryFn: () => getProductDetailById(productId, userId),
     enabled: !!productId && !!userId,
   });
 

@@ -3,6 +3,7 @@ import AuthWrapper from "@/components/auth-wrapper";
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import "react-photo-view/dist/react-photo-view.css";
 
 export const metadata: Metadata = {
   title: "Ezaa Shop",

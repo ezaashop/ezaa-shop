@@ -2,6 +2,7 @@
 
 import {
   useCategories,
+  usePopularProducts,
   useProduct,
   useSubCategories,
 } from "@/hooks/useProducts";
@@ -9,6 +10,9 @@ import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 
 import {
   setCategories,
+  setPopularProducts,
+  setPopularProductsError,
+  setPopularProductsLoading,
   setProducts,
   setSelectedCategoryId,
   setSelectedSubCategoryId,
@@ -61,6 +65,29 @@ const FetchWrapper = ({ children }: { children: React.ReactNode }) => {
       dispatch(setProducts(products?.data?.products));
     }
   }, [products, dispatch]);
+
+  const {
+    data: popularProducts,
+    isLoading: popularProductsLoading,
+    isError,
+    error,
+  } = usePopularProducts(userId || "");
+
+  useEffect(() => {
+    if (popularProducts) {
+      dispatch(setPopularProducts(popularProducts?.data?.products));
+    }
+  }, [popularProducts, dispatch]);
+
+  useEffect(() => {
+    dispatch(setPopularProductsLoading(popularProductsLoading));
+  }, [popularProductsLoading, dispatch]);
+
+  useEffect(() => {
+    if (isError && error) {
+      dispatch(setPopularProductsError(error.message));
+    }
+  }, [isError, error, dispatch]);
 
   return <>{children}</>;
 };

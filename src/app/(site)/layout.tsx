@@ -7,7 +7,7 @@ const SiteLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <FetchWrapper>
       <div className={`flex flex-col min-h-screen`}>
-        <TopNav />
+        {/* <TopNav /> */}
         <Navbar />
         <div className="flex-1">{children}</div>
         <Footer />

@@ -33,9 +33,9 @@ export const getSubCategories = (categoryId: string) =>
   );
 
 // Get product details by product detail ID
-export const getProductDetailById = (productDetailId: string) =>
+export const getProductDetailById = (productDetailId: string, userId: string) =>
   asyncHandler(() =>
-    api.get(`/productDetail/${productDetailId}`).then((res) => res.data)
+    api.get(`/productDetail/${productDetailId}/${userId}`).then((res) => res.data)
   );
 
 // Get product details by product ID and user ID

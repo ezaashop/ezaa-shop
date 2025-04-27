@@ -1,4 +1,5 @@
 import { cn } from "../lib/utils";
+import Loader from "./loader";
 import { PageTitle } from "./titles";
 
 interface Props extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -10,7 +11,14 @@ interface Props extends React.ImgHTMLAttributes<HTMLImageElement> {
   className?: string;
 }
 
-const Container = ({ children, title, section, className, ...rest }: Props) => {
+const Container = ({
+  children,
+  title,
+  section,
+  className,
+  ...rest
+}: Props) => {
+  
   return (
     <>
       {title && <PageTitle title={title} />}
@@ -26,5 +34,4 @@ const Container = ({ children, title, section, className, ...rest }: Props) => {
     </>
   );
 };
-
 export default Container;

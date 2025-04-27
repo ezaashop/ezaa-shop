@@ -95,7 +95,7 @@ const CategoriesSkeleton = () => {
   return (
     <div className="my-8">
       <H3 className="text-center mb-6">Categories</H3>
-      <div className="flex gap-4 px-2">
+      <div className="flex gap-4 px-2 overflow-hidden">
         {Array.from({ length: 8 }).map((_, index) => (
           <div
             key={index}
