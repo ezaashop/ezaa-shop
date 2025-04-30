@@ -117,18 +117,16 @@ interface NavMenuItem {
 }
 
 type Category = {
-  id: string;
+  id: number;
   name: string;
   image: string;
 };
 
 type Subcategory = {
-  id: string;
+  id: number;
   name: string;
-  categoryId: string;
+  categoryId: number;
 };
-
-// types/product.ts
 
 interface ProductImage {
   id: number;
@@ -151,7 +149,7 @@ interface ProductDetail {
 }
 
 interface Product {
-  id: string;
+  id: number;
   category_id: number;
   subcategory_id: number;
   name: string;
@@ -166,11 +164,13 @@ interface Product {
   product_deatils: ProductDetail[]; // Typo retained to match original. Prefer renaming to `product_details` for clarity
 }
 
-interface CartProductItem {
+interface CartItem {
   product_id: number;
+  name: string;
+  images: ProductImage[]; // or `ProductImage[]` if you want full image objects
   quantity: number;
   price: number;
-  sub_total: number;
+  sub_total?: number;
 }
 
 interface CartState {
@@ -179,6 +179,6 @@ interface CartState {
   coupoun_amount: number;
   phone_number: string;
   shipping_address: string;
-  products: CartProductItem[];
+  products: CartItem[];
   image: File | null;
 }

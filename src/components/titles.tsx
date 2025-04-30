@@ -12,7 +12,7 @@ export const PageTitle = ({ title }: { title: string }) => {
   const shadow = false;
 
   return (
-    <Container className="h-14">
+    <Container className="h-20">
       {/* Back Button */}
       <div className="flex items-center w-ful h-full gap-4 md:gap-8 capitalize">
         <Tooltip>
@@ -40,7 +40,7 @@ export const PageTitle = ({ title }: { title: string }) => {
           </TooltipContent>
         </Tooltip>
 
-        <h3 className="h3 md:h4 font-medium w-ful text-center">{title}</h3>
+        <h3 className="text-2xl md:text-4xl font-semibold text-center">{title}</h3>
       </div>
     </Container>
   );

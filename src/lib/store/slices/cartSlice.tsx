@@ -1,23 +1,6 @@
-// src/lib/store/slices/cartSlice.ts
-
-
-// const dispatch = useAppDispatch();
-// dispatch(addProduct({ product_id: 5, price: 155 }));
-// dispatch(removeProduct(5));
-// dispatch(updateQuantity({ product_id: 1, quantity: 4 }));
-// dispatch(applyCoupon({ code: "NEWYEAR25", amount: 25 }));
-// dispatch(updatePhoneNumber("9876543210"));
-// dispatch(updateShippingAddress("123 Main St, Springfield"));
-// dispatch(attachImage(file)); // for uploading new file
-// dispatch(clearCart());
-
-
-import { CartState } from "@/types";
+import { CartItem, CartState, ProductImage } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// Types
-
-// Helper to get cart from localStorage
 const loadCartFromStorage = (): CartState => {
   if (typeof window !== "undefined") {
     const storedCart = localStorage.getItem("cart");
@@ -25,7 +8,7 @@ const loadCartFromStorage = (): CartState => {
       const parsedCart = JSON.parse(storedCart);
       return {
         ...parsedCart,
-        image: null, // files cannot be stored in localStorage, user will need to reattach
+        image: null,
       };
     }
   }
@@ -40,34 +23,29 @@ const loadCartFromStorage = (): CartState => {
   };
 };
 
-// Helper to save cart to localStorage
 const saveCartToStorage = (cart: CartState) => {
   if (typeof window !== "undefined") {
-    const { image, ...cartToStore } = cart; // don't store image
+    const { image, ...cartToStore } = cart;
     localStorage.setItem("cart", JSON.stringify(cartToStore));
   }
 };
 
 const initialState: CartState = loadCartFromStorage();
 
-// Slice
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
     addProduct: (
       state,
-      action: PayloadAction<{
-        product_id: number;
-        price: number;
-        quantity?: number;
-      }>
+      action: PayloadAction<CartItem>
     ) => {
-      const { product_id, price, quantity = 1 } = action.payload;
+      const { product_id, name, images, price, quantity = 1 } = action.payload;
+    
       const existingProduct = state.products.find(
         (p) => p.product_id === product_id
       );
-
+    
       if (existingProduct) {
         existingProduct.quantity += quantity;
         existingProduct.sub_total =
@@ -75,15 +53,18 @@ const cartSlice = createSlice({
       } else {
         state.products.push({
           product_id,
+          name,
+          images,
           price,
           quantity,
           sub_total: price * quantity,
         });
       }
-
+    
       cartSlice.caseReducers.recalculateTotals(state);
       saveCartToStorage(state);
     },
+    
 
     removeProduct: (state, action: PayloadAction<number>) => {
       state.products = state.products.filter(
@@ -144,7 +125,7 @@ const cartSlice = createSlice({
 
     recalculateTotals: (state) => {
       const productsTotal = state.products.reduce(
-        (acc, p) => acc + p.sub_total,
+        (acc, p) => acc + (p.sub_total || 0),
         0
       );
       state.total_amount = productsTotal - state.coupoun_amount;

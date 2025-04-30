@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -7,65 +8,67 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import { useAppDispatch } from "@/lib/store/hooks";
-import { addProduct } from "@/lib/store/slices/cartSlice"; // ✅ cart slice
+import { addProduct } from "@/lib/store/slices/cartSlice";
 import { Product } from "@/types";
-import Link from "next/link";
 import { toast } from "sonner";
 import Favorite from "../favorite";
 import MyImage from "../my-image";
 
-export const ProductCard = ({ product }: {product:Product}) => {
+export const ProductCard = ({ product }: { product: Product }) => {
   const { id, product_image, name, product_deatils } = product;
   const { price, selling_price } = product_deatils[0] || {};
-
   const dispatch = useAppDispatch();
 
-  // ADD TO CART HANDLER 👇
-  const handleAddToCart = () => {
-    if (!id || !price) return; // Prevent accidental wrong data
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    if (!id || !price) return;
 
     dispatch(
       addProduct({
-        product_id: Number(id),
-        price: Number(price),
+        product_id: product.id,
+        name: product.name,
+        images: product.product_image,
+        price: parseFloat(product.product_deatils[0].selling_price),
         quantity: 1,
       })
     );
+
     toast.success("Added to cart!");
   };
 
   return (
-    <div className="w-full bg-secondary p-3 rounded-2xl shadow hover:shadow-md transition-all relative">
-      <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-white">
-        {product_image.length > 0 ? (
-          <Carousel opts={{ loop: true }}>
-            <CarouselContent>
-              {product_image.map(({ image }, idx) => (
-                <CarouselItem key={idx}>
-                  <MyImage
-                    src={image}
-                    alt={name || "Product image"}
-                    width={150}
-                    height={150}
-                    className="object-contain w-full h-36 mx-auto"
-                  />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-        ) : (
-          <div className="flex items-center justify-center h-36 text-sm text-muted-foreground">
-            No image
-          </div>
-        )}
+    <div className="w-full bg-secondary p-3 rounded-2xl shadow hover:shadow-md transition-all relative pointer-events-none">
+      <Favorite
+        product={product}
+        className="absolute top-5 right-5 z-20 pointer-events-auto "
+      />
+      <Link href={`/products/${id}`} className="block pointer-events-auto">
+        <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-white">
+          {product_image.length > 0 ? (
+            <Carousel opts={{ loop: true }} autoplay={true}>
+              <CarouselContent>
+                {product_image.map(({ image }, idx) => (
+                  <CarouselItem key={idx}>
+                    <MyImage
+                      src={image}
+                      alt={name || "Product image"}
+                      width={150}
+                      height={150}
+                      className="object-contain w-full h-36 mx-auto"
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          ) : (
+            <div className="flex items-center justify-center h-36 text-sm text-muted-foreground">
+              No image
+            </div>
+          )}
+        </div>
 
-        <Favorite
-          product={product}
-          className="absolute top-2 right-2 "
-        />
-      </div>
-
-      <Link href={`/products/${id}`}>
         {name && (
           <h3 className="text-center text-sm font-semibold mt-3 truncate">
             {name}
@@ -84,15 +87,15 @@ export const ProductCard = ({ product }: {product:Product}) => {
           </div>
         )}
       </Link>
-
-      {/* ADD TO CART BUTTON */}
-      <Button
-        onClick={handleAddToCart}
-        variant="link"
-        className="block mx-auto text-xs font-semibold mt-1 text-primary"
-      >
-        ADD TO CART
-      </Button>
+      <div className="pointer-events-auto">
+        <Button
+          onClick={handleAddToCart}
+          variant="link"
+          className="block mx-auto text-xs font-semibold mt-1 text-primary"
+        >
+          ADD TO CART
+        </Button>
+      </div>
     </div>
   );
 };

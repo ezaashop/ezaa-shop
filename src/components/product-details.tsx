@@ -18,6 +18,8 @@ import MyImage from "./my-image";
 import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
 import RichText from "./rich-text";
 import Loader from "./loader";
+import { ProductImage } from "@/types";
+import ImageCarousel from "./image-carousel";
 
 const ProductDetails = ({ id }: { id: string }) => {
   const { userId } = useAppSelector((store) => store.auth);
@@ -28,7 +30,6 @@ const ProductDetails = ({ id }: { id: string }) => {
   const [quantity, setQuantity] = useState(1);
   const product = data?.data?.productDetails;
 
-  // Always call hooks before returning or conditionals
   const dispatch = useAppDispatch();
 
   if (isLoading)
@@ -53,19 +54,22 @@ const ProductDetails = ({ id }: { id: string }) => {
   );
 
   const handleAddToCart = () => {
-    if (!product?.id || !product.product_deatils[0]?.price) return; // Prevent accidental wrong data
+    if (!product?.id || !product.product_deatils[0]?.price) return;
 
     dispatch(
       addProduct({
-        product_id: Number(product.id),
-        price: Number(product.product_deatils[0]?.price),
-        quantity, // Use selected quantity
+        product_id: product.id,
+        name: product.name,
+        images: product.product_image,
+        price: parseFloat(product.product_deatils[0].selling_price),
+        quantity: 1,
       })
     );
+
     toast.success("Added to cart!");
     setQuantity(1);
   };
-
+console.log(product)
   return (
     <PhotoProvider>
       <Container className="my-8">
@@ -73,55 +77,9 @@ const ProductDetails = ({ id }: { id: string }) => {
           {/* Left - Images */}
           <div>
             <Card className="p-4">
-              {product.product_image.length > 0 ? (
-                <Carousel opts={{ loop: true }} autoplay delay={3000}>
-                  <CarouselContent>
-                    {product.product_image.map((image: any, idx: number) => (
-                      <CarouselItem key={idx}>
-                        <PhotoView src={getImageUrl(image.image)}>
-                          <MyImage
-                            src={image.image}
-                            alt={product.name || "Product image"}
-                            width={600}
-                            height={600}
-                            className="rounded-xl object-cover object-center h-48 md:h-full aspect-square"
-                          />
-                        </PhotoView>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                </Carousel>
-              ) : (
-                <div className="flex items-center justify-center h-36 text-sm text-muted-foreground">
-                  No image
-                </div>
-              )}
+            <ImageCarousel images={product.product_image} className="my-4" layout="single" size={500}/>
             </Card>
-            <Carousel
-              opts={{
-                align: "start",
-                loop: true,
-              }}
-              autoplay
-              delay={3000}
-              className="w-full max-w-md mt-4"
-            >
-              <CarouselContent>
-                {product.product_image.map((img: any) => (
-                  <CarouselItem key={img.id} className="basis-auto">
-                    <PhotoView src={getImageUrl(img.image)}>
-                      <MyImage
-                        src={`/${img.image}`}
-                        alt="Thumbnail"
-                        width={80}
-                        height={80}
-                        className="object-cover object-center aspect-square rounded-md border p-1 cursor-pointer"
-                      />
-                    </PhotoView>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
+           <ImageCarousel images={product.product_image} className="my-4" layout="grid"/>
           </div>
 
           {/* Right - Details */}
