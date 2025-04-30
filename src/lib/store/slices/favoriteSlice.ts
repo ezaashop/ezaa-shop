@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 // Favorite Product Interface
 interface FavoriteProduct {
   products: {
-    id: string;
+    id: number;
     product_image: { image: string; cover_status: number }[];
     name: string;
     product_deatils: { price?: string; selling_price?: string }[];
@@ -56,7 +56,7 @@ const favoriteSlice = createSlice({
         saveFavoritesToStorage(state.favorites); // Save after adding
       }
     },
-    removeFavorite(state, action: PayloadAction<string>) {
+    removeFavorite(state, action: PayloadAction<number>) {
       state.favorites = state.favorites.filter(
         (fav) => fav.products.id !== action.payload
       );

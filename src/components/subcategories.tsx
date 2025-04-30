@@ -21,7 +21,7 @@ const Subcategories = () => {
   );
 
   const { data, isLoading, isError, error } = useSubCategories(
-    selectedCategoryId || ""
+    selectedCategoryId || 0
   );
 
   const subCategories = data?.data?.subCategories || [];

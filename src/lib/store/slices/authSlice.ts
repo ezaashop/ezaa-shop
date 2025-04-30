@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AuthState {
   token: string | null;
-  userId: string | null;
+  userId: number | null;
   user: any | null;
 }
 
@@ -20,7 +20,7 @@ const authSlice = createSlice({
     setToken: (state, action: PayloadAction<string | null>) => {
       state.token = action.payload;
     },
-    setUserId: (state, action: PayloadAction<string | null>) => {
+    setUserId: (state, action: PayloadAction<number | null>) => {
       state.userId = action.payload;
     },
     setUser: (state, action: PayloadAction<any>) => {

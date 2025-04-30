@@ -27,28 +27,28 @@ export const getCategories = () =>
   asyncHandler(() => api.get("/getCategory").then((res) => res.data));
 
 // Get subcategories for a category
-export const getSubCategories = (categoryId: string) =>
+export const getSubCategories = (categoryId: number) =>
   asyncHandler(() =>
     api.get(`/getSubCategory/${categoryId}`).then((res) => res.data)
   );
 
 // Get product details by product detail ID
-export const getProductDetailById = (productDetailId: string, userId: string) =>
+export const getProductDetailById = (productDetailId: number, userId: number) =>
   asyncHandler(() =>
     api.get(`/productDetail/${productDetailId}/${userId}`).then((res) => res.data)
   );
 
 // Get product details by product ID and user ID
 export const getProductDetailByIdAndUser = (
-  productId: string,
-  userId: string
+  productId: number,
+  userId: number
 ) =>
   asyncHandler(() =>
     api.get(`/productDetail/${productId}/${userId}`).then((res) => res.data)
   );
 
 // Add item(s) to cart
-export const addToCart = (userId: string, items: CartItem | CartItem[]) => {
+export const addToCart = (userId: number, items: CartItem | CartItem[]) => {
   const cartItems = Array.isArray(items) ? items : [items];
   return asyncHandler(() =>
     api.post(`/addCart/${userId}`, { items: cartItems }).then((res) => res.data)
@@ -56,34 +56,34 @@ export const addToCart = (userId: string, items: CartItem | CartItem[]) => {
 };
 
 // Get user's cart information
-export const getUserCartInfo = (userId: string) =>
+export const getUserCartInfo = (userId: number) =>
   asyncHandler(() =>
     api.get(`/userCartInfo/${userId}`).then((res) => res.data)
   );
 
 // Add a product review
-export const addReview = (userId: string, reviewData: ReviewData) =>
+export const addReview = (userId: number, reviewData: ReviewData) =>
   asyncHandler(() =>
     api.post(`/review/${userId}`, reviewData).then((res) => res.data)
   );
 
 // Get product with user context
-export const getProduct = (productId: string, userId: string) =>
+export const getProduct = (productId: number, userId: number) =>
   asyncHandler(() =>
     api.get(`/product/${productId}/${userId}`).then((res) => res.data)
   );
 
 // Get popular products for user
-export const getPopularProducts = (userId: string) =>
+export const getPopularProducts = (userId: number) =>
   asyncHandler(() =>
     api.get(`/popularProduct/${userId}`).then((res) => res.data)
   );
 
 // Filter products by category, subcategory and user
 export const filterProducts = (
-  categoryId: string,
-  subCategoryId: string,
-  userId: string,
+  categoryId: number,
+  subCategoryId: number,
+  userId: number,
   filterParams: ProductFilterParams = {}
 ) =>
   asyncHandler(() =>

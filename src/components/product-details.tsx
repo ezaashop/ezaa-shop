@@ -7,25 +7,21 @@ import { Separator } from "@/components/ui/separator";
 import { useProductDetailByIdAndUser } from "@/hooks/useProducts";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { addProduct } from "@/lib/store/slices/cartSlice";
-import getImageUrl from "@/utils/getImageUrl";
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
-import { PhotoProvider, PhotoView } from "react-photo-view";
+import { PhotoProvider } from "react-photo-view";
 import { toast } from "sonner";
 import Container from "./container";
 import Favorite from "./favorite";
-import MyImage from "./my-image";
-import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
-import RichText from "./rich-text";
-import Loader from "./loader";
-import { ProductImage } from "@/types";
 import ImageCarousel from "./image-carousel";
+import Loader from "./loader";
+import RichText from "./rich-text";
 
-const ProductDetails = ({ id }: { id: string }) => {
+const ProductDetails = ({ id }: { id: number }) => {
   const { userId } = useAppSelector((store) => store.auth);
   const { data, isLoading, isError, error } = useProductDetailByIdAndUser(
     id,
-    userId as string
+    userId || 0
   );
   const [quantity, setQuantity] = useState(1);
   const product = data?.data?.productDetails;
@@ -69,7 +65,7 @@ const ProductDetails = ({ id }: { id: string }) => {
     toast.success("Added to cart!");
     setQuantity(1);
   };
-console.log(product)
+  console.log(product);
   return (
     <PhotoProvider>
       <Container className="my-8">
@@ -77,9 +73,18 @@ console.log(product)
           {/* Left - Images */}
           <div>
             <Card className="p-4">
-            <ImageCarousel images={product.product_image} className="my-4" layout="single" size={500}/>
+              <ImageCarousel
+                images={product.product_image}
+                className="my-4"
+                layout="single"
+                size={500}
+              />
             </Card>
-           <ImageCarousel images={product.product_image} className="my-4" layout="grid"/>
+            <ImageCarousel
+              images={product.product_image}
+              className="my-4"
+              layout="grid"
+            />
           </div>
 
           {/* Right - Details */}

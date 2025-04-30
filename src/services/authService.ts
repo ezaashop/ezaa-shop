@@ -31,10 +31,10 @@ export const loginWithGoogle = (token: string) =>
     api.post("/loginGoogle", { token }).then((res) => res.data)
   );
 
-export const getUserInfo = (userId: string) =>
+export const getUserInfo = (userId: number) =>
   asyncHandler(() => api.get(`/getInfo/${userId}`).then((res) => res.data));
 
-export const updateUserInfo = (userId: string, data: any) =>
+export const updateUserInfo = (userId: number, data: any) =>
   asyncHandler(() =>
     api.post(`updateInfo/${userId}`, data).then((res) => res.data)
   );

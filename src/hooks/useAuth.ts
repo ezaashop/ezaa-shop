@@ -55,7 +55,7 @@ export const useGoogleLogin = () =>
   });
 
 export const useUserInfo = (
-  userId: string,
+  userId: number,
   options: Partial<UseQueryOptions<AsyncResponse<User>>> = {}
 ) =>
   useQuery<AsyncResponse<User>>({

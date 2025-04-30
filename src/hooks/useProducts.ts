@@ -20,7 +20,7 @@ export const useCategories = () =>
   });
 
 // Get subcategories by category ID
-export const useSubCategories = (categoryId: string) =>
+export const useSubCategories = (categoryId: number) =>
   useQuery({
     queryKey: ["subcategories", categoryId],
     queryFn: () => getSubCategories(categoryId),
@@ -28,7 +28,7 @@ export const useSubCategories = (categoryId: string) =>
   });
 
 // Get product detail by detail ID
-export const useProductDetailByIdAndUser = (productDetailId: string, userId: string) =>
+export const useProductDetailByIdAndUser = (productDetailId: number, userId: number) =>
   useQuery({
     queryKey: ["productDetail", productDetailId],
     queryFn: () => getProductDetailById(productDetailId, userId),
@@ -37,8 +37,8 @@ export const useProductDetailByIdAndUser = (productDetailId: string, userId: str
 
 // Get product detail by product and user ID
 export const useProductDetailById = (
-  productId: string,
-  userId: string
+  productId: number,
+  userId: number
 ) =>
   useQuery({
     queryKey: ["productDetailWithUser", productId, userId],
@@ -51,7 +51,7 @@ export const useAddToCart = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ userId, items }: { userId: string; items: any }) =>
+    mutationFn: ({ userId, items }: { userId: number; items: any }) =>
       addToCart(userId, items),
     onSuccess: (_data, { userId }) => {
       queryClient.invalidateQueries({
@@ -62,7 +62,7 @@ export const useAddToCart = () => {
 };
 
 // Get user cart info
-export const useUserCartInfo = (userId: string) =>
+export const useUserCartInfo = (userId: number) =>
   useQuery({
     queryKey: ["userCart", userId],
     queryFn: () => getUserCartInfo(userId),
@@ -84,7 +84,7 @@ export const useAddReview = () => {
 };
 
 // Get product by productId and userId
-export const useProduct = (productId: string, userId: string) =>
+export const useProduct = (productId: number, userId: number) =>
   useQuery({
     queryKey: ["product", productId, userId],
     queryFn: () => getProduct(productId, userId),
@@ -92,7 +92,7 @@ export const useProduct = (productId: string, userId: string) =>
   });
 
 // Get popular products for user
-export const usePopularProducts = (userId: string) =>
+export const usePopularProducts = (userId: number) =>
   useQuery({
     queryKey: ["popularProducts", userId],
     queryFn: () => getPopularProducts(userId),
@@ -110,9 +110,9 @@ export const useFilterProducts = () => {
       userId,
       filterParams,
     }: {
-      categoryId: string;
-      subCategoryId: string;
-      userId: string;
+      categoryId: number;
+      subCategoryId: number;
+      userId: number;
       filterParams?: any;
     }) => filterProducts(categoryId, subCategoryId, userId, filterParams),
     onSuccess: (_data, { categoryId, subCategoryId, userId }) => {

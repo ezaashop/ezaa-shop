@@ -8,8 +8,8 @@ import { useUserInfo } from "@/hooks/useAuth";
 
 const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
-  const { token, userId } = useAppSelector((store) => store.auth);
-  const { data: userInfo } = useUserInfo(userId || "", {
+  const { token, userId } = useAppSelector((store) => store.auth) || {};
+  const { data: userInfo } = useUserInfo(userId || 0, {
     enabled: !!userId,
   });
 
@@ -26,7 +26,7 @@ const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
     if (!token || !userId) {
       if (storedToken && storedUserId) {
         dispatch(setToken(storedToken));
-        dispatch(setUserId(storedUserId));
+        dispatch(setUserId(parseInt(storedUserId)));
       }
     }
 

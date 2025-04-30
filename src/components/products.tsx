@@ -1,22 +1,21 @@
 "use client";
 
-import { useEffect } from "react";
-import Link from "next/link";
-import { toast } from "sonner";
-import { H3 } from "@/components/typography";
 import { ProductCard } from "@/components/cards/product-card";
+import { H3 } from "@/components/typography";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useProduct } from "@/hooks/useProducts";
 import { useAppSelector } from "@/lib/store/hooks";
 import { Product } from "@/types";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 const Products = () => {
   const { userId } = useAppSelector((store) => store.auth);
   const { selectedSubCategoryId } = useAppSelector((store) => store.product);
 
   const { data, isLoading, isError, error } = useProduct(
-    selectedSubCategoryId || "",
-    userId || ""
+    selectedSubCategoryId || 0,
+    userId || 0
   );
 
   const products = data?.data?.products || [];
@@ -43,14 +42,9 @@ const Products = () => {
     <div className="my-8">
       <H3 className="text-center mb-6">Products</H3>
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        {products.map(
-          (product: Product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-            />
-          )
-        )}
+        {products.map((product: Product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
       </div>
     </div>
   );

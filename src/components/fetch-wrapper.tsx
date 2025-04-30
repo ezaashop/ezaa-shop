@@ -28,14 +28,14 @@ const FetchWrapper = ({ children }: { children: React.ReactNode }) => {
   const selectedCategoryId = useAppSelector(
     (store) => store.product.selectedCategoryId
   );
-  const { data: subCategories } = useSubCategories(selectedCategoryId || "");
+  const { data: subCategories } = useSubCategories(selectedCategoryId || 0);
 
   const selectedSubCategoryId = useAppSelector(
     (store) => store.product.selectedSubCategoryId
-  );
+   ) || 0;
   const { data: products } = useProduct(
-    selectedSubCategoryId || "",
-    userId || ""
+    selectedSubCategoryId,
+    userId || 0
   );
 
   useEffect(() => {
@@ -71,7 +71,7 @@ const FetchWrapper = ({ children }: { children: React.ReactNode }) => {
     isLoading: popularProductsLoading,
     isError,
     error,
-  } = usePopularProducts(userId || "");
+  } = usePopularProducts(userId || 0);
 
   useEffect(() => {
     if (popularProducts) {

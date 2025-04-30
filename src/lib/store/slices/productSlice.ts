@@ -4,8 +4,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface ProductState {
   categories: any[];
   subCategories: any[];
-  selectedCategoryId: string | null;
-  selectedSubCategoryId: string | null;
+  selectedCategoryId: number | null;
+  selectedSubCategoryId: number | null;
   products: any[];
   popularProducts: any[];
   popularProductsLoading: boolean;
@@ -33,10 +33,10 @@ const productSlice = createSlice({
     setSubCategories: (state, action: PayloadAction<any[]>) => {
       state.subCategories = action.payload;
     },
-    setSelectedCategoryId: (state, action: PayloadAction<string>) => {
+    setSelectedCategoryId: (state, action: PayloadAction<number>) => {
       state.selectedCategoryId = action.payload;
     },
-    setSelectedSubCategoryId: (state, action: PayloadAction<string>) => {
+    setSelectedSubCategoryId: (state, action: PayloadAction<number>) => {
       state.selectedSubCategoryId = action.payload;
     },
     setProducts: (state, action: PayloadAction<any[]>) => {
