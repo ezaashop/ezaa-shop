@@ -1,6 +1,6 @@
 // services/authService.ts
 import { asyncHandler } from "@/lib/asyncHandler";
-import { api } from "@/lib/axios";
+import { api, multiPartApi } from "@/lib/axios";
 import { Login, Signup } from "@/types";
 
 export const registerUser = (data: Signup) =>
@@ -34,7 +34,14 @@ export const loginWithGoogle = (token: string) =>
 export const getUserInfo = (userId: number) =>
   asyncHandler(() => api.get(`/getInfo/${userId}`).then((res) => res.data));
 
-export const updateUserInfo = (userId: number, data: any) =>
+// Update the function to accept a single object
+export const updateUserInfo = ({
+  userId,
+  data,
+}: {
+  userId: number;
+  data: any;
+}) =>
   asyncHandler(() =>
-    api.post(`updateInfo/${userId}`, data).then((res) => res.data)
+    multiPartApi.post(`updateInfo/${userId}`, data).then((res) => res.data)
   );

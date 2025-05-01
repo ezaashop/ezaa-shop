@@ -13,21 +13,21 @@ export type CreateCouponData = {
 };
 
 export type CheckCouponData = {
-  code: string;
+  coupoun_code: string;
   amount?: number;
 };
 
-export const createCouponCode = (userId: string, data: CreateCouponData) =>
+export const createCouponCode = (userId: number, data: CreateCouponData) =>
   asyncHandler(() =>
     api.post(`/createCouponCode/${userId}`, data).then((res) => res.data)
   );
 
-export const getCouponCodes = (userId: string) =>
+export const getCouponCodes = (userId: number) =>
   asyncHandler(() =>
     api.get(`/getCouponCode/${userId}`).then((res) => res.data)
   );
 
-export const checkCouponCode = (userId: string, data: CheckCouponData) =>
+export const checkCouponCode = (userId: number, data: CheckCouponData) =>
   asyncHandler(() =>
     api.post(`/checkCouponCode/${userId}`, data).then((res) => res.data)
   );

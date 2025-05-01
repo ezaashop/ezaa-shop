@@ -9,13 +9,13 @@ import {
 } from "@/services/couponService";
 
 // Create
-export const useCreateCoupon = (userId: string) =>
+export const useCreateCoupon = (userId: number) =>
   useMutation({
     mutationFn: (data: CreateCouponData) => createCouponCode(userId, data),
   });
 
 // Get
-export const useCouponCodes = (userId: string) =>
+export const useCouponCodes = (userId: number) =>
   useQuery({
     queryKey: ["couponCodes", userId],
     queryFn: () => getCouponCodes(userId),
@@ -23,7 +23,7 @@ export const useCouponCodes = (userId: string) =>
   });
 
 // Check
-export const useCheckCoupon = (userId: string) =>
+export const useCheckCoupon = (userId: number) =>
   useMutation({
     mutationFn: (data: CheckCouponData) => checkCouponCode(userId, data),
   });

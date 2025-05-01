@@ -6,12 +6,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Brand from "./brand";
-import CartButton from "./cart-button";
+import CartButton from "./cart-btn";
 import Container from "./container";
 import Favorites from "./favorites";
 import SearchProducts from "./search";
 import { H3 } from "./typography";
-import User from "./user";
+import UserBtn from "./user-btn";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -79,7 +79,7 @@ const ActionButtons = () => {
       <SearchProducts />
       <Favorites />
       <CartButton />
-      <User />
+      <UserBtn />
     </div>
   );
 };

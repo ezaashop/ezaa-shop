@@ -8,6 +8,8 @@ import CartItem from "./cards/cart-item";
 import { Label, Paragraph, Small } from "./typography";
 import { Input } from "./ui/input";
 import { Separator } from "./ui/separator";
+import { useState } from "react";
+import Coupon from "./coupon";
 
 const Cart = () => {
   return (
@@ -37,26 +39,26 @@ const CartItems = () => {
   );
 };
 
-const SummaryRow = ({ label, value }: { label: string; value: React.ReactNode }) => (
+const SummaryRow = ({
+  label,
+  value,
+}: {
+  label: string;
+  value: React.ReactNode;
+}) => (
   <Small className="flex items-center justify-between gap-2">
     <span>{label}</span> <span>{value}</span>
   </Small>
 );
 
 const CartSummary = () => {
-  const { products, coupoun_code, coupoun_amount, total_amount } = useAppSelector(
-    (state) => state.cart
-  );
+  const { products, coupoun_code, coupoun_amount, total_amount } =
+    useAppSelector((state) => state.cart);
 
   return (
     <Card className="h-fit">
       <CardContent className="flex flex-col gap-2">
-        <Label>Coupon Code</Label>
-        <div className="flex items-center gap-2">
-          <Input placeholder="Enter coupon code" />
-          <Button>Apply</Button>
-        </div>
-
+        <Coupon />
         <Separator className="my-2 border-dashed border-2" />
 
         <SummaryRow label="Total Items" value={products.length} />

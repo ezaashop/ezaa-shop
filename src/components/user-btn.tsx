@@ -1,10 +1,11 @@
 "use client";
 
-import { FaUserCircle } from "react-icons/fa";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAppSelector } from "@/lib/store/hooks";
 import getImageUrl from "@/utils/getImageUrl";
-const User = () => {
+import Link from "next/link";
+import { Button } from "./ui/button";
+const UserBtn = () => {
   const { user } = useAppSelector((state) => state.auth);
   const getInitials = () => {
     if (user?.fname || user?.lname) {
@@ -15,14 +16,16 @@ const User = () => {
     return "U";
   };
   return (
-    <div>
+    <Link href="/profile">
       {/* <FaUserCircle className="tex cursor-pointer size-6" /> */}
-      <Avatar className="h-14 w-14">
-        <AvatarImage src={getImageUrl(user?.image)} />
-        <AvatarFallback>{getInitials()}</AvatarFallback>
-      </Avatar>
-    </div>
+      <Button variant="outline" size="icon" className="rounded-full">
+        <Avatar className="size-8">
+          <AvatarImage src={getImageUrl(user?.image)} />
+          <AvatarFallback>{getInitials()}</AvatarFallback>
+        </Avatar>
+      </Button>
+    </Link>
   );
 };
 
-export default User;
+export default UserBtn;

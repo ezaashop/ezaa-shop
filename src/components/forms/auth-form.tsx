@@ -1,22 +1,22 @@
-import Link from "next/link"
-import MyImage from "../my-image"
-import { H3, H4, Small } from "../typography"
-import { cn } from "@/lib/utils"
-import { FaFacebook } from "react-icons/fa"
-import { FcGoogle  } from "react-icons/fc"
+import Link from "next/link";
+import MyImage from "../my-image";
+import { H3, H4, Small } from "../typography";
+import { cn } from "@/lib/utils";
+import { FaFacebook } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
-import { Button } from "../ui/button"
+import { Button } from "../ui/button";
 
 const AuthForm = ({
   children,
   type,
   className,
 }: {
-  children: React.ReactNode
-  type: "login" | "signup"
-  className?: string
+  children: React.ReactNode;
+  type: "login" | "signup";
+  className?: string;
 }) => {
-  const login = type === "login"
+  const login = type === "login";
 
   return (
     <div
@@ -63,6 +63,10 @@ const AuthForm = ({
             </Link>
           </small>
 
+          {/* write OR below */}
+
+          <small>Or {login ? "Login" : "Sign Up"} with </small>
+
           {/* OAuth Buttons */}
           <div className="flex items-center justify-between gap-2 w-full">
             <Button
@@ -72,18 +76,18 @@ const AuthForm = ({
               <FcGoogle />
               <span>Google</span>
             </Button>
-            <Button
+            {/* <Button
               variant="ghost"
               className="flex-1 border border-muted-foreground flex items-center gap-2"
             >
               <FaFacebook className="text-blue-500" />
               <span>Facebook</span>
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AuthForm
+export default AuthForm;

@@ -1,5 +1,10 @@
 // hooks/useAuth.ts
-import { useMutation, useQuery, UseQueryOptions } from "@tanstack/react-query";
+import {
+  useMutation,
+  UseMutationOptions,
+  useQuery,
+  UseQueryOptions,
+} from "@tanstack/react-query";
 import {
   registerUser,
   loginUser,
@@ -64,8 +69,15 @@ export const useUserInfo = (
     enabled: !!userId,
     ...options,
   });
-
-// export const useUpdateUserInfo = () =>
-//   useMutation({
-//     mutationFn: updateUserInfo,
-//   });
+type Variables = {
+  userId: number;
+  data: any;
+};
+export const useUpdateUserInfo = (
+  options?: UseMutationOptions<unknown, Error, Variables>
+) => {
+  return useMutation<unknown, Error, Variables>({
+    mutationFn: ({ userId, data }) => updateUserInfo({ userId, data }),
+    ...options,
+  });
+};
