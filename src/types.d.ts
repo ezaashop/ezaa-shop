@@ -182,3 +182,9 @@ interface CartState {
   products: CartItem[];
   image: File | null;
 }
+
+type BankAccountData = {
+  bank_name: string;
+  account_name: string;
+  account_number: string;
+}

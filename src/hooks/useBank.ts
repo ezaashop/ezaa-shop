@@ -10,13 +10,13 @@ import {
 } from "@/services/bankService";
 
 // Create
-export const useCreateBank = (userId: string) =>
+export const useCreateBank = (userId: number) =>
   useMutation({
     mutationFn: (data: BankAccountData) => createBank(userId, data),
   });
 
 // Read
-export const useGetBank = (userId: string) =>
+export const useGetBank = (userId: number) =>
   useQuery({
     queryKey: ["bank", userId],
     queryFn: () => getBank(userId),
@@ -24,19 +24,19 @@ export const useGetBank = (userId: string) =>
   });
 
 // Update
-export const useUpdateAccount = (userId: string) =>
+export const useUpdateAccount = (userId: number) =>
   useMutation({
     mutationFn: (data: BankAccountData) => updateAccount(userId, data),
   });
 
 // Delete
-export const useDeleteAccount = (userId: string) =>
+export const useDeleteAccount = (userId: number) =>
   useMutation({
     mutationFn: () => deleteAccount(userId),
   });
 
 // Update Status
-export const useUpdateAccountStatus = (accountId: string) =>
+export const useUpdateAccountStatus = (accountId: number) =>
   useMutation({
     mutationFn: () => updateAccountStatus(accountId),
   });

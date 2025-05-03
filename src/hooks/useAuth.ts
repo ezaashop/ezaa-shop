@@ -17,7 +17,7 @@ import {
   getUserInfo,
   updateUserInfo,
 } from "@/services/authService";
-import { AsyncResponse, AuthResponse, User } from "@/types";
+import { AsyncResponse, User } from "@/types";
 
 export const useRegister = () =>
   useMutation({

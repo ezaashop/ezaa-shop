@@ -1,9 +1,10 @@
+import Checkout from "@/components/checkout";
 import Container from "@/components/container";
 
 const CheckoutPage = () => {
   return (
     <Container title="Checkout">
-      <div>Payment</div>
+      <Checkout />
     </Container>
   );
 };

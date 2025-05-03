@@ -1,16 +1,15 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  getCategories,
-  getSubCategories,
-  getProductDetailById,
-  getProductDetailByIdAndUser,
-  addToCart,
-  getUserCartInfo,
   addReview,
-  getProduct,
-  getPopularProducts,
+  addToCart,
   filterProducts,
+  getCategories,
+  getPopularProducts,
+  getProduct,
+  getProductDetailById,
+  getSubCategories,
+  getUserCartInfo
 } from "@/services/productService";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 // Get all categories
 export const useCategories = () =>
