@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { Button } from "@/components/ui/button";
@@ -39,11 +39,14 @@ const Checkout = () => {
   const { mutate: createShippingAddress } = useCreateShippingAddress();
   const { mutate: updateShippingAddress } = useUpdateShippingAddress();
   const { data } = useShippingAddresses(id) as any;
-  const addresses: ShippingAddressData[] =
-    data?.data?.userShippingAddress || [];
+
+  const addresses: ShippingAddressData[] = useMemo(
+    () => data?.data?.userShippingAddress || [],
+    [data]
+  );
 
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [address, setAddress] = useState("F-6 Super Market, Chai Khana");
+  const [address, setAddress] = useState("");
   const [city, setCity] = useState("Islamabad");
   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(
     null
@@ -55,7 +58,7 @@ const Checkout = () => {
     );
     if (activeAddress) {
       setSelectedAddressId(activeAddress?.id?.toString() || null);
-      setAddress(activeAddress.shipping_address); // Set the default address in the form
+      setAddress(activeAddress.shipping_address);
     }
   }, [addresses]);
 
@@ -127,12 +130,12 @@ const Checkout = () => {
       });
     });
   };
-
+  // can be escaped with `&apos;`, `&lsquo;`
   return (
     <div className="space-y-6 my-10 px-4 max-w-4xl mx-auto">
       <H5 className="text-green-500 font-thin">
         The account details are provided below. Please complete the payment
-        outside the app and don't forget to take a screenshot. Thank you!
+        outside the app and don&apos;t forget to take a screenshot. Thank you!
       </H5>
 
       {/* Bank Details */}
