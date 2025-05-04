@@ -1,20 +1,28 @@
 "use client";
 
-import { useAppSelector } from "@/lib/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import bankDetails from "@/utils/bankDetails";
 import { H5, H6, Label } from "./typography";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import MyImage from "./my-image";
+import { useAddToCart } from "@/hooks/useProducts";
+import { useRouter } from "next/navigation";
+import { attachImage, clearCart } from "@/lib/store/slices/cartSlice";
 
 const p =
   "The account details are provided below. Please complete the payment outside the app and don't forget to take a screenshot. Thank you!";
 
 const Checkout = () => {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   const { user } = useAppSelector((store) => store.auth);
+  const { coupoun_code, coupoun_amount, products, total_amount, image } =
+    useAppSelector((store) => store.cart);
   const { id, fname, lname, phone } = user || {};
-  const { total_amount } = useAppSelector((store) => store.cart);
   const { bank_name, account_name, account_number } = bankDetails;
+
+  const { mutate: addToCart, isPending, error } = useAddToCart();
 
   const addressDetails = {
     country: "Pakistan",
@@ -22,11 +30,14 @@ const Checkout = () => {
     address: "F-6 Super Market, Chai Khana",
   };
 
-  const [image, setImage] = useState<File | null>(null);
+  // const [image, setImage] = useState<File | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
-    setImage(file);
+    // setImage(file);
+    if (file) {
+      dispatch(attachImage(file));
+    }
   };
 
   const handleCheckout = () => {
@@ -35,13 +46,31 @@ const Checkout = () => {
       return;
     }
 
-    console.log("Checkout data:", {
-      id,
-      name: `${fname} ${lname}`,
-      phone,
-      total_amount,
-      image,
-    });
+    const formData = new FormData();
+    formData.append("total_amount", total_amount.toString());
+    formData.append("coupoun_code", coupoun_code);
+    formData.append("coupoun_amount", coupoun_amount.toString());
+    formData.append("phone_number", phone);
+    formData.append("shipping_address", addressDetails.address);
+    formData.append("products", JSON.stringify(products));
+    formData.append("image", image);
+
+    addToCart(
+      { userId: id, data: formData },
+      {
+        onSuccess: (data) => {
+          console.log("Success response:", data);
+          alert("Order placed successfully!");
+          router.push("/");
+          // reset cart
+          dispatch(clearCart());
+        },
+        onError: (error: any) => {
+          console.error("Error placing order:", error);
+          alert("Something went wrong while placing the order.");
+        },
+      }
+    );
   };
 
   return (
@@ -73,7 +102,9 @@ const Checkout = () => {
 
       {/* User Info Section */}
       <div className="bg-muted p-6 rounded-xl border border-border space-y-4">
-        <H6 className="font-semibold text-muted-foreground">Your Information</H6>
+        <H6 className="font-semibold text-muted-foreground">
+          Your Information
+        </H6>
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
             <Label className="text-signature">Full Name</Label>
@@ -113,15 +144,13 @@ const Checkout = () => {
           {image && (
             <div className="mt-4 space-y-2">
               <p className="text-sm text-green-600">Preview:</p>
-              <MyImage
+              <img
                 src={URL.createObjectURL(image)}
                 alt="Payment Screenshot"
                 className="rounded-lg border border-border max-h-64 object-contain"
-                width={200}
-                height={200}
               />
               <button
-                onClick={() => setImage(null)}
+                onClick={() => dispatch(attachImage(null))}
                 className="text-red-600 hover:underline text-sm"
               >
                 Remove Image

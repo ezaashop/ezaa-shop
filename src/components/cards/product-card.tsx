@@ -28,10 +28,13 @@ export const ProductCard = ({ product }: { product: Product }) => {
     dispatch(
       addProduct({
         product_id: product.id,
-        name: product.name,
-        images: product.product_image,
-        price: parseFloat(product.product_deatils[0].selling_price),
+        product_name: product.name,
+        category_name: product.category?.name,
+        image: product.product_image[0].image,
         quantity: 1,
+        price: parseFloat(product.product_deatils[0].selling_price),
+        selling_price: parseFloat(product.product_deatils[0].selling_price),
+        sub_total: parseFloat(product.product_deatils[0].selling_price),
       })
     );
 

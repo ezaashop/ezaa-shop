@@ -1,4 +1,4 @@
-import { CartItem, CartState, ProductImage } from "@/types";
+import { CartItem, CartState } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const loadCartFromStorage = (): CartState => {
@@ -36,35 +36,48 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addProduct: (
-      state,
-      action: PayloadAction<CartItem>
-    ) => {
-      const { product_id, name, images, price, quantity = 1 } = action.payload;
-    
+    addProduct: (state, action: PayloadAction<CartItem>) => {
+      const {
+        product_id,
+        product_name,
+        category_name,
+        image,
+        quantity = 1,
+        price,
+        selling_price,
+        color,
+        size,
+        weight,
+      } = action.payload;
+
       const existingProduct = state.products.find(
-        (p) => p.product_id === product_id
+        (p) =>
+          p.product_id === product_id && p.size === size && p.color === color
       );
-    
+
       if (existingProduct) {
         existingProduct.quantity += quantity;
         existingProduct.sub_total =
-          existingProduct.quantity * existingProduct.price;
+          existingProduct.quantity * existingProduct.selling_price;
       } else {
         state.products.push({
           product_id,
-          name,
-          images,
-          price,
+          product_name,
+          category_name,
+          image,
           quantity,
-          sub_total: price * quantity,
+          price,
+          selling_price,
+          color,
+          size,
+          weight,
+          sub_total: selling_price * quantity,
         });
       }
-    
+
       cartSlice.caseReducers.recalculateTotals(state);
       saveCartToStorage(state);
     },
-    
 
     removeProduct: (state, action: PayloadAction<number>) => {
       state.products = state.products.filter(
@@ -82,7 +95,7 @@ const cartSlice = createSlice({
       const product = state.products.find((p) => p.product_id === product_id);
       if (product) {
         product.quantity = quantity;
-        product.sub_total = product.quantity * product.price;
+        product.sub_total = product.quantity * product.selling_price;
         cartSlice.caseReducers.recalculateTotals(state);
         saveCartToStorage(state);
       }
@@ -108,7 +121,7 @@ const cartSlice = createSlice({
       saveCartToStorage(state);
     },
 
-    attachImage: (state, action: PayloadAction<File>) => {
+    attachImage: (state, action: PayloadAction<File | null>) => {
       state.image = action.payload;
     },
 

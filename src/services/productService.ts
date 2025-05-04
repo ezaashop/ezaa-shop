@@ -1,5 +1,5 @@
 import { asyncHandler } from "@/lib/asyncHandler";
-import { api } from "@/lib/axios";
+import { api, multiPartApi } from "@/lib/axios";
 
 export type CartItem = {
   product_id: string;
@@ -35,7 +35,9 @@ export const getSubCategories = (categoryId: number) =>
 // Get product details by product detail ID
 export const getProductDetailById = (productDetailId: number, userId: number) =>
   asyncHandler(() =>
-    api.get(`/productDetail/${productDetailId}/${userId}`).then((res) => res.data)
+    api
+      .get(`/productDetail/${productDetailId}/${userId}`)
+      .then((res) => res.data)
   );
 
 // Get product details by product ID and user ID
@@ -48,10 +50,12 @@ export const getProductDetailByIdAndUser = (
   );
 
 // Add item(s) to cart
-export const addToCart = (userId: number, items: CartItem | CartItem[]) => {
-  const cartItems = Array.isArray(items) ? items : [items];
+export const addToCart = (userId: number, data:any) => {
+  // const cartItems = Array.isArray(items) ? items : [items];
   return asyncHandler(() =>
-    api.post(`/addCart/${userId}`, { items: cartItems }).then((res) => res.data)
+    multiPartApi
+      .post(`/addCart/${userId}`, data)
+      .then((res) => res.data)
   );
 };
 

@@ -55,10 +55,13 @@ const ProductDetails = ({ id }: { id: number }) => {
     dispatch(
       addProduct({
         product_id: product.id,
-        name: product.name,
-        images: product.product_image,
-        price: parseFloat(product.product_deatils[0].selling_price),
+        product_name: product.name,
+        category_name: product.category?.name,
+        image: product.product_image[0].image,
         quantity: 1,
+        price: parseFloat(product.product_deatils[0].selling_price),
+        selling_price: parseFloat(product.product_deatils[0].selling_price),
+        sub_total: parseFloat(product.product_deatils[0].selling_price),
       })
     );
 
@@ -101,10 +104,10 @@ const ProductDetails = ({ id }: { id: number }) => {
             </h1>
             <div className="flex items-center gap-2 mt-2">
               <span className="text-xl font-semibold text-green-600">
-                PKR {product.product_deatils[0]?.selling_price}
+                PKR {product.product_deatils[0]?.price}
               </span>
               <span className="text-gray-400 line-through">
-                PKR {product.product_deatils[0]?.price}
+                PKR {product.product_deatils[0]?.selling_price}
               </span>
               <Badge variant="destructive">Save {discount}%</Badge>
             </div>

@@ -151,7 +151,9 @@ interface ProductDetail {
 interface Product {
   id: number;
   category_id: number;
+  category: Category;
   subcategory_id: number;
+  subcategory: Subcategory;
   name: string;
   commision: string;
   colour: string; // Assuming this is a JSON string. If it's parsed, change to: string[]
@@ -166,12 +168,18 @@ interface Product {
 
 interface CartItem {
   product_id: number;
-  name: string;
-  images: ProductImage[]; // or `ProductImage[]` if you want full image objects
+  product_name: string;
+  category_name?: string;
   quantity: number;
-  price: number;
-  sub_total?: number;
+  price: number; // original price
+  selling_price: number; // discounted price
+  color?: string;
+  size?: string;
+  weight?: string;
+  image: string
+  sub_total: number;
 }
+
 
 interface CartState {
   total_amount: number;
