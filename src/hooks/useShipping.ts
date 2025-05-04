@@ -1,12 +1,11 @@
 // hooks/useShipping.ts
-import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   createShippingAddress,
   getShippingAddresses,
-  updateShippingAddressStatus,
   updateShippingAddress,
-  ShippingAddressData,
+  updateShippingAddressStatus,
 } from "@/services/shippingService";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 // addCart api
 
@@ -19,7 +18,7 @@ export const useShippingAddresses = (userId: string) =>
 
 export const useCreateShippingAddress = () =>
   useMutation({
-    mutationFn: ({ userId, data }: { userId: string; data: ShippingAddressData }) =>
+    mutationFn: ({ userId, data }: { userId: string; data: any }) =>
       createShippingAddress(userId, data),
   });
 
@@ -31,6 +30,6 @@ export const useUpdateShippingAddressStatus = () =>
 
 export const useUpdateShippingAddress = () =>
   useMutation({
-    mutationFn: ({ addressId, data }: { addressId: string; data: ShippingAddressData }) =>
+    mutationFn: ({ addressId, data }: { addressId: string; data: any }) =>
       updateShippingAddress(addressId, data),
   });

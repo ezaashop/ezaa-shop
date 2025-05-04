@@ -176,10 +176,9 @@ interface CartItem {
   color?: string;
   size?: string;
   weight?: string;
-  image: string
+  image: string;
   sub_total: number;
 }
-
 
 interface CartState {
   total_amount: number;
@@ -195,4 +194,33 @@ type BankAccountData = {
   bank_name: string;
   account_name: string;
   account_number: string;
+};
+
+// {
+//   "id": 637,
+//   "user_id": 1686,
+//   "country_name": "Pakistan",
+//   "city_name": "Islamabad",
+//   "shipping_address": "F-6 super market",
+//   "status": "Inactive",
+//   "created_at": "2025-05-04T07:22:19.000000Z",
+//   "updated_at": "2025-05-04T17:45:57.000000Z"
+// }status: string;
+// }
+// types/ShippingAddressData.ts
+interface ShippingAddressData {
+  id?: string;
+  user_id: string;
+  country_name: string;
+  city_name: string;
+  shipping_address: string;
+  status: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+interface AddShippingAddress {
+  user_id: string;
+  phone_number: string;
+  shipping_address: ShippingAddressData;
 }
