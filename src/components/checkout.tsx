@@ -33,7 +33,7 @@ const Checkout = () => {
   const { coupoun_code, coupoun_amount, products, total_amount, image } =
     useAppSelector((store) => store.cart);
   const { id, fname, lname, phone } = user || {};
-  const { bank_name, account_name, account_number } = bankDetails;
+  const { bank_name, account_title, account_number } = bankDetails;
 
   const { mutate: addToCart } = useAddToCart();
   const { mutate: createShippingAddress } = useCreateShippingAddress();
@@ -147,8 +147,8 @@ const Checkout = () => {
             <H5>{bank_name}</H5>
           </div>
           <div>
-            <Label className="text-signature">Account Name</Label>
-            <H5>{account_name}</H5>
+            <Label className="text-signature">Account Title</Label>
+            <H5>{account_title}</H5>
           </div>
           <div>
             <Label className="text-signature">Account Number</Label>

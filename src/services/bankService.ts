@@ -3,7 +3,7 @@ import { asyncHandler } from "@/lib/asyncHandler";
 import { api } from "@/lib/axios";
 
 export type BankAccountData = {
-  account_name: string;
+  account_title: string;
   account_number: string;
   ifsc_code: string;
   bank_name: string;

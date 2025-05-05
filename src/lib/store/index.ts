@@ -4,6 +4,7 @@ import authReducer from "./slices/authSlice";
 import productReducer from "./slices/productSlice";
 import favoriteReducer from "./slices/favoriteSlice";
 import cartReducer from "./slices/cartSlice";
+import appDataReducer from "./slices/appDataSlice";
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     product: productReducer,
     favorite: favoriteReducer,
     cart: cartReducer,
+    appData: appDataReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

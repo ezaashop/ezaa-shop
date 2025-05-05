@@ -10,7 +10,7 @@ const Orders = () => {
   const { userId } = useAppSelector((state) => state.auth);
   const { data, isLoading } = useUserCartInfo(userId || 0);
 
-  const cartData = data?.data || [];
+  const cartData = data?.data?.user_carts || [];
 
   if (isLoading) {
     return (
@@ -24,9 +24,9 @@ const Orders = () => {
 
   return (
     <div>
-      {cartData?.user_carts?.length ? (
+      {cartData?.length ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {cartData.user_carts.map((item: UserCart) => (
+          {cartData.map((item: UserCart) => (
             <OrderedItem key={item.id} item={item} />
           ))}
         </div>

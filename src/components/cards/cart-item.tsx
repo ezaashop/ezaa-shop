@@ -23,7 +23,7 @@ const CartItem = ({ product }: { product: CartItemType }) => {
 
   return (
     <Link
-      href={`/product/${product.product_id}`}
+      href={`/products/${product.product_id}`}
       className="flex items-start justify-between border-b-2 py-4 gap-4"
     >
       {/* Product Image */}

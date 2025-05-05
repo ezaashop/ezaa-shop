@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const OrderedItem = ({ item }: { item: UserCart }) => {
   return (
-    <Link href={`/product/${item.product_id}`} className="border p-4 rounded-md shadow-sm flex items-start gap-4">
+    <Link href={`/products/${item.product_id}`} className="border p-4 rounded-md shadow-sm flex items-start gap-4">
       {/* Fixed small image at top-left */}
       <div className="w-16 h-16 flex-shrink-0">
         <MyImage

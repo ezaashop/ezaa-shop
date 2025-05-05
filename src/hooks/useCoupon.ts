@@ -4,14 +4,13 @@ import {
   createCouponCode,
   getCouponCodes,
   checkCouponCode,
-  CreateCouponData,
   CheckCouponData,
 } from "@/services/couponService";
 
 // Create
 export const useCreateCoupon = (userId: number) =>
   useMutation({
-    mutationFn: (data: CreateCouponData) => createCouponCode(userId, data),
+    mutationFn: (data: { amount: number }) => createCouponCode(userId, data),
   });
 
 // Get

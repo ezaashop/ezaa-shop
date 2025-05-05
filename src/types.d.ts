@@ -192,7 +192,7 @@ interface CartState {
 
 type BankAccountData = {
   bank_name: string;
-  account_name: string;
+  account_title: string;
   account_number: string;
 };
 
@@ -212,7 +212,6 @@ interface AddShippingAddress {
   phone_number: string;
   shipping_address: ShippingAddressData;
 }
-
 
 interface Order {
   id: number;
@@ -260,3 +259,35 @@ interface UserCartResponse {
   message: string;
   user_carts: UserCart[];
 }
+
+type Option = {
+  id: number;
+  label: string;
+  value: string;
+};
+
+type BankOption = Option;
+type CityOption = Option;
+
+// {
+//   "id": 1687,
+//   "user_id": 1686,
+//   "account_title": "Dummy Account",
+//   "bank_name": "Dummy Bank",
+//   "account_number": "3004078715",
+//   "created_at": "2025-04-12T12:32:31.000000Z",
+//   "updated_at": "2025-04-12T12:32:31.000000Z",
+//   "status": "Random"
+// }
+
+type BankAccount = {
+  id: number;
+  user_id: number;
+  account_title: string;
+  bank_name: string;
+  account_number: string;
+  created_at: string;
+  updated_at: string;
+  status: string;
+};
+
