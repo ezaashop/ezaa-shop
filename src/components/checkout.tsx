@@ -102,7 +102,7 @@ const Checkout = () => {
       {
         onSuccess: () => {
           alert("Order placed successfully!");
-          router.push("/");
+          router.push("/orders");
           dispatch(clearCart());
         },
         onError: (error: any) => {

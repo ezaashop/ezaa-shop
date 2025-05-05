@@ -196,18 +196,6 @@ type BankAccountData = {
   account_number: string;
 };
 
-// {
-//   "id": 637,
-//   "user_id": 1686,
-//   "country_name": "Pakistan",
-//   "city_name": "Islamabad",
-//   "shipping_address": "F-6 super market",
-//   "status": "Inactive",
-//   "created_at": "2025-05-04T07:22:19.000000Z",
-//   "updated_at": "2025-05-04T17:45:57.000000Z"
-// }status: string;
-// }
-// types/ShippingAddressData.ts
 interface ShippingAddressData {
   id?: string;
   user_id: string;
@@ -223,4 +211,52 @@ interface AddShippingAddress {
   user_id: string;
   phone_number: string;
   shipping_address: ShippingAddressData;
+}
+
+
+interface Order {
+  id: number;
+  user_id: number;
+  phone_number: string;
+  shipping_address: string;
+  coupoun_code: string | null;
+  coupoun_amount: number;
+  cash_back_amount_percentage: string;
+  backet_commission_percentage: string;
+  code: string;
+  transaction_id: string;
+  total_amount: string;
+  cash_back_return: string;
+  cash_back_price: string;
+  bucket_commission_amount: number;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  image: string;
+  rejection_reason: string | null;
+}
+
+interface UserCart {
+  id: number;
+  product_id: number;
+  order_id: number;
+  product_name: string;
+  size: string | null;
+  weight: string | null;
+  color: string | null;
+  image: string;
+  quantity: string;
+  price: string;
+  selling_price: string;
+  sub_total: string;
+  created_at: string;
+  updated_at: string;
+  category_name: string;
+  orders: Order;
+}
+
+interface UserCartResponse {
+  status: number;
+  message: string;
+  user_carts: UserCart[];
 }

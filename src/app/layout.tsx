@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import "react-photo-view/dist/react-photo-view.css";
+import TopLoader from "@/components/top-loader";
 
 export const metadata: Metadata = {
   title: "Ezaa Shop",
@@ -21,6 +22,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={`flex flex-col min-h-screen`}>
+        <TopLoader />
         <Providers>
           <AuthWrapper>
             <Toaster />

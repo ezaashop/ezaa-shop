@@ -11,7 +11,7 @@ import Container from "./container";
 import Favorites from "./favorites";
 import SearchProducts from "./search";
 import { H3 } from "./typography";
-import UserBtn from "./user-btn";
+import UserBtn from "./profile-btn";
 
 const Navbar = () => {
   const pathname = usePathname();

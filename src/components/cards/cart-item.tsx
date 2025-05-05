@@ -7,6 +7,7 @@ import { Minus, Plus, Trash } from "lucide-react";
 import { useDispatch } from "react-redux";
 import MyImage from "../my-image";
 import { Paragraph } from "../typography";
+import Link from "next/link";
 
 const CartItem = ({ product }: { product: CartItemType }) => {
   const dispatch = useDispatch();
@@ -21,15 +22,20 @@ const CartItem = ({ product }: { product: CartItemType }) => {
   };
 
   return (
-    <div className="flex items-start justify-between border-b-2 py-4 gap-4">
+    <Link
+      href={`/product/${product.product_id}`}
+      className="flex items-start justify-between border-b-2 py-4 gap-4"
+    >
       {/* Product Image */}
-      <MyImage
-        src={product.image}
-        alt={product.product_name}
-        width={80}
-        height={80}
-        className="h-20 w-20 sm:h-24 sm:w-24"
-      />
+      <div className="w-20 h-20 flex-shrink-0">
+        <MyImage
+          src={product.image}
+          alt={product.product_name}
+          width={80}
+          height={80}
+          className="w-full h-full object-cover rounded-md"
+        />
+      </div>
 
       {/* Product Info */}
       <div className="flex-1 flex flex-col gap-2">
@@ -67,7 +73,7 @@ const CartItem = ({ product }: { product: CartItemType }) => {
       >
         <Trash size={16} />
       </Button>
-    </div>
+    </Link>
   );
 };
 
