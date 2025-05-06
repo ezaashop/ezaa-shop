@@ -1,17 +1,17 @@
 "use client";
 
+import { useLogin } from "@/hooks/useAuth";
+import { Auth, Login } from "@/types";
 import { LoginSchema } from "@/validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { FaEnvelope, FaUserCircle } from "react-icons/fa";
+import { FaEnvelope } from "react-icons/fa";
+import Loader from "../loader";
 import { Button } from "../ui/button";
 import PasswordInput from "./fields/password-input";
 import TextInput from "./fields/text-input";
-import Loader from "../loader";
-import { Auth, Login } from "@/types";
-import { useLogin } from "@/hooks/useAuth";
 
 const LoginForm = () => {
   const router = useRouter();

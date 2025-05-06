@@ -1,9 +1,8 @@
-import Link from "next/link";
-import MyImage from "../my-image";
-import { H3, H4, Small } from "../typography";
 import { cn } from "@/lib/utils";
-import { FaFacebook } from "react-icons/fa";
+import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
+import MyImage from "../my-image";
+import { H4, Small } from "../typography";
 
 import { Button } from "../ui/button";
 

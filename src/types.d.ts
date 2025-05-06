@@ -53,17 +53,6 @@ interface ReferalCode {
   updated_at: string;
 }
 
-interface BankAccount {
-  id: number;
-  user_id: number;
-  account_title: string;
-  bank_name: string;
-  account_number: number;
-  status: string;
-  created_at: string;
-  updated_at: string;
-}
-
 interface AuthResponse {
   status: "success" | "error";
   message: string;
@@ -190,12 +179,6 @@ interface CartState {
   image: File | null;
 }
 
-type BankAccountData = {
-  bank_name: string;
-  account_title: string;
-  account_number: string;
-};
-
 interface ShippingAddressData {
   id?: string;
   user_id: string;
@@ -281,13 +264,12 @@ type CityOption = Option;
 // }
 
 type BankAccount = {
-  id: number;
-  user_id: number;
-  account_title: string;
+  id?: number;
+  user_id?: number;
   bank_name: string;
+  account_title: string;
   account_number: string;
-  created_at: string;
-  updated_at: string;
-  status: string;
+  status?: string;
+  created_at?: string;
+  updated_at?: string;
 };
-

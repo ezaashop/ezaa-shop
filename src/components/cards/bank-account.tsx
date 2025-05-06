@@ -1,30 +1,76 @@
-import { BankAccount } from "@/types";
-import { H4, H6, Label } from "../typography";
-import { CopyButton } from "../copy-button";
+"use client";
+
 import { Button } from "@/components/ui/button";
-import { PencilIcon, Trash2Icon } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useDeleteAccount } from "@/hooks/useBank";
+import { useAppDispatch } from "@/lib/store/hooks";
+import { deleteBankAccount } from "@/lib/store/slices/bankAccountSlice";
+import { BankAccount } from "@/types";
+import { Trash2Icon } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
+import { CopyButton } from "../copy-button";
+import BankForm from "../forms/bank-form";
+import { H4, H6, Label } from "../typography";
+import Loader from "../loader";
 
 const BankAccountCard = ({ item }: { item: BankAccount }) => {
-  const handleEdit = () => {
-    console.log("Edit clicked", item);
-    // Add your edit logic here
-  };
+  const dispatch = useAppDispatch();
+  const [open, setOpen] = useState(false);
+
+  const { mutate: deleteAcc, isPending } = useDeleteAccount(item.id || 0);
 
   const handleDelete = () => {
-    console.log("Delete clicked", item);
-    // Add your delete logic here
+    deleteAcc(undefined, {
+      onSuccess: () => {
+        dispatch(deleteBankAccount(item.id || 0));
+        toast.success("Bank account deleted");
+        setOpen(false);
+      },
+      onError: () => {
+        toast.error("Failed to delete account");
+      },
+    });
   };
 
   return (
     <div className="border p-4 rounded-md shadow-sm space-y-2 relative">
       {/* Edit and Delete buttons - top right */}
       <div className="absolute top-2 right-2 flex gap-2">
-        <Button size="icon" variant="ghost" onClick={handleEdit}>
-          <PencilIcon className="size-5" />
-        </Button>
-        <Button size="icon" variant="ghost" onClick={handleDelete}>
-          <Trash2Icon className="size-5 text-destructive" />
-        </Button>
+        <BankForm bank={item} />
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild>
+            <Button size="icon" variant="ghost">
+              <Trash2Icon className="size-5 text-destructive" />
+            </Button>
+          </DialogTrigger>
+
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Confirm Deletion</DialogTitle>
+            </DialogHeader>
+            <p>Are you sure you want to delete this bank account?</p>
+            <DialogFooter className="pt-4">
+              <Button variant="outline" onClick={() => setOpen(false)}>
+                Cancel
+              </Button>
+              <Button
+                onClick={handleDelete}
+                variant="destructive"
+                disabled={isPending}
+              >
+                {isPending ? <Loader /> : "Delete"}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <H4>{item.bank_name}</H4>

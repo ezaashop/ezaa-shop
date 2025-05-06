@@ -19,14 +19,14 @@ export const createBank = (userId: number, data: BankAccountData) =>
 export const getBank = (userId: number) =>
   asyncHandler(() => api.get(`/getBank/${userId}`).then((res) => res.data));
 
-export const updateAccount = (userId: number, data: BankAccountData) =>
+export const updateAccount = (accountId: number, data: BankAccountData) =>
   asyncHandler(() =>
-    api.post(`/updateAccount/${userId}`, data).then((res) => res.data)
+    api.post(`/updateAccount/${accountId}`, data).then((res) => res.data)
   );
 
-export const deleteAccount = (userId: number) =>
+export const deleteAccount = (accountId: number) =>
   asyncHandler(() =>
-    api.delete(`/deleteAccount/${userId}`).then((res) => res.data)
+    api.delete(`/deleteAccount/${accountId}`).then((res) => res.data)
   );
 
 export const updateAccountStatus = (accountId: number) =>

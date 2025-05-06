@@ -24,19 +24,18 @@ export const useGetBank = (userId: number) =>
   });
 
 // Update
-export const useUpdateAccount = (userId: number) =>
+export const useUpdateAccount = (accountId: number) =>
   useMutation({
-    mutationFn: (data: BankAccountData) => updateAccount(userId, data),
-  });
-
-// Delete
-export const useDeleteAccount = (userId: number) =>
-  useMutation({
-    mutationFn: () => deleteAccount(userId),
+    mutationFn: (data: BankAccountData) => updateAccount(accountId, data),
   });
 
 // Update Status
 export const useUpdateAccountStatus = (accountId: number) =>
   useMutation({
     mutationFn: () => updateAccountStatus(accountId),
+  });
+// Delete
+export const useDeleteAccount = (accountId: number) =>
+  useMutation({
+    mutationFn: () => deleteAccount(accountId),
   });

@@ -5,6 +5,7 @@ import productReducer from "./slices/productSlice";
 import favoriteReducer from "./slices/favoriteSlice";
 import cartReducer from "./slices/cartSlice";
 import appDataReducer from "./slices/appDataSlice";
+import bankAccountReducer from "./slices/bankAccountSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     product: productReducer,
     favorite: favoriteReducer,
     cart: cartReducer,
+    bankAccount: bankAccountReducer,
     appData: appDataReducer,
   },
   middleware: (getDefaultMiddleware) =>

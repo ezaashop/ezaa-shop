@@ -25,6 +25,7 @@ import {
   useUpdateShippingAddress,
 } from "@/hooks/useShipping";
 import { ShippingAddressData } from "@/types";
+import { CopyButton } from "./copy-button";
 
 const Checkout = () => {
   const dispatch = useAppDispatch();
@@ -74,8 +75,8 @@ const Checkout = () => {
       data: {
         city_name: city,
         shipping_address: address,
-        country_name: "Pakistan", // Or allow user to select
-        status: "Active", // if required explicitly
+        country_name: "Pakistan",
+        status: "Active",
       },
     });
 
@@ -130,7 +131,7 @@ const Checkout = () => {
       });
     });
   };
-  // can be escaped with `&apos;`, `&lsquo;`
+
   return (
     <div className="space-y-6 my-10 px-4 max-w-4xl mx-auto">
       <H5 className="text-green-500 font-thin">
@@ -152,7 +153,10 @@ const Checkout = () => {
           </div>
           <div>
             <Label className="text-signature">Account Number</Label>
-            <H5>{account_number}</H5>
+            <div className="flex items-center gap-2">
+              <H5>{account_number}</H5>
+              <CopyButton value={account_number} />
+            </div>
           </div>
           <div>
             <Label className="text-signature">Total Amount</Label>
