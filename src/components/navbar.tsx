@@ -12,6 +12,7 @@ import Favorites from "./favorites";
 import SearchProducts from "./search";
 import { H3 } from "./typography";
 import UserBtn from "./profile-btn";
+import NotificationsBtn from "./notifications-btn";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -79,6 +80,7 @@ const ActionButtons = () => {
       <SearchProducts />
       <Favorites />
       <CartButton />
+      <NotificationsBtn />
       <UserBtn />
     </div>
   );

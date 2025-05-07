@@ -6,6 +6,8 @@ import favoriteReducer from "./slices/favoriteSlice";
 import cartReducer from "./slices/cartSlice";
 import appDataReducer from "./slices/appDataSlice";
 import bankAccountReducer from "./slices/bankAccountSlice";
+import notificationsReducer from "./slices/notificationSlice";
+import cashbackReducer from "./slices/cashbackSlice";
 
 const store = configureStore({
   reducer: {
@@ -15,6 +17,8 @@ const store = configureStore({
     cart: cartReducer,
     bankAccount: bankAccountReducer,
     appData: appDataReducer,
+    notifications: notificationsReducer,
+    cashback: cashbackReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

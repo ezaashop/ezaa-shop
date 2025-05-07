@@ -252,17 +252,6 @@ type Option = {
 type BankOption = Option;
 type CityOption = Option;
 
-// {
-//   "id": 1687,
-//   "user_id": 1686,
-//   "account_title": "Dummy Account",
-//   "bank_name": "Dummy Bank",
-//   "account_number": "3004078715",
-//   "created_at": "2025-04-12T12:32:31.000000Z",
-//   "updated_at": "2025-04-12T12:32:31.000000Z",
-//   "status": "Random"
-// }
-
 type BankAccount = {
   id?: number;
   user_id?: number;
@@ -273,3 +262,51 @@ type BankAccount = {
   created_at?: string;
   updated_at?: string;
 };
+
+interface NotificationBase {
+  id: number;
+  title: string;
+  descriptions: string;
+  created_at: string;
+  seen: string | number;
+}
+
+interface CashbackNotification extends NotificationBase {
+  cash_back_return: string;
+}
+
+interface CommissionNotification extends NotificationBase {
+  directCommission?: string | null;
+  bucketCommission?: string | null;
+}
+
+interface AdminNotification extends NotificationBase {
+  admin: string;
+}
+
+interface CashbackTransaction {
+  transaction_id: string;
+  total_amount: number;
+  cash_back_return: number;
+}
+
+interface CashbackInfo {
+  total_amount_sum: number;
+  cash_back_sum: number;
+}
+
+interface CashbackRequestInfo {
+  // Assuming you have request data here; fill out according to your API response
+  status: string;
+  request_amount: number;
+  request_date: string;
+}
+
+interface WalletTotal {
+  total: number;
+}
+
+interface PaymentRequestData {
+  amount: number;
+  account_id: string;
+}
