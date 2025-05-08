@@ -1,5 +1,5 @@
 import Container from "@/components/container";
-import Notifications from "@/components/notifications";
+import Notifications from "@/components/pages/notifications";
 
 const NotificationsPage = () => {
   return (

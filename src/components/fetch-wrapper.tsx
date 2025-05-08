@@ -56,6 +56,8 @@ const FetchWrapper = ({ children }: { children: React.ReactNode }) => {
   const { data: cashbackRequestInfo } = useRequestInfo(userId || 0);
   const { data: totalCommission } = useTotalCommission(userId || 0);
 
+  console.log(cashbackRequestInfo)
+
   useEffect(() => {
     if (categories) {
       dispatch(setCategories(categories?.data?.categories));
@@ -87,14 +89,14 @@ const FetchWrapper = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (cashbackTransactions) {
       dispatch(
-        setCashbackTransactions(cashbackTransactions?.data)
+        setCashbackTransactions(cashbackTransactions?.data?.userTransactionPool)
       );
     }
   }, [cashbackTransactions, dispatch]);
 
   useEffect(() => {
     if (cashbackInfo) {
-      dispatch(setCashbackInfo(cashbackInfo?.data));
+      dispatch(setCashbackInfo(cashbackInfo?.data?.data));
     }
   }, [cashbackInfo, dispatch]);
 
@@ -107,14 +109,14 @@ const FetchWrapper = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (cashbackRequestInfo) {
       dispatch(
-        setCashbackRequestInfo(cashbackRequestInfo?.data)
+        setCashbackRequestInfo(cashbackRequestInfo?.data?.userRequestStatus)
       );
     }
   }, [cashbackRequestInfo, dispatch]);
 
   useEffect(() => {
     if (totalCommission) {
-      dispatch(setTotalCommission(totalCommission?.data));
+      dispatch(setTotalCommission(totalCommission?.data?.totalCommission));
     }
   }, [totalCommission, dispatch]);
 

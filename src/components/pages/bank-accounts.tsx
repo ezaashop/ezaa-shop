@@ -5,9 +5,9 @@ import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { setBankAccounts } from "@/lib/store/slices/bankAccountSlice";
 import { BankAccount } from "@/types";
 import { useEffect } from "react";
-import BankAccountCard from "./cards/bank-account";
-import BankForm from "./forms/bank-form";
-import { Skeleton } from "./ui/skeleton";
+import BankAccountCard from "../cards/bank-account";
+import BankForm from "../forms/bank-form";
+import { Skeleton } from "../ui/skeleton";
 
 const BankAccounts = () => {
   const dispatch = useAppDispatch();

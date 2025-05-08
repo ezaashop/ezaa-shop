@@ -22,12 +22,12 @@ const CartItem = ({ product }: { product: CartItemType }) => {
   };
 
   return (
-    <Link
-      href={`/products/${product.product_id}`}
-      className="flex items-start justify-between border-b-2 py-4 gap-4"
-    >
+    <div className="flex items-start justify-between border-b-2 py-4 gap-4">
       {/* Product Image */}
-      <div className="w-20 h-20 flex-shrink-0">
+      <Link
+        href={`/products/${product.product_id}`}
+        className="w-20 h-20 flex-shrink-0"
+      >
         <MyImage
           src={product.image}
           alt={product.product_name}
@@ -35,7 +35,7 @@ const CartItem = ({ product }: { product: CartItemType }) => {
           height={80}
           className="w-full h-full object-cover rounded-md"
         />
-      </div>
+      </Link>
 
       {/* Product Info */}
       <div className="flex-1 flex flex-col gap-2">
@@ -73,7 +73,7 @@ const CartItem = ({ product }: { product: CartItemType }) => {
       >
         <Trash size={16} />
       </Button>
-    </Link>
+    </div>
   );
 };
 

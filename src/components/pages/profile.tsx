@@ -1,13 +1,13 @@
 "use client";
 
-import { useAppSelector } from "@/lib/store/hooks";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Small } from "./typography";
-import Link from "next/link";
+import { useAppSelector } from "@/lib/store/hooks";
 import getImageUrl from "@/utils/getImageUrl";
+import Link from "next/link";
+import { Small } from "../typography";
 const KeyValue = ({
   label,
   value,

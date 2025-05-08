@@ -1,13 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { useCreateCoupon } from "@/hooks/useCoupon";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useCouponCodes } from "@/hooks/useCoupon";
+import { useCouponCodes, useCreateCoupon } from "@/hooks/useCoupon";
 import { useAppSelector } from "@/lib/store/hooks";
+import { useState } from "react";
 
 const Coupons = () => {
   const { userId } = useAppSelector((state) => state.auth);

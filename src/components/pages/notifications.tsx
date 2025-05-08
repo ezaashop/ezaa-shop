@@ -1,11 +1,11 @@
 "use client";
 
-import { useAppSelector, useAppDispatch } from "@/lib/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { markAsSeen } from "@/lib/store/slices/notificationSlice";
 import {
+  AdminNotification,
   CashbackNotification,
   CommissionNotification,
-  AdminNotification,
 } from "@/types";
 
 type NotificationType = "cashback" | "commission" | "admin";

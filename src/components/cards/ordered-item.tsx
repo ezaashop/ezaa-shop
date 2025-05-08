@@ -5,9 +5,12 @@ import Link from "next/link";
 
 const OrderedItem = ({ item }: { item: UserCart }) => {
   return (
-    <Link href={`/products/${item.product_id}`} className="border p-4 rounded-md shadow-sm flex items-start gap-4">
+    <div className="border p-4 rounded-md shadow-sm flex items-start gap-4">
       {/* Fixed small image at top-left */}
-      <div className="w-16 h-16 flex-shrink-0">
+      <Link
+        href={`/products/${item.product_id}`}
+        className="w-16 h-16 flex-shrink-0"
+      >
         <MyImage
           src={item.image}
           alt={item.product_name}
@@ -15,7 +18,7 @@ const OrderedItem = ({ item }: { item: UserCart }) => {
           height={64}
           className="w-full h-full object-cover rounded-md"
         />
-      </div>
+      </Link>
 
       {/* Right side content */}
       <div className="flex-1">
@@ -32,7 +35,7 @@ const OrderedItem = ({ item }: { item: UserCart }) => {
           {item.orders.status}
         </p>
       </div>
-    </Link>
+    </div>
   );
 };
 

@@ -4,7 +4,7 @@ import { useUserCartInfo } from "@/hooks/useProducts";
 import { useAppSelector } from "@/lib/store/hooks";
 
 import { UserCart } from "@/types";
-import OrderedItem from "./cards/ordered-item";
+import OrderedItem from "../cards/ordered-item";
 
 const Orders = () => {
   const { userId } = useAppSelector((state) => state.auth);
@@ -15,11 +15,11 @@ const Orders = () => {
   if (isLoading) {
     return (
       <>
-      {Array.from({ length: 5 }).map((_, index) => (
-        <OrderCardSkeleton key={index} />
-      ))}
+        {Array.from({ length: 5 }).map((_, index) => (
+          <OrderCardSkeleton key={index} />
+        ))}
       </>
-    )
+    );
   }
 
   return (
@@ -39,7 +39,7 @@ const Orders = () => {
 
 export default Orders;
 
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "@/components/ui/skeleton";
 
 const OrderCardSkeleton = () => {
   return (
@@ -60,5 +60,5 @@ const OrderCardSkeleton = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

@@ -9,7 +9,7 @@ import {
 interface CashbackState {
   cashbackTransactions: CashbackTransaction[];
   cashbackInfo: CashbackInfo | null;
-  cashbackRequestInfo: CashbackRequestInfo | null;
+  cashbackRequestInfo: CashbackRequestInfo[] | [];
   walletTotal: WalletTotal | null;
   totalCommission: any;
   loading: boolean;
@@ -18,7 +18,7 @@ interface CashbackState {
 const initialState: CashbackState = {
   cashbackTransactions: [],
   cashbackInfo: null,
-  cashbackRequestInfo: null,
+  cashbackRequestInfo: [],
   walletTotal: null,
   totalCommission: null,
   loading: false,
@@ -37,7 +37,7 @@ const cashbackSlice = createSlice({
     setCashbackInfo(state, action: PayloadAction<CashbackInfo>) {
       state.cashbackInfo = action.payload;
     },
-    setCashbackRequestInfo(state, action: PayloadAction<CashbackRequestInfo>) {
+    setCashbackRequestInfo(state, action: PayloadAction<CashbackRequestInfo[]>) {
       state.cashbackRequestInfo = action.payload;
     },
     setWalletTotal(state, action: PayloadAction<WalletTotal>) {

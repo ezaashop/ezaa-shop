@@ -32,6 +32,7 @@ import {
   Heart,
   Bell,
   LogOut,
+  CreditCard,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -55,6 +56,11 @@ const menuItems = [
     label: "Coupons",
     href: "/coupons",
     icon: Ticket,
+  },
+  {
+    label: "Payments",
+    href: "/payments",
+    icon: CreditCard,
   },
   {
     label: "Favorites",

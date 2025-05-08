@@ -1,5 +1,5 @@
 import Container from "@/components/container";
-import Coupons from "@/components/coupons";
+import Coupons from "@/components/pages/coupons";
 
 const CouponsPage = () => {
   return (

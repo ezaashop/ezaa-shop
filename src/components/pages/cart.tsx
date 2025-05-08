@@ -4,12 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAppSelector } from "@/lib/store/hooks";
 import Link from "next/link";
-import CartItem from "./cards/cart-item";
-import { Label, Paragraph, Small } from "./typography";
-import { Input } from "./ui/input";
-import { Separator } from "./ui/separator";
-import { useState } from "react";
-import Coupon from "./coupon";
+import CartItem from "../cards/cart-item";
+import Coupon from "../coupon";
+import { Paragraph, Small } from "../typography";
+import { Separator } from "../ui/separator";
 
 const Cart = () => {
   return (

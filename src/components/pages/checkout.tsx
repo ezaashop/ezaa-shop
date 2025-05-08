@@ -1,31 +1,31 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
-import { useRouter } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import {
   Dialog,
-  DialogTrigger,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { H5, H6 } from "./typography";
-import bankDetails from "@/utils/bankDetails";
 import { useAddToCart } from "@/hooks/useProducts";
-import { clearCart, attachImage } from "@/lib/store/slices/cartSlice";
 import {
   useCreateShippingAddress,
   useShippingAddresses,
   useUpdateShippingAddress,
 } from "@/hooks/useShipping";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
+import { attachImage, clearCart } from "@/lib/store/slices/cartSlice";
 import { ShippingAddressData } from "@/types";
-import { CopyButton } from "./copy-button";
+import bankDetails from "@/utils/bankDetails";
+import { useRouter } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import { CopyButton } from "../copy-button";
+import { H5, H6 } from "../typography";
 
 const Checkout = () => {
   const dispatch = useAppDispatch();

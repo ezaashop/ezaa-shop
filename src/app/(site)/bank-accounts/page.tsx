@@ -1,4 +1,4 @@
-import BankAccounts from "@/components/bank-accounts";
+import BankAccounts from "@/components/pages/bank-accounts";
 import Container from "@/components/container";
 
 const BankAccountsPage = () => {
