@@ -9,7 +9,7 @@ const SiteLayout = ({ children }: { children: React.ReactNode }) => {
       <div className={`flex flex-col min-h-screen`}>
         {/* <TopNav /> */}
         <Navbar />
-        <div className="flex-1">{children}</div>
+        <div className="flex-1 pb-8">{children}</div>
         <Footer />
       </div>
     </FetchWrapper>

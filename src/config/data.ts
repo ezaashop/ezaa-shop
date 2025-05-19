@@ -27,11 +27,11 @@ export const footerContent: FooterContent = {
     },
   ],
   contact: {
-    phone: "+62 83175 02",
-    email: "support@golelectric.com",
+    phone: "+923189974106",
+    email: "ezaashop1@gmail.com",
   },
   appLinks: [
-    { name: "App Store", href: "#", icon: FaApple },
+    // { name: "App Store", href: "#", icon: FaApple },
     { name: "Google Play", href: "#", icon: IoLogoGooglePlaystore },
   ],
   copyright: "Copyright © 2025 Ezaa Shop. All rights reserved.",
