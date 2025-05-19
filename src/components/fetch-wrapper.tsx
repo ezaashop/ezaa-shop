@@ -31,13 +31,13 @@ import {
   setCashbackInfo,
   setCashbackRequestInfo,
   setCashbackTransactions,
-  setTotalCommission,
-  setWalletTotal,
+  setCommission,
+  setWallet,
 } from "@/lib/store/slices/cashbackSlice";
 
 const FetchWrapper = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
-  const { token, userId } = useAppSelector((store) => store.auth);
+  const { userId } = useAppSelector((store) => store.auth);
 
   // Fetching product-related data
   const { data: categories, isPending } = useCategories();
@@ -52,11 +52,9 @@ const FetchWrapper = ({ children }: { children: React.ReactNode }) => {
   // Cashback-related hooks
   const { data: cashbackTransactions } = useTransactionPool(userId || 0);
   const { data: cashbackInfo } = useCashbackInfo(userId || 0);
-  const { data: walletTotal } = useWalletTotal(userId || 0);
+  const { data: wallet } = useWalletTotal(userId || 0);
   const { data: cashbackRequestInfo } = useRequestInfo(userId || 0);
-  const { data: totalCommission } = useTotalCommission(userId || 0);
-
-  console.log(cashbackRequestInfo)
+  const { data: commission } = useTotalCommission(userId || 0);
 
   useEffect(() => {
     if (categories) {
@@ -101,10 +99,10 @@ const FetchWrapper = ({ children }: { children: React.ReactNode }) => {
   }, [cashbackInfo, dispatch]);
 
   useEffect(() => {
-    if (walletTotal) {
-      dispatch(setWalletTotal(walletTotal?.data));
+    if (wallet) {
+      dispatch(setWallet(wallet?.data));
     }
-  }, [walletTotal, dispatch]);
+  }, [wallet, dispatch]);
 
   useEffect(() => {
     if (cashbackRequestInfo) {
@@ -115,10 +113,10 @@ const FetchWrapper = ({ children }: { children: React.ReactNode }) => {
   }, [cashbackRequestInfo, dispatch]);
 
   useEffect(() => {
-    if (totalCommission) {
-      dispatch(setTotalCommission(totalCommission?.data?.totalCommission));
+    if (commission) {
+      dispatch(setCommission(commission?.data));
     }
-  }, [totalCommission, dispatch]);
+  }, [commission, dispatch]);
 
   // Fetching popular product data
   const {

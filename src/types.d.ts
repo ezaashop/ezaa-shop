@@ -302,11 +302,27 @@ interface CashbackRequestInfo {
   request_date: string;
 }
 
-interface WalletTotal {
-  total: number;
+
+interface Wallet {
+  userWalletTotal: number;
+  totalCommission: number;
+  minLimit: string;
+  maxLimit: string;
 }
 
 interface PaymentRequestData {
   amount: number;
   account_id: string;
 }
+
+interface Commission {
+  id: number;
+  user_id: number;
+  cash_back: number;
+  directCommission: number;
+  bucketCommission: number;
+  totalCommission: number;
+  wallet_amount: number;
+  created_at: string;
+  updated_at: string;
+} 

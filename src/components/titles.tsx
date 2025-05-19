@@ -2,14 +2,13 @@
 import { Plus } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { MdOutlineArrowBack, MdOutlineArrowBackIosNew } from "react-icons/md";
+import { MdOutlineArrowBack } from "react-icons/md";
 import Container from "./container";
 import { Button } from "./ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 export const PageTitle = ({ title }: { title: string }) => {
   const router = useRouter();
-  const shadow = false;
 
   return (
     <Container className="h-20">
@@ -20,27 +19,19 @@ export const PageTitle = ({ title }: { title: string }) => {
             <Button
               variant={"secondary"}
               onClick={() => router.back()}
-              className="text-foreground px-2"
+              className="px-2"
             >
-              <MdOutlineArrowBack
-                size={24}
-              />
-              {/* <MdOutlineArrowBack
-                size={24}
-                className="hidden md:inline-block"
-              />
-              <MdOutlineArrowBackIosNew
-                size={24}
-                className="inline-block md:hidden"
-              /> */}
+              <MdOutlineArrowBack size={24} />
             </Button>
           </TooltipTrigger>
           <TooltipContent align="start">
-            <p className="text-muted-foreground">Go Back</p>
+            <p className="">Go Back</p>
           </TooltipContent>
         </Tooltip>
 
-        <h3 className="text-2xl md:text-4xl font-semibold text-center">{title}</h3>
+        <h3 className="text-2xl md:text-4xl font-semibold text-center">
+          {title}
+        </h3>
       </div>
     </Container>
   );

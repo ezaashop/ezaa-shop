@@ -8,8 +8,8 @@ const Payments = () => {
     cashbackTransactions = [],
     cashbackInfo,
     cashbackRequestInfo,
-    walletTotal,
-    totalCommission,
+    wallet,
+    commission,
     loading,
   } = payments || {};
 
@@ -19,7 +19,7 @@ const Payments = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         <Card
           title="Total Wallet Amount"
-          value={`${walletTotal?.total || 0} PKR`}
+          value={`${wallet?.userWalletTotal || 0} PKR`}
         />
         <Card
           title="Cashback Total"
@@ -27,7 +27,7 @@ const Payments = () => {
         />
         <Card
           title="Total Commission"
-          value={`${totalCommission?.totalCommission || 0} PKR`}
+          value={`${commission?.totalCommission || 0} PKR`}
         />
       </div>
 
@@ -72,7 +72,7 @@ const Payments = () => {
       </div>
 
       {/* Request Info Section */}
-      <div className="mt-8">
+      <div className="my-8">
         <h2 className="text-lg font-semibold text-foreground mb-4">
           Cashback Request Info
         </h2>

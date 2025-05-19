@@ -1,33 +1,28 @@
 import { FooterContent } from "@/types";
-import { FaApple, FaFacebookSquare, FaInstagramSquare, FaTwitterSquare } from "react-icons/fa";
+import { FaApple, FaFacebookSquare, FaInstagramSquare } from "react-icons/fa";
 import { IoLogoGooglePlaystore } from "react-icons/io5";
 
 export const footerContent: FooterContent = {
-  description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.",
+  description: "Ezaa Shop is an online store that sells various products.",
   socialLinks: [
-    { name: "Facebook", href: "#", icon: FaFacebookSquare },
-    { name: "Twitter", href: "#", icon: FaTwitterSquare },
-    { name: "Instagram", href: "#", icon: FaInstagramSquare },
+    {
+      name: "Facebook",
+      href: "https://www.facebook.com/share/1LaJBtgRRq/",
+      icon: FaFacebookSquare,
+    },
+    {
+      name: "Instagram",
+      href: "https://www.instagram.com/ezaashopofficial?igsh=bnY0YmQ3MmtpMjA0",
+      icon: FaInstagramSquare,
+    },
   ],
   sections: [
     {
-      title: "Company",
-      links: [
-        { name: "About", href: "#" },
-        { name: "Products", href: "#" },
-        { name: "Contact", href: "#" },
-        { name: "Blog", href: "#" },
-        { name: "Careers", href: "#" },
-      ],
-    },
-    {
       title: "Information",
       links: [
-        { name: "Help Center", href: "#" },
-        { name: "Payment Methods", href: "#" },
-        { name: "Return & Refund", href: "#" },
-        { name: "Privacy Policy", href: "#" },
+        { name: "About", href: "/about" },
+        { name: "Privacy Policy", href: "/privacy-policy" },
+        { name: "Terms & Conditions", href: "/terms-conditions" },
       ],
     },
   ],

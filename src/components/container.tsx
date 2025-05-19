@@ -1,5 +1,4 @@
 import { cn } from "../lib/utils";
-import Loader from "./loader";
 import { PageTitle } from "./titles";
 
 interface Props extends React.ImgHTMLAttributes<HTMLImageElement> {

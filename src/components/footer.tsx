@@ -1,26 +1,14 @@
-import Link from "next/link"
-import Image from "next/image"
-import Container from "./container"
-import Brand from "./brand"
-import { Small } from "./typography"
-import {
-  FaFacebookSquare,
-  FaTwitterSquare,
-  FaInstagramSquare,
-} from "react-icons/fa"
-import { footerContent } from "@/config/data"
-
-const iconMap = {
-  facebook: <FaFacebookSquare className="text-xl" />,
-  twitter: <FaTwitterSquare className="text-xl" />,
-  instagram: <FaInstagramSquare className="text-xl" />,
-}
+import { footerContent } from "@/config/data";
+import Link from "next/link";
+import Brand from "./brand";
+import Container from "./container";
+import { Small } from "./typography";
 
 const Footer = () => {
   return (
     <>
       <div className="bg-black text-white py-10">
-        <Container className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <Container className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {/* Brand & Social */}
           <div className="flex flex-col gap-4">
             <Brand />
@@ -33,6 +21,7 @@ const Footer = () => {
                   key={index}
                   href={social.href}
                   className="p-2 bg-signature rounded-md"
+                  target="_blank"
                 >
                   <social.icon className="text-xl" />
                 </Link>
@@ -47,7 +36,10 @@ const Footer = () => {
               <ul className="space-y-2 text-sm text-muted-foreground">
                 {section.links.map((link, i) => (
                   <li key={i}>
-                    <Link href={link.href} className="hover:underline">
+                    <Link
+                      href={link.href}
+                      className="hover:underline"
+                    >
                       {link.name}
                     </Link>
                   </li>
@@ -68,6 +60,7 @@ const Footer = () => {
                     key={i}
                     href={app.href}
                     className="bg-signature text-white w-full p-2 rounded text-xs flex items-center justify-center gap-2"
+                    target="_blank"
                   >
                     <app.icon className="text-lg" />
                     {app.name}
@@ -89,7 +82,7 @@ const Footer = () => {
         </Container>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
