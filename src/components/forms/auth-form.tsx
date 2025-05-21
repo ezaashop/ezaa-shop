@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import MyImage from "../my-image";
-import { H4, Small } from "../typography";
+import { H4, Small, XSmall } from "../typography";
 
 import { Button } from "../ui/button";
 
@@ -38,11 +38,11 @@ const AuthForm = ({
       <div className="relative z-10 space-y-4 p-4 md:p-8 bg-background/80 backdrop-blur-md rounded-md shadow-lg w-full max-w-xs">
         <div className="flex flex-col gap-4">
           <H4>{login ? "Login to your account" : "Create an account"}</H4>
-          <Small>
+          <XSmall>
             {login
               ? "Enter to continue and explore within your grasp"
               : "Follow the instructions to make it easier to register and you will be able to explore inside."}
-          </Small>
+          </XSmall>
         </div>
 
         {/* Form Fields */}
@@ -62,27 +62,18 @@ const AuthForm = ({
             </Link>
           </small>
 
-          {/* write OR below */}
-
-          <small>Or {login ? "Login" : "Sign Up"} with </small>
-
-          {/* OAuth Buttons */}
-          <div className="flex items-center justify-between gap-2 w-full">
-            <Button
-              variant="ghost"
-              className="flex-1 border border-muted-foreground flex items-center gap-2"
-            >
-              <FcGoogle />
-              <span>Google</span>
-            </Button>
-            {/* <Button
-              variant="ghost"
-              className="flex-1 border border-muted-foreground flex items-center gap-2"
-            >
-              <FaFacebook className="text-blue-500" />
-              <span>Facebook</span>
-            </Button> */}
-          </div>
+          {/* <>
+            <small>Or {login ? "Login" : "Sign Up"} with </small>
+            <div className="flex items-center justify-between gap-2 w-full">
+              <Button
+                variant="ghost"
+                className="flex-1 border border-muted-foreground flex items-center gap-2"
+              >
+                <FcGoogle />
+                <span>Google</span>
+              </Button>
+            </div>
+          </> */}
         </div>
       </div>
     </div>

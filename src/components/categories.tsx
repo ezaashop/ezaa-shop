@@ -60,23 +60,23 @@ const Categories = () => {
             <CarouselItem
               key={category.id}
               onClick={() => dispatch(setSelectedCategoryId(category.id))}
-              className="pl-4 basis-auto w-40 cursor-pointer"
+              className="pl-3 basis-auto w-32 cursor-pointer "
             >
               <div
-                className={`flex flex-col items-center gap-4 rounded-lg overflow-hidden p-4 ${
+                className={`flex flex-col items-center gap-2 rounded-xl overflow-hidden p-4 border transition-colors duration-200 shadow-sm ${
                   selectedCategoryId == category.id
-                    ? "border bg-signature/20"
-                    : "bg-secondary"
+                    ? "border-primary bg-primary/10"
+                    : "bg-muted/50 hover:bg-muted"
                 }`}
               >
                 <MyImage
                   src={category.image}
                   alt={category.name}
-                  width={100}
-                  height={100}
-                  className="w-full h-28 object-cover rounded-lg hover:scale-105 transition-transform"
+                  width={80}
+                  height={80}
+                  className="w-full h-20 object-cover rounded-md transition-transform hover:scale-105"
                 />
-                <span className="text-sm font-semibold line-clamp-1 text-center">
+                <span className="text-xs font-medium text-center text-foreground line-clamp-1">
                   {category.name}
                 </span>
               </div>
@@ -99,10 +99,10 @@ const CategoriesSkeleton = () => {
         {Array.from({ length: 8 }).map((_, index) => (
           <div
             key={index}
-            className="flex flex-col items-center gap-4 rounded-lg overflow-hidden p-4 bg-secondary w-40 shrink-0"
+            className="flex flex-col items-center gap-2 rounded-xl overflow-hidden p-3 bg-muted/50 w-32 shrink-0"
           >
-            <Skeleton className="w-full aspect-square rounded-lg" />
-            <Skeleton className="w-3/4 h-4" />
+            <Skeleton className="w-full h-20 rounded-md" />
+            <Skeleton className="w-3/4 h-3" />
           </div>
         ))}
       </div>

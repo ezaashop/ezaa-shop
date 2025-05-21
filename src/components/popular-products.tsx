@@ -1,17 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
-import Link from "next/link";
-import { toast } from "sonner";
-import { H3 } from "@/components/typography";
 import { ProductCard } from "@/components/cards/product-card";
+import { H3 } from "@/components/typography";
 import { Skeleton } from "@/components/ui/skeleton";
-import { usePopularProducts, useProduct } from "@/hooks/useProducts";
 import { useAppSelector } from "@/lib/store/hooks";
 import { Product } from "@/types";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
-const PopularProducts = () => {
-  const { userId } = useAppSelector((store) => store.auth);
+const PopularProducts = ({ total = 12 }: { total?: number }) => {
+  // const { userId } = useAppSelector((store) => store.auth);
   const {
     selectedSubCategoryId,
     popularProducts: products,
@@ -42,7 +40,7 @@ const PopularProducts = () => {
       <H3 className="text-center mb-6">Popular Products</H3>
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {products
-          .slice(0, 12)
+          .slice(0, total)
           .map((product: { product_id: string; products: Product }) => (
             <ProductCard key={product.product_id} product={product.products} />
           ))}
