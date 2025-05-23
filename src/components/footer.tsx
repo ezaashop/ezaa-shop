@@ -7,7 +7,7 @@ import { Small } from "./typography";
 const Footer = () => {
   return (
     <>
-      <div className="bg-black text-white pb-10 pt-20">
+      <div className="bg-black text-white py-10 md:pt-20">
         <Container className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {/* Brand & Social */}
           <div className="flex flex-col gap-4">

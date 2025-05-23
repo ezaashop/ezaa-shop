@@ -9,4 +9,5 @@ export const LoginSchema = AuthSchema;
 
 export const SignupSchema = AuthSchema.extend({
   phone: z.string().min(10, "Phone number must be at least 10 characters"),
+  referal_code: z.string().optional(),
 });

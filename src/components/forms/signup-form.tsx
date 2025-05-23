@@ -1,6 +1,7 @@
 "use client";
 
-import { Auth, Signup } from "@/types";
+import { useRegister } from "@/hooks/useAuth";
+import { Signup } from "@/types";
 import { SignupSchema } from "@/validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -8,12 +9,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaPhone } from "react-icons/fa";
 import { MdAlternateEmail } from "react-icons/md";
+import { RiUserSharedLine } from "react-icons/ri";
 import Loader from "../loader";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import PasswordInput from "./fields/password-input";
 import TextInput from "./fields/text-input";
-import { useRegister } from "@/hooks/useAuth";
 
 const SignupForm = () => {
   const {
@@ -26,6 +27,7 @@ const SignupForm = () => {
       email: "",
       phone: "",
       password: "",
+      referal_code: "",
     },
   });
 
@@ -70,6 +72,12 @@ const SignupForm = () => {
           name="password"
           placeholder="Enter password"
           control={control}
+        />
+        <TextInput
+          name="referal_code"
+          placeholder="Enter referral code (optional)"
+          control={control}
+          icon={<RiUserSharedLine />} // or any icon or none
         />
 
         <div className="flex items-center justify-end gap-2">

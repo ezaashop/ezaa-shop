@@ -13,6 +13,7 @@ type Login = Auth;
 
 type Signup = Auth & {
   phone: string;
+  referal_code?: string;
 };
 
 interface User {

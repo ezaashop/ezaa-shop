@@ -1,18 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-import { useAppSelector, useAppDispatch } from "@/lib/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { logout } from "@/lib/store/slices/authSlice";
 import getImageUrl from "@/utils/getImageUrl";
+import Link from "next/link";
+import { useState } from "react";
 
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -23,18 +16,26 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 import {
-  User,
-  ShoppingCart,
   Banknote,
-  Ticket,
-  Heart,
   Bell,
-  LogOut,
   CreditCard,
+  Heart,
+  LogOut,
+  ShoppingCart,
+  Ticket,
+  User,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { RiUserSharedLine } from "react-icons/ri";
 
 const menuItems = [
   {
@@ -57,10 +58,15 @@ const menuItems = [
     href: "/coupons",
     icon: Ticket,
   },
+  // {
+  //   label: "Payments",
+  //   href: "/payments",
+  //   icon: CreditCard,
+  // },
   {
-    label: "Payments",
-    href: "/payments",
-    icon: CreditCard,
+    label: "Referrals",
+    href: "/referrals",
+    icon: RiUserSharedLine,
   },
   {
     label: "Favorites",

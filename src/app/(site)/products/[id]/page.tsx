@@ -1,3 +1,4 @@
+import Container from "@/components/container";
 import PopularProducts from "@/components/popular-products";
 import ProductDetails from "@/components/product-details";
 
@@ -6,7 +7,7 @@ const ProductPage = async ({ params }: { params: Promise<{ id: number }> }) => {
   return (
     <>
       <ProductDetails id={id} />
-      <PopularProducts total={6} />
+      <Container><PopularProducts total={6} /></Container>
     </>
   );
 };

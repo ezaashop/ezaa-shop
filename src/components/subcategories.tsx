@@ -66,8 +66,8 @@ const Subcategories = () => {
               <div
                 className={`px-4 py-2 ${
                   selectedSubCategoryId === subcategory.id
-                    ? "border bg-signature/20"
-                    : "bg-secondary hover:bg-signature/10 hover:shadow transition"
+                    ? "bg-signature text-white"
+                    : "bg-secondary hover:bg-signature/50 transition duration-200"
                 } text-foreground rounded-full text-sm font-semibold whitespace-nowrap`}
               >
                 {subcategory.name}

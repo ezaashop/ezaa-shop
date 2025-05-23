@@ -63,10 +63,10 @@ const Categories = () => {
               className="pl-3 basis-auto w-32 cursor-pointer "
             >
               <div
-                className={`flex flex-col items-center gap-2 rounded-xl overflow-hidden p-4 border transition-colors duration-200 shadow-sm ${
+                className={`flex flex-col items-center gap-2 rounded-xl overflow-hidden p-4 transition-colors duration-200 shadow ${
                   selectedCategoryId == category.id
-                    ? "border-primary bg-primary/10"
-                    : "bg-muted/50 hover:bg-muted"
+                    ? "bg-signature/20"
+                    : ""
                 }`}
               >
                 <MyImage
