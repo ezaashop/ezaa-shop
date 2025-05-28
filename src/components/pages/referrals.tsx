@@ -151,14 +151,15 @@ const Referrals = () => {
 
         {Object.entries(teams).map(([level, members]) => (
           <TabsContent key={level} value={level}>
-            <ScrollArea className="max-h-[300px] w-full border rounded-md">
-              <table className="w-full text-xs text-left">
+            <ScrollArea className="max-h-[300px] w-full border rounded-md overflow-auto">
+              {/* <div className="min-w-[600px]"> */}
+              <table className="w-full text-[10px] sm:text-sm text-left">
                 <thead className="bg-muted text-muted-foreground">
                   <tr>
                     <th className="px-2 py-1">#</th>
                     <th className="px-2 py-1">User (Email)</th>
-                    <th className="px-2 py-1">Direct</th>
-                    <th className="px-2 py-1">Bucket</th>
+                    <th className="px-2 py-1">Direct (Rs.)</th>
+                    <th className="px-2 py-1">Bucket (Rs.)</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -172,13 +173,11 @@ const Referrals = () => {
                         {member.referal_user_info.email}
                       </td>
                       <td className="px-2 py-1">
-                        Rs.{" "}
                         {(
                           member.referal_user_info.directCommission || 0
                         ).toFixed(2)}
                       </td>
                       <td className="px-2 py-1">
-                        Rs.{" "}
                         {(
                           member.referal_user_info.bucketCommission || 0
                         ).toFixed(2)}
