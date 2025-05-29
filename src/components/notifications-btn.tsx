@@ -1,29 +1,37 @@
 "use client";
 
-import { useEffect } from "react";
-import Link from "next/link";
-import { IoMdNotifications } from "react-icons/io";
-import { useAppSelector, useAppDispatch } from "@/lib/store/hooks";
+import { Button } from "@/components/ui/button";
 import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import {
+  useAdminNotifications,
   useCashbackNotifications,
   useCommissionNotifications,
-  useAdminNotifications,
 } from "@/hooks/useNotifications";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import {
+  setAdminNotifications,
   setCashbackNotifications,
   setCommissionNotifications,
-  setAdminNotifications,
 } from "@/lib/store/slices/notificationSlice";
+import { useEffect, useState } from "react";
+import { IoMdNotifications } from "react-icons/io";
+import Notifications from "./pages/notifications";
 
-const NotificationsBtn = () => {
+const NotificationsSheet = () => {
+  const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
-  const userId = useAppSelector((store) => store.auth.user?.id) || "";
+  const userId = useAppSelector((state) => state.auth.user?.id) || "";
 
   const { data: cashbackData } = useCashbackNotifications(userId);
   const { data: commissionData } = useCommissionNotifications(userId);
   const { data: adminData } = useAdminNotifications(userId);
 
-  // 🔄 Update Redux state on fetch
   useEffect(() => {
     if (cashbackData?.data?.userCashBack) {
       dispatch(setCashbackNotifications(cashbackData.data.userCashBack));
@@ -42,7 +50,6 @@ const NotificationsBtn = () => {
     }
   }, [adminData, dispatch]);
 
-  // 🧠 Use from Redux state
   const { cashback, commission, admin } = useAppSelector(
     (state) => state.notifications
   );
@@ -53,15 +60,31 @@ const NotificationsBtn = () => {
     admin.filter((n) => n.seen === "0").length;
 
   return (
-    <Link href="/notifications" className="relative">
-      {unseenCount > 0 && (
-        <span className="absolute top-0 right-0 bg-signature text-white w-4 h-4 rounded-full flex items-center justify-center text-xs">
-          {unseenCount}
-        </span>
-      )}
-      <IoMdNotifications className="cursor-pointer size-7" />
-    </Link>
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
+        <Button variant="ghost" size="icon" className="relative">
+          {unseenCount > 0 && (
+            <span className="absolute top-0 right-0 bg-red-500 text-white w-4 h-4 rounded-full flex items-center justify-center text-xs z-10">
+              {unseenCount}
+            </span>
+          )}
+          <IoMdNotifications className="size-6 text-foreground" />
+        </Button>
+      </SheetTrigger>
+
+      <SheetContent
+        side="right"
+        className="w-[22rem] sm:w-[24rem] flex flex-col"
+      >
+        <SheetHeader>
+          <SheetTitle className="text-center">Notifications</SheetTitle>
+        </SheetHeader>
+        <div className="overflow-y-auto h-full">
+          <Notifications />
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 };
 
-export default NotificationsBtn;
+export default NotificationsSheet;

@@ -28,7 +28,7 @@ export const footerContent: FooterContent = {
   ],
   contact: {
     phone: "+923189974106",
-    email: "ezaashop1@gmail.com",
+    email: "ezaashop.official@gmail.com",
   },
   appLinks: [
     // { name: "App Store", href: "#", icon: FaApple },
