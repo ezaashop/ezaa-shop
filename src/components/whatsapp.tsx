@@ -44,7 +44,7 @@ const Whatsapp = () => {
       )}
 
       <div
-        className="h-14 w-14 flex items-center justify-center cursor-pointer bg-foreground/90 backdrop-blur-sm rounded-full shadow-lg"
+        className="h-14 w-14 flex items-center justify-center cursor-pointer bg-muted/90 backdrop-blur-sm rounded-full shadow-xl"
         onClick={() => setShowButton((prev) => !prev)}
       >
         <FaWhatsapp className="size-8 text-green-500" />

@@ -58,11 +58,11 @@ const menuItems = [
     href: "/coupons",
     icon: Ticket,
   },
-  {
-    label: "Payments",
-    href: "/payments",
-    icon: CreditCard,
-  },
+  // {
+  //   label: "Payments",
+  //   href: "/payments",
+  //   icon: CreditCard,
+  // },
   {
     label: "Referrals",
     href: "/referrals",
