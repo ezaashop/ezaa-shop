@@ -13,21 +13,25 @@ const Payments = () => {
     loading,
   } = payments || {};
 
+  const totalWalletAmount = wallet?.userWalletTotal || 0;
+  const totalCashback = cashbackInfo?.cash_back_sum || 0;
+  const totalCommission = commission?.totalCommission?.totalCommission || 0;
+
   return (
     <div>
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         <Card
           title="Total Wallet Amount"
-          value={`${wallet?.userWalletTotal || 0} PKR`}
+          value={`${totalWalletAmount} PKR`}
         />
         <Card
           title="Cashback Total"
-          value={`${cashbackInfo?.cash_back_sum || 0} PKR`}
+          value={`${totalCashback} PKR`}
         />
         <Card
           title="Total Commission"
-          value={`${commission?.totalCommission || 0} PKR`}
+          value={`${totalCommission} PKR`}
         />
       </div>
 

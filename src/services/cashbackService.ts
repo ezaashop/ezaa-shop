@@ -32,7 +32,7 @@ export const getRequestInfo = (userId: number) =>
     api.get(`/getUserRequestInfo/${userId}`).then((res) => res.data)
   );
 
-export const getTotalCommission = (userId: number) =>
+export const getUserTotalCommission = (userId: number) =>
   asyncHandler(() =>
     api.get(`/getUserTotalCommission/${userId}`).then((res) => res.data)
   );

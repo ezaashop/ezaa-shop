@@ -322,7 +322,7 @@ interface Commission {
   cash_back: number;
   directCommission: number;
   bucketCommission: number;
-  totalCommission: number;
+  totalCommission: {totalCommission: number};
   wallet_amount: number;
   created_at: string;
   updated_at: string;

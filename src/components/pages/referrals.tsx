@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { baseUrl } from "@/config/constants";
+import { useTotalCommission } from "@/hooks/useCashback";
 import { useAllUserTeams, useReferralCode } from "@/hooks/useReferral";
 import { useAppSelector } from "@/lib/store/hooks";
 import { useState } from "react";
@@ -41,24 +41,32 @@ const Referrals = () => {
   const { userId } = useAppSelector((state) => state.auth);
   const { data: referralData } = useReferralCode(userId || 0);
   const { data: allUserTeamsData } = useAllUserTeams(userId || 0);
+  const { data: userTotalCommission } = useTotalCommission(userId || 0);
+
+  console.log(allUserTeamsData);
 
   const referralCode = referralData?.data?.userReferalCode?.code || "------";
   const referralLink = `${baseUrl}/referral?code=${referralCode}`;
 
-  const teams = (allUserTeamsData?.data?.teams ||
-    {}) as ReferralTeamResponse["data"]["teams"];
-  const teamCounts = allUserTeamsData?.data?.team_counts || {};
-  const totalMembers = allUserTeamsData?.data?.overall_count || 0;
+  // const teams = (allUserTeamsData?.data?.teams ||
+  //   {}) as ReferralTeamResponse["data"]["teams"];
 
-  const totalCommission = Object.values(teams)
-    .flat()
-    .reduce((sum, member: TeamMember) => {
-      return (
-        sum +
-        (member.referal_user_info.directCommission || 0) +
-        (member.referal_user_info.bucketCommission || 0)
-      );
-    }, 0);
+  const allTeams = (allUserTeamsData?.data?.teams ||
+    {}) as ReferralTeamResponse["data"]["teams"];
+  const teams = Object.fromEntries(
+    Object.entries(allTeams).filter(([key]) =>
+      ["level_1", "level_2", "level_3"].includes(key)
+    )
+  );
+  // const totalMembers = allUserTeamsData?.data?.overall_count || 0;
+
+  const teamCounts = allUserTeamsData?.data?.team_counts || {};
+  const totalMembers =
+    (teamCounts["1"] || 0) + (teamCounts["2"] || 0) + (teamCounts["3"] || 0);
+
+  const totalCommission = parseFloat(
+    userTotalCommission?.data?.totalCommission?.totalCommission
+  )?.toFixed(2);
 
   const [copiedField, setCopiedField] = useState("");
   const handleCopy = (text: string, type: string) => {
@@ -66,7 +74,7 @@ const Referrals = () => {
     setCopiedField(type);
     setTimeout(() => setCopiedField(""), 2000);
   };
-
+  console.log(teams);
   return (
     <div className="space-y-4">
       {/* Header Section */}
@@ -90,7 +98,7 @@ const Referrals = () => {
             </div>
             <div>
               <Label className="text-signature">Total Commission</Label>
-              <H4>Rs. {totalCommission.toFixed(2)}</H4>
+              <H4>Rs. {totalCommission}</H4>
             </div>
           </div>
         </div>
@@ -141,7 +149,7 @@ const Referrals = () => {
 
       {/* Tabs for Levels */}
       <Tabs defaultValue="level_1" className="w-full">
-        <TabsList className="grid grid-cols-5 gap-1 w-full">
+        <TabsList className="grid grid-cols-3 gap-1 w-full">
           {Object.keys(teams).map((level) => (
             <TabsTrigger key={level} value={level} className="text-xs">
               {level.replace("level_", "Level ")}

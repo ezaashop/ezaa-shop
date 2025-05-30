@@ -6,7 +6,7 @@ import {
   getWalletTotal,
   requestPayment,
   getRequestInfo,
-  getTotalCommission,
+  getUserTotalCommission,
   PaymentRequestData,
 } from "@/services/cashbackService";
 
@@ -42,7 +42,7 @@ export const useRequestInfo = (userId: number) =>
 export const useTotalCommission = (userId: number) =>
   useQuery({
     queryKey: ["totalCommission", userId],
-    queryFn: () => getTotalCommission(userId),
+    queryFn: () => getUserTotalCommission(userId),
     enabled: !!userId,
   });
 
