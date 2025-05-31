@@ -4,7 +4,7 @@ import { api } from "@/lib/axios";
 
 export type PaymentRequestData = {
   amount: number;
-  account_id: string;
+  // account_id: string;
 };
 
 export const getTransactionPool = (userId: number) =>

@@ -16,9 +16,23 @@ import Favorite from "./favorite";
 import ImageCarousel from "./image-carousel";
 import Loader from "./loader";
 import RichText from "./rich-text";
+import { useReferralCode } from "@/hooks/useReferral";
 
 const ProductDetails = ({ id }: { id: number }) => {
   const { userId } = useAppSelector((store) => store.auth);
+  const { data: referralData } = useReferralCode(userId || 0);
+
+  const currentUrl = window.location.href;
+  const referralCode = referralData?.data?.userReferalCode?.code || "------";
+  const referralLink = `${currentUrl}?referral_code=${referralCode}`;
+
+  const [copiedField, setCopiedField] = useState("");
+  const handleCopy = (text: string, type: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedField(type);
+    setTimeout(() => setCopiedField(""), 2000);
+  };
+
   const { data, isLoading, isError, error } = useProductDetailByIdAndUser(
     id,
     userId || 0
@@ -68,7 +82,7 @@ const ProductDetails = ({ id }: { id: number }) => {
     toast.success("Added to cart!");
     setQuantity(1);
   };
-  console.log(product);
+
   return (
     <PhotoProvider>
       <Container className="my-8">
@@ -147,6 +161,15 @@ const ProductDetails = ({ id }: { id: number }) => {
                 onClick={handleAddToCart}
               >
                 Add to Cart
+              </Button>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 mt-4">
+              <Button
+                variant="default"
+                className="w-full"
+                onClick={() => handleCopy(referralLink, "link")}
+              >
+                {copiedField === "link" ? "Copied!" : "Copy referral link"}
               </Button>
             </div>
           </div>

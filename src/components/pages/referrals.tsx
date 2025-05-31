@@ -43,8 +43,6 @@ const Referrals = () => {
   const { data: allUserTeamsData } = useAllUserTeams(userId || 0);
   const { data: userTotalCommission } = useTotalCommission(userId || 0);
 
-  console.log(allUserTeamsData);
-
   const referralCode = referralData?.data?.userReferalCode?.code || "------";
   const referralLink = `${baseUrl}/referral?code=${referralCode}`;
 

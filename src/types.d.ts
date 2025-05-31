@@ -42,6 +42,8 @@ interface Wallet {
   wallet_amount: number;
   cash_back: number;
   bucketCommission: number;
+  minLimit: number;
+  maxLimit: number;
   created_at: string;
   updated_at: string;
 }
@@ -298,9 +300,9 @@ interface CashbackInfo {
 
 interface CashbackRequestInfo {
   // Assuming you have request data here; fill out according to your API response
-  status: string;
-  request_amount: number;
-  request_date: string;
+  amount: number;
+  created_at: string;
+  status: 0 | 1;
 }
 
 
