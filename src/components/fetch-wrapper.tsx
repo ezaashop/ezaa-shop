@@ -34,10 +34,19 @@ import {
   setCommission,
   setWallet,
 } from "@/lib/store/slices/cashbackSlice";
-
+import {
+  useAdminNotifications,
+  useCashbackNotifications,
+  useCommissionNotifications,
+} from "@/hooks/useNotifications";
+import {
+  setAdminNotifications,
+  setCashbackNotifications,
+  setCommissionNotifications,
+} from "@/lib/store/slices/notificationSlice";
 const FetchWrapper = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
-  const { userId } = useAppSelector((store) => store.auth);
+  const userId = useAppSelector((state) => state.auth.user?.id) || "";
 
   // Fetching product-related data
   const { data: categories, isPending } = useCategories();
@@ -125,6 +134,28 @@ const FetchWrapper = ({ children }: { children: React.ReactNode }) => {
     isError,
     error,
   } = usePopularProducts(userId || 0);
+
+  const { data: cashbackData } = useCashbackNotifications(userId);
+  const { data: commissionData } = useCommissionNotifications(userId);
+  const { data: adminData } = useAdminNotifications(userId);
+
+  useEffect(() => {
+    if (cashbackData?.data?.userCashBack) {
+      dispatch(setCashbackNotifications(cashbackData.data.userCashBack));
+    }
+  }, [cashbackData, dispatch]);
+
+  useEffect(() => {
+    if (commissionData?.data?.userCommission) {
+      dispatch(setCommissionNotifications(commissionData.data.userCommission));
+    }
+  }, [commissionData, dispatch]);
+
+  useEffect(() => {
+    if (adminData?.data?.adminNotification) {
+      dispatch(setAdminNotifications(adminData.data.adminNotification));
+    }
+  }, [adminData, dispatch]);
 
   useEffect(() => {
     if (popularProducts) {

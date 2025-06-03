@@ -8,47 +8,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import {
-  useAdminNotifications,
-  useCashbackNotifications,
-  useCommissionNotifications,
-} from "@/hooks/useNotifications";
-import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
-import {
-  setAdminNotifications,
-  setCashbackNotifications,
-  setCommissionNotifications,
-} from "@/lib/store/slices/notificationSlice";
-import { useEffect, useState } from "react";
+import { useAppSelector } from "@/lib/store/hooks";
+import { useState } from "react";
 import { IoMdNotifications } from "react-icons/io";
 import Notifications from "./pages/notifications";
 
 const NotificationsSheet = () => {
   const [open, setOpen] = useState(false);
-  const dispatch = useAppDispatch();
-  const userId = useAppSelector((state) => state.auth.user?.id) || "";
-
-  const { data: cashbackData } = useCashbackNotifications(userId);
-  const { data: commissionData } = useCommissionNotifications(userId);
-  const { data: adminData } = useAdminNotifications(userId);
-
-  useEffect(() => {
-    if (cashbackData?.data?.userCashBack) {
-      dispatch(setCashbackNotifications(cashbackData.data.userCashBack));
-    }
-  }, [cashbackData, dispatch]);
-
-  useEffect(() => {
-    if (commissionData?.data?.userCommission) {
-      dispatch(setCommissionNotifications(commissionData.data.userCommission));
-    }
-  }, [commissionData, dispatch]);
-
-  useEffect(() => {
-    if (adminData?.data?.adminNotification) {
-      dispatch(setAdminNotifications(adminData.data.adminNotification));
-    }
-  }, [adminData, dispatch]);
 
   const { cashback, commission, admin } = useAppSelector(
     (state) => state.notifications

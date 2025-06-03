@@ -59,8 +59,8 @@ const menuItems = [
     icon: Ticket,
   },
   {
-    label: "Payments",
-    href: "/payments",
+    label: "Wallet",
+    href: "/wallet",
     icon: CreditCard,
   },
   {

@@ -272,15 +272,18 @@ interface NotificationBase {
   descriptions: string;
   created_at: string;
   seen: string | number;
+ 
 }
 
 interface CashbackNotification extends NotificationBase {
   cash_back_return: string;
+  _type: "cashback";
 }
 
 interface CommissionNotification extends NotificationBase {
   directCommission?: string | null;
   bucketCommission?: string | null;
+  _type: "commission";
 }
 
 interface AdminNotification extends NotificationBase {

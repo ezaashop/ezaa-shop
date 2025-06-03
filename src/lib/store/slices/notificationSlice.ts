@@ -1,10 +1,10 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
-  NotificationBase,
   AdminNotification,
   CashbackNotification,
   CommissionNotification,
+  NotificationBase,
 } from "@/types";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface NotificationsState {
   cashback: CashbackNotification[];
@@ -26,19 +26,19 @@ export const notificationsSlice = createSlice({
       state,
       action: PayloadAction<CashbackNotification[]>
     ) => {
-      state.cashback = action.payload;
+      state.cashback = [...action.payload].reverse();
     },
     setCommissionNotifications: (
       state,
       action: PayloadAction<CommissionNotification[]>
     ) => {
-      state.commission = action.payload;
+      state.commission = [...action.payload].reverse();
     },
     setAdminNotifications: (
       state,
       action: PayloadAction<AdminNotification[]>
     ) => {
-      state.admin = action.payload;
+      state.admin = [...action.payload].reverse();
     },
     markAsSeen: (
       state,
