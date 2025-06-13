@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FaPhone } from "react-icons/fa";
+import { FaUser, FaPhone } from "react-icons/fa";
 import { MdAlternateEmail } from "react-icons/md";
 import { RiUserSharedLine } from "react-icons/ri";
 import Loader from "../loader";
@@ -15,33 +15,51 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import PasswordInput from "./fields/password-input";
 import TextInput from "./fields/text-input";
+import { useSearchParams } from "next/navigation";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const SignupForm = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const referralCode = searchParams.get("referralCode");
   const {
     control,
     handleSubmit,
     formState: { isSubmitting },
+    reset,
   } = useForm<Signup>({
     resolver: zodResolver(SignupSchema),
     defaultValues: {
+      fname: "",
+      lname: "",
       email: "",
       phone: "",
       password: "",
-      referal_code: "",
+      referal_code: referralCode || "",
     },
   });
 
-  const { mutate: register, isPending, error } = useRegister();
+  const { mutate: register, isPending } = useRegister();
   const [isTermsChecked, setIsTermsChecked] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const onSubmit = async (data: Signup) => {
     try {
       await register(data, {
         onSuccess: (res) => {
-          console.log("Signup successful:", res);
+          if (res?.data?.error) {
+            setError(res?.data?.error);
+          } else {
+            setError(null);
+            reset();
+            toast.success("Signup successful, login to continue.");
+            router.push("/auth/login");
+          }
         },
         onError: (err) => {
           console.log("Signup failed:", err);
+          toast.error("Signup failed. Please try again.");
         },
       });
     } catch (error) {
@@ -56,6 +74,18 @@ const SignupForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full">
       <div className="grid gap-2">
+        <TextInput
+          name="fname"
+          placeholder="Enter first name"
+          control={control}
+          icon={<FaUser />}
+        />
+        <TextInput
+          name="lname"
+          placeholder="Enter last name"
+          control={control}
+          icon={<FaUser />}
+        />
         <TextInput
           name="email"
           placeholder="Enter email"
@@ -92,6 +122,8 @@ const SignupForm = () => {
             Agree with terms and conditions
           </Link>
         </div>
+
+        {error && <p className="text-red-500 text-xs mt-2">{error}</p>}
       </div>
 
       <Button

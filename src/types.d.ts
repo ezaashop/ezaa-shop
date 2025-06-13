@@ -12,6 +12,8 @@ type Auth = {
 type Login = Auth;
 
 type Signup = Auth & {
+  fname: string;
+  lname: string;
   phone: string;
   referal_code?: string;
 };
@@ -272,7 +274,6 @@ interface NotificationBase {
   descriptions: string;
   created_at: string;
   seen: string | number;
- 
 }
 
 interface CashbackNotification extends NotificationBase {
@@ -308,7 +309,6 @@ interface CashbackRequestInfo {
   status: 0 | 1;
 }
 
-
 interface Wallet {
   userWalletTotal: number;
   totalCommission: number;
@@ -327,8 +327,8 @@ interface Commission {
   cash_back: number;
   directCommission: number;
   bucketCommission: number;
-  totalCommission: {totalCommission: number};
+  totalCommission: { totalCommission: number };
   wallet_amount: number;
   created_at: string;
   updated_at: string;
-} 
+}

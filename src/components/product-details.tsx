@@ -37,8 +37,12 @@ const ProductDetails = ({ id }: { id: number }) => {
     id,
     userId || 0
   );
+  console.log(data, "data");
   const [quantity, setQuantity] = useState(1);
   const product = data?.data?.productDetails;
+  const {averageReviews} = data?.data || {};
+
+  console.log(averageReviews, "averageReviews");
 
   const dispatch = useAppDispatch();
 

@@ -3,6 +3,14 @@ import Link from "next/link";
 import Brand from "./brand";
 import Container from "./container";
 import { Small } from "./typography";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+//VisuallyHidden
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 const Footer = () => {
   return (
@@ -36,10 +44,7 @@ const Footer = () => {
               <ul className="space-y-2 text-sm text-muted-foreground">
                 {section.links.map((link, i) => (
                   <li key={i}>
-                    <Link
-                      href={link.href}
-                      className="hover:underline"
-                    >
+                    <Link href={link.href} className="hover:underline">
                       {link.name}
                     </Link>
                   </li>
@@ -55,17 +60,39 @@ const Footer = () => {
             <p className="text-sm mb-4">{footerContent.contact.email}</p>
             <div className="flex flex-col sm:flex-row gap-2 mt-4">
               <div className="flex gap-2 mt-4 w-full">
-                {footerContent.appLinks.map((app, i) => (
-                  <Link
-                    key={i}
-                    href={app.href}
-                    className="bg-signature text-white w-full p-2 rounded text-xs flex items-center justify-center gap-2"
-                    target="_blank"
-                  >
-                    <app.icon className="text-lg" />
-                    {app.name}
-                  </Link>
-                ))}
+                {footerContent.appLinks.map((app, i) =>
+                  app.href === "#" ? (
+                    <Dialog key={i}>
+                      <DialogTrigger asChild>
+                        <button
+                          className="bg-signature text-white w-full p-2 rounded text-xs flex items-center justify-center gap-2"
+                          type="button"
+                        >
+                          <app.icon className="text-lg" />
+                          {app.name}
+                        </button>
+                      </DialogTrigger>
+                      <DialogContent className="text-center h-24 py-10">
+                        <DialogTitle>Coming Soon</DialogTitle>
+                        <VisuallyHidden>
+                          <p className="text-sm capitalize">
+                            🚧 coming soon!
+                          </p>
+                        </VisuallyHidden>
+                      </DialogContent>
+                    </Dialog>
+                  ) : (
+                    <Link
+                      key={i}
+                      href={app.href}
+                      className="bg-signature text-white w-full p-2 rounded text-xs flex items-center justify-center gap-2"
+                      target="_blank"
+                    >
+                      <app.icon className="text-lg" />
+                      {app.name}
+                    </Link>
+                  )
+                )}
               </div>
             </div>
           </div>

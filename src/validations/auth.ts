@@ -8,6 +8,8 @@ export const AuthSchema = z.object({
 export const LoginSchema = AuthSchema;
 
 export const SignupSchema = AuthSchema.extend({
+  fname: z.string().min(1, "First name is required"),
+  lname: z.string().min(1, "Last name is required"),
   phone: z.string().min(10, "Phone number must be at least 10 characters"),
   referal_code: z.string().optional(),
 });

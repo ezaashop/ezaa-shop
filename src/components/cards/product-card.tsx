@@ -48,7 +48,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
         className="absolute top-5 right-5 z-20 pointer-events-auto "
       />
       <Link href={`/products/${id}`} className="block pointer-events-auto">
-        <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-white">
+        <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-white">
           {product_image.length > 0 ? (
             <Carousel opts={{ loop: true }} autoplay={true}>
               <CarouselContent>
@@ -59,7 +59,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
                       alt={name || "Product image"}
                       width={150}
                       height={150}
-                      className="object-contain w-full h-36 mx-auto"
+                      className="object-contain z h-36 mx-auto"
                     />
                   </CarouselItem>
                 ))}
