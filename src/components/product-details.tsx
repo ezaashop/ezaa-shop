@@ -72,6 +72,7 @@ const ProductDetails = ({ id }: { id: number }) => {
         category_name: product.category?.name,
         image: product.product_image[0].image,
         quantity: 1,
+        price: parseFloat(product.product_deatils[0].price),
         selling_price: parseFloat(product.product_deatils[0].selling_price),
         sub_total: parseFloat(product.product_deatils[0].selling_price),
       })
