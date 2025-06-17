@@ -15,7 +15,6 @@ import { setSelectedCategoryId } from "@/lib/store/slices/productSlice";
 import { Category } from "@/types";
 import { useDispatch } from "react-redux";
 import MyImage from "./my-image";
-import { ShoppingCart } from "lucide-react";
 
 const Categories = () => {
   const { data: categories, isLoading, isError, error } = useCategories();
@@ -61,25 +60,23 @@ const Categories = () => {
             <CarouselItem
               key={category.id}
               onClick={() => dispatch(setSelectedCategoryId(category.id))}
-              className="pl-3 basis-auto w-36 cursor-pointer"
+              className="pl-3 basis-auto w-32 cursor-pointer "
             >
               <div
-                className={`flex flex-col items-center rounded-2xl p-3 shadow-md bg-card border border-transparent transition-all duration-200 hover:shadow-lg  ${
+                className={`flex flex-col items-center gap-2 rounded-xl overflow-hidden p-4 transition-colors duration-200 shadow ${
                   selectedCategoryId == category.id
-                    ? "border-signature ring-signature bg-signature/10 dark:bg-signature/20 border-signature/50"
-                    : "hover:border-signature/30"
+                    ? "bg-signature/20"
+                    : ""
                 }`}
               >
-                <div className="w-full aspect-square rounded-xl bg-background shadow-inner flex items-center justify-center group overflow-hidden">
-                  <MyImage
-                    src={category.image}
-                    alt={category.name}
-                    width={120}
-                    height={120}
-                    className="object-contain w-full h-full transition-transform duration-200 hover:scale-110"
-                  />
-                </div>
-                <span className="text-sm font-semibold text-center text-foreground line-clamp-1 mt-1">
+                <MyImage
+                  src={category.image}
+                  alt={category.name}
+                  width={80}
+                  height={80}
+                  className="w-full h-20 object-cover rounded-md transition-transform hover:scale-105"
+                />
+                <span className="text-xs font-medium text-center text-foreground line-clamp-1">
                   {category.name}
                 </span>
               </div>
