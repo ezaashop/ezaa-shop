@@ -114,7 +114,7 @@ const AboutPage = () => {
               <div>
                 <h3 className="font-bold text-base sm:text-lg mb-1 text-foreground">Customer First</h3>
                 <p className="text-muted-foreground text-sm sm:text-base">
-                  Every decision we make starts with what's best for our customers.
+                  Every decision we make starts with what&apos;s best for our customers.
                 </p>
               </div>
             </div>

@@ -37,7 +37,7 @@ const ContactUs = () => {
           <section className="text-center py-8 bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg">
             <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-3 sm:mb-4">Get in Touch</h1>
             <p className="text-base sm:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
-              Have questions? We're here to help. Reach out to us through any of the following channels.
+              Have questions? We&apos;re here to help. Reach out to us through any of the following channels.
             </p>
           </section>
 
