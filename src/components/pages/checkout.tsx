@@ -92,7 +92,7 @@ const Checkout = () => {
 
   const handleCheckout = () => {
     if (!image) {
-      alert("Please upload a payment screenshot.");
+      toast.error("Please upload a payment screenshot.");
       return;
     }
 
@@ -106,7 +106,7 @@ const Checkout = () => {
     // Ensure each product has the required price field
     const productsWithPrice = products.map(product => ({
       ...product,
-      price: product.selling_price // Use selling_price as the  price
+      price: product.price // Use selling_price as the  price
     }));
     
     formData.append("products", JSON.stringify(productsWithPrice));
