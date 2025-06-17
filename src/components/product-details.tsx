@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { useProductDetailByIdAndUser } from "@/hooks/useProducts";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { addProduct } from "@/lib/store/slices/cartSlice";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import { PhotoProvider } from "react-photo-view";
 import { toast } from "sonner";
@@ -17,6 +17,7 @@ import ImageCarousel from "./image-carousel";
 import Loader from "./loader";
 import RichText from "./rich-text";
 import { useReferralCode } from "@/hooks/useReferral";
+import { RiShoppingBag3Fill} from "react-icons/ri";
 
 const ProductDetails = ({ id }: { id: number }) => {
   const { userId } = useAppSelector((store) => store.auth);
@@ -60,15 +61,9 @@ const ProductDetails = ({ id }: { id: number }) => {
     );
   }
 
-  const discount = Math.round(
-    ((parseFloat(product.product_deatils[0]?.selling_price) -
-      parseFloat(product.product_deatils[0]?.price)) /
-      parseFloat(product.product_deatils[0]?.selling_price)) *
-      100
-  );
 
   const handleAddToCart = () => {
-    if (!product?.id || !product.product_deatils[0]?.price) return;
+    if (!product?.id || !product.product_deatils[0]?.selling_price) return;
 
     dispatch(
       addProduct({
@@ -77,7 +72,6 @@ const ProductDetails = ({ id }: { id: number }) => {
         category_name: product.category?.name,
         image: product.product_image[0].image,
         quantity: 1,
-        price: parseFloat(product.product_deatils[0].selling_price),
         selling_price: parseFloat(product.product_deatils[0].selling_price),
         sub_total: parseFloat(product.product_deatils[0].selling_price),
       })
@@ -122,12 +116,12 @@ const ProductDetails = ({ id }: { id: number }) => {
             </h1>
             <div className="flex items-center gap-2 mt-2">
               <span className="text-xl font-semibold text-green-600">
-                PKR {product.product_deatils[0]?.price}
-              </span>
-              <span className="text-gray-400 line-through">
                 PKR {product.product_deatils[0]?.selling_price}
               </span>
-              <Badge variant="destructive">Save {discount}%</Badge>
+              {/* <span className="text-gray-400 line-through">
+                PKR {product.product_deatils[0]?.price}
+              </span> */}
+              {/* <Badge variant="destructive">Save {discount}%</Badge> */}
             </div>
 
             <div className="flex items-center gap-4 mt-4">
@@ -161,10 +155,22 @@ const ProductDetails = ({ id }: { id: number }) => {
             <div className="flex flex-col sm:flex-row gap-4 mt-6">
               <Button
                 variant="signature"
-                className="w-full"
+                className="w-full sm:w-5/11"
                 onClick={handleAddToCart}
               >
+                <ShoppingCart size={16} className="mr-2" />
                 Add to Cart
+              </Button>
+              <Button
+                variant="default"
+                className="w-full sm:w-5/11"
+                onClick={() => {
+                  handleAddToCart();
+                  window.location.href = '/cart';
+                }}
+              >
+                <RiShoppingBag3Fill size={16} className="mr-2" />
+                Pay Now
               </Button>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 mt-4">

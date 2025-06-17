@@ -34,22 +34,22 @@ const Whatsapp = () => {
       onMouseLeave={() => setShowButton(false)}
     >
       {showButton && (
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-white px-4 py-2 rounded-lg shadow-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+        <div
+          className="bg-white px-4 py-2 rounded-lg shadow-lg text-sm font-medium text-green-500 hover:text-green-600 hover:bg-gray-50 transition-colors"
         >
           Chat with us
-        </a>
+        </div>
       )}
 
-      <div
-        className="h-14 w-14 flex items-center justify-center cursor-pointer bg-muted/90 backdrop-blur-sm rounded-full shadow-xl"
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="h-14 w-14 flex items-center justify-center cursor-pointer bg-muted/90 backdrop-blur-sm rounded-full shadow-xl hover:bg-muted/80 transition-colors"
         onClick={() => setShowButton((prev) => !prev)}
       >
         <FaWhatsapp className="size-8 text-green-500" />
-      </div>
+      </a>
     </div>
   );
 };
