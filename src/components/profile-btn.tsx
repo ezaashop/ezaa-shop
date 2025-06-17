@@ -35,18 +35,19 @@ import {
   User,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { RiUserSharedLine } from "react-icons/ri";
+import { RiUserSharedLine, RiShoppingBag3Line, RiHeart3Line, RiTeamLine, RiCustomerService2Line } from "react-icons/ri";
+import { DialogDescription } from "@/components/ui/dialog";
 
 const menuItems = [
   {
     label: "Profile",
     href: "/profile",
-    icon: User,
+    icon: RiUserSharedLine,
   },
   {
     label: "Orders",
     href: "/orders",
-    icon: ShoppingCart,
+    icon: RiShoppingBag3Line,
   },
   {
     label: "Bank Accounts",
@@ -77,6 +78,16 @@ const menuItems = [
     label: "Notifications",
     href: "/notifications",
     icon: Bell,
+  },
+  {
+    label: "About Us",
+    href: "/about",
+    icon: RiTeamLine,
+  },
+  {
+    label: "Contact Us",
+    href: "/contact-us",
+    icon: RiCustomerService2Line,
   },
 ];
 
@@ -114,50 +125,89 @@ const UserBtn = () => {
         </Button>
       </SheetTrigger>
 
-      <SheetContent side="right" className="w-64 flex flex-col justify-between">
-        <div>
-          <SheetHeader>
-            <SheetTitle className="text-center">Menu</SheetTitle>
-          </SheetHeader>
-          <div className="mt-6 flex flex-col gap-4">
-            {menuItems.map(({ label, href, icon: Icon }) => (
-              <Link
-                key={href}
-                href={href}
-                onClick={() => setOpenSheet(false)}
-                className="flex items-center gap-3 p-2 rounded-md hover:bg-muted transition"
-              >
-                <Icon className="w-5 h-5" />
-                <span>{label}</span>
-              </Link>
-            ))}
+      <SheetContent side="right" className="w-72 flex flex-col bg-gradient-to-b from-background to-muted/50">
+        {/* Header */}
+        <SheetHeader className="border-b border-border pb-4">
+          <SheetTitle className="text-xl font-bold text-center bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+            Menu
+          </SheetTitle>
+        </SheetHeader>
+
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto">
+          <div className="py-4">
+            {/* Main Menu Items */}
+            <div className="flex flex-col gap-2">
+              {menuItems.slice(0, 3).map(({ label, href, icon: Icon }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={() => setOpenSheet(false)}
+                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-primary/10 transition-all duration-200 group"
+                >
+                  <Icon className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                  <span className="font-medium group-hover:text-primary transition-colors">{label}</span>
+                </Link>
+              ))}
+            </div>
+
+            {/* Divider */}
+            <div className="my-4 px-3">
+              <div className="h-px bg-border/50" />
+            </div>
+
+            {/* About and Contact Section */}
+            <div className="flex flex-col gap-2">
+              <div className="px-3 mb-2">
+                <span className="text-sm font-medium text-muted-foreground">Information</span>
+              </div>
+              {menuItems.slice(3).map(({ label, href, icon: Icon }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={() => setOpenSheet(false)}
+                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-primary/10 transition-all duration-200 group"
+                >
+                  <Icon className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                  <span className="font-medium group-hover:text-primary transition-colors">{label}</span>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Logout Button with Confirmation */}
-        <div className="mb-4">
+        {/* Fixed Logout Button */}
+        <div className="border-t border-border pt-4 pb-2">
           <Dialog open={openDialog} onOpenChange={setOpenDialog}>
             <DialogTrigger asChild>
               <Button
                 variant="ghost"
-                className="w-full justify-start text-red-600 hover:text-red-700 gap-3"
+                className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50 gap-3 p-3 rounded-lg transition-all duration-200 group"
               >
-                <LogOut className="w-5 h-5" />
-                Logout
+                <LogOut className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                <span className="font-medium">Logout</span>
               </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
-                <DialogTitle>Are you sure you want to logout?</DialogTitle>
+                <DialogTitle className="text-xl font-bold text-center">Confirm Logout</DialogTitle>
+                <DialogDescription className="text-center text-muted-foreground">
+                  Are you sure you want to logout from your account?
+                </DialogDescription>
               </DialogHeader>
-              <DialogFooter className="flex justify-end gap-2">
+              <DialogFooter className="flex justify-end gap-3 mt-4">
                 <Button
-                  variant="secondary"
+                  variant="outline"
                   onClick={() => setOpenDialog(false)}
+                  className="hover:bg-muted"
                 >
                   Cancel
                 </Button>
-                <Button variant="destructive" onClick={handleLogout}>
+                <Button 
+                  variant="destructive" 
+                  onClick={handleLogout}
+                  className="bg-red-600 hover:bg-red-700"
+                >
                   Logout
                 </Button>
               </DialogFooter>

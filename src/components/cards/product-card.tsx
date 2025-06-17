@@ -13,6 +13,7 @@ import { Product } from "@/types";
 import { toast } from "sonner";
 import Favorite from "../favorite";
 import MyImage from "../my-image";
+import { ShoppingCart } from "lucide-react";
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const { id, product_image, name, product_deatils } = product;
@@ -94,8 +95,9 @@ export const ProductCard = ({ product }: { product: Product }) => {
         <Button
           onClick={handleAddToCart}
           variant="link"
-          className="block mx-auto text-xs font-semibold mt-1 text-primary"
+          className="block mx-auto text-xs font-semibold mt-1 text-primary flex items-center gap-1"
         >
+          <ShoppingCart size={16} />
           ADD TO CART
         </Button>
       </div>

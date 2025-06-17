@@ -62,6 +62,14 @@ const AuthForm = ({
             </Link>
           </small>
 
+          {/* Contact Us Link */}
+          <Link
+            href="/contact-us"
+            className="text-xs text-signature font-semibold mt-4 block"
+          >
+            Contact Us
+          </Link>
+
           {/* <>
             <small>Or {login ? "Login" : "Sign Up"} with </small>
             <div className="flex items-center justify-between gap-2 w-full">
