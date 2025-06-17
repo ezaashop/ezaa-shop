@@ -125,9 +125,12 @@ const UserBtn = () => {
         </Button>
       </SheetTrigger>
 
-      <SheetContent side="right" className="w-72 flex flex-col bg-gradient-to-b from-background to-muted/50">
+      <SheetContent 
+        side="right" 
+        className="w-72 flex flex-col bg-background/80 backdrop-blur-md border-l border-border/50"
+      >
         {/* Header */}
-        <SheetHeader className="border-b border-border pb-4">
+        <SheetHeader className="border-b border-border/50 pb-4">
           <SheetTitle className="text-xl font-bold text-center bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
             Menu
           </SheetTitle>
@@ -143,7 +146,7 @@ const UserBtn = () => {
                   key={href}
                   href={href}
                   onClick={() => setOpenSheet(false)}
-                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-primary/10 transition-all duration-200 group"
+                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-primary/5 transition-all duration-200 group"
                 >
                   <Icon className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
                   <span className="font-medium group-hover:text-primary transition-colors">{label}</span>
@@ -153,20 +156,20 @@ const UserBtn = () => {
 
             {/* Divider */}
             <div className="my-4 px-3">
-              <div className="h-px bg-border/50" />
+              <div className="h-px bg-border/30" />
             </div>
 
             {/* About and Contact Section */}
             <div className="flex flex-col gap-2">
               <div className="px-3 mb-2">
-                <span className="text-sm font-medium text-muted-foreground">Information</span>
+                <span className="text-sm font-medium text-muted-foreground/80">Information</span>
               </div>
               {menuItems.slice(3).map(({ label, href, icon: Icon }) => (
                 <Link
                   key={href}
                   href={href}
                   onClick={() => setOpenSheet(false)}
-                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-primary/10 transition-all duration-200 group"
+                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-primary/5 transition-all duration-200 group"
                 >
                   <Icon className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
                   <span className="font-medium group-hover:text-primary transition-colors">{label}</span>
@@ -177,12 +180,12 @@ const UserBtn = () => {
         </div>
 
         {/* Fixed Logout Button */}
-        <div className="border-t border-border pt-4 pb-2">
+        <div className="border-t border-border/50 pt-4 pb-2">
           <Dialog open={openDialog} onOpenChange={setOpenDialog}>
             <DialogTrigger asChild>
               <Button
                 variant="ghost"
-                className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50 gap-3 p-3 rounded-lg transition-all duration-200 group"
+                className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50/50 gap-3 p-3 rounded-lg transition-all duration-200 group"
               >
                 <LogOut className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <span className="font-medium">Logout</span>

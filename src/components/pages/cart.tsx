@@ -8,6 +8,7 @@ import CartItem from "../cards/cart-item";
 import Coupon from "../coupon";
 import { Paragraph, Small } from "../typography";
 import { Separator } from "../ui/separator";
+import { RiShoppingBag3Fill } from "react-icons/ri";
 
 const Cart = () => {
   return (
@@ -71,7 +72,8 @@ const CartSummary = () => {
 
         <Link href="/checkout" className="w-full">
           <Button variant="signature" className="w-full">
-            Checkout
+          <RiShoppingBag3Fill size={16} className="mr-2" />
+          Pay Now
           </Button>
         </Link>
       </CardContent>

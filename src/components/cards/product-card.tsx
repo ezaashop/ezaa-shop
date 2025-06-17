@@ -17,14 +17,14 @@ import MyImage from "../my-image";
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const { id, product_image, name, product_deatils } = product;
-  const { price, selling_price } = product_deatils[0] || {};
+  const { selling_price } = product_deatils[0] || {};
   const dispatch = useAppDispatch();
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
 
-    if (!id || !price) return;
+    if (!id || !selling_price) return;
 
     dispatch(
       addProduct({
@@ -33,8 +33,8 @@ export const ProductCard = ({ product }: { product: Product }) => {
         category_name: product.category?.name,
         image: product.product_image[0].image,
         quantity: 1,
-        price: parseFloat(product.product_deatils[0].selling_price),
-        selling_price: parseFloat(product.product_deatils[0].selling_price),
+         selling_price: parseFloat(product.product_deatils[0].selling_price),
+         price: parseFloat(product.product_deatils[0].price),
         sub_total: parseFloat(product.product_deatils[0].selling_price),
       })
     );
@@ -43,13 +43,13 @@ export const ProductCard = ({ product }: { product: Product }) => {
   };
 
   return (
-    <div className="w-full bg-secondary p-3 rounded-2xl shadow hover:shadow-md transition-all relative pointer-events-none">
+    <div className="w-full bg-secondary p-3 rounded-2xl shadow hover:shadow-md transition-all relative pointer-events-none hover:bg-signature/10 hover:border-1 hover:border-solid">
       <Favorite
         product={product}
         className="absolute top-5 right-5 z-20 pointer-events-auto "
       />
       <Link href={`/products/${id}`} className="block pointer-events-auto">
-        <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-white">
+        <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-white ">
           {product_image.length > 0 ? (
             <Carousel opts={{ loop: true }} autoplay={true}>
               <CarouselContent>
@@ -78,28 +78,25 @@ export const ProductCard = ({ product }: { product: Product }) => {
             {name}
           </h3>
         )}
-        {selling_price && (
-          <div className="flex justify-center items-center gap-2 mt-1 text-sm">
-            {price && (
-              <span className="text-muted-foreground line-through">
-                PKR {selling_price}
-              </span>
-            )}
-            {price && (
-              <span className="text-red-600 font-bold">PKR {price}</span>
+        {selling_price && 
+        (
+          <div className="flex justify-center items-center gap-2 mt-1 text-xs">
+            {selling_price && (
+              <span className="text-red-600 font-bold">PKR {selling_price}</span>
             )}
           </div>
         )}
       </Link>
       <div className="pointer-events-auto">
-        <Button
-          onClick={handleAddToCart}
-          variant="link"
-          className="block mx-auto text-xs font-semibold mt-1 text-primary"
-        >
-         <ShoppingCart size={16} />
-           ADD TO CART
-        </Button>
+      <Button
+  onClick={handleAddToCart}
+  variant="link"
+  className="flex items-center gap-1 mx-auto text-xs font-semibold mt-0 text-primary"
+>
+  <ShoppingCart size={16} />
+  ADD TO CART
+</Button>
+
       </div>
     </div>
   );

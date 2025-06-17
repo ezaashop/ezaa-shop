@@ -46,40 +46,41 @@ const Categories = () => {
 
   // Main content
   return (
-    <div className="my-8">
+    <div className="my-8"  >
       <H3 className="text-center mb-6">Categories</H3>
       <Carousel
         opts={{
           align: "start",
           dragFree: true,
         }}
-        className="w-full"
+        className="w-full -mx-3"
       >
-        <CarouselContent className="-ml-2">
+        <CarouselContent className="px-3">
           {categories.data.categories.map((category: Category) => (
             <CarouselItem
               key={category.id}
               onClick={() => dispatch(setSelectedCategoryId(category.id))}
-              className="pl-3 basis-auto w-32 cursor-pointer "
+              className="basis-auto w-32 cursor-pointer"
             >
-              <div
-                className={`flex flex-col items-center gap-2 rounded-xl overflow-hidden p-4 transition-colors duration-200 shadow ${
-                  selectedCategoryId == category.id
-                    ? "bg-signature/20"
-                    : ""
-                }`}
-              >
-                <MyImage
-                  src={category.image}
-                  alt={category.name}
-                  width={80}
-                  height={80}
-                  className="w-full h-20 object-cover rounded-md transition-transform hover:scale-105"
-                />
-                <span className="text-xs font-medium text-center text-foreground line-clamp-1">
-                  {category.name}
-                </span>
-              </div>
+          <div
+  className={`flex flex-col items-center rounded-xl transition-all duration-200 ${
+    selectedCategoryId === category.id
+      ? "bg-signature/50 border-2 border-solid"
+      : "hover:bg-signature/15 hover:border-1 hover:border-solid bg-muted/53"
+  }`}
+>
+  <MyImage
+    src={category.image}
+    alt={category.name}
+    width={80}
+    height={80}
+    className="w-full h-22 object-contain bg-white transition-transform hover:scale-90 rounded-t-xl"
+  />
+  <span className="text-xs font-medium gap-2 p-2 text-center text-foreground px-1 truncate w-full">
+    {category.name}
+  </span>
+</div>
+
             </CarouselItem>
           ))}
         </CarouselContent>
