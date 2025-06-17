@@ -1,4 +1,5 @@
 "use client";
+import { ShoppingCart } from "lucide-react";
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -96,7 +97,8 @@ export const ProductCard = ({ product }: { product: Product }) => {
           variant="link"
           className="block mx-auto text-xs font-semibold mt-1 text-primary"
         >
-          ADD TO CART
+         <ShoppingCart size={16} />
+           ADD TO CART
         </Button>
       </div>
     </div>

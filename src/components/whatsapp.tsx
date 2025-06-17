@@ -5,7 +5,7 @@ import { FaWhatsapp } from "react-icons/fa";
 
 const Whatsapp = () => {
   const [showButton, setShowButton] = useState(false);
-  const { phone } = footerContent.contact || {};
+  const phone = footerContent?.contact?.phone;
   const whatsappUrl = `https://wa.me/${phone?.replace(/\D/g, "")}`;
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -30,16 +30,17 @@ const Whatsapp = () => {
     <div
       ref={wrapperRef}
       className="fixed bottom-8 right-8 z-50 flex flex-col items-end space-y-2"
+      onMouseEnter={() => setShowButton(true)}
+      onMouseLeave={() => setShowButton(false)}
     >
       {showButton && (
         <a
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-green-600 text-white rounded-full shadow-md hover:bg-green-700 transition cursor-pointer"
+          className="bg-white px-4 py-2 rounded-lg shadow-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
         >
-          <FaWhatsapp className="text-white" />
-          Chat on WhatsApp
+          Chat with us
         </a>
       )}
 

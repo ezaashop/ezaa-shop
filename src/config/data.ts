@@ -21,6 +21,7 @@ export const footerContent: FooterContent = {
       title: "Information",
       links: [
         { name: "About", href: "/about" },
+        { name: "Contact Us", href: "/contact-us" },
         { name: "Privacy Policy", href: "/privacy-policy" },
         { name: "Terms & Conditions", href: "/terms-conditions" },
       ],
