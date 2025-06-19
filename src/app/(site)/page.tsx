@@ -4,7 +4,7 @@ import Hero from "@/components/hero";
 import PopularProducts from "@/components/popular-products";
 import Products from "@/components/products";
 import Subcategories from "@/components/subcategories";
-import SocialFloat from "@/components/social-float";
+import Whatsapp from "@/components/whatsapp";
 
 const HomePage = () => {
   return (
@@ -14,7 +14,7 @@ const HomePage = () => {
       <Subcategories />
       <Products />
       <PopularProducts />
-      <SocialFloat />
+      <Whatsapp/>
     </Container>
   );
 };
