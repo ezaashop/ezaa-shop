@@ -8,7 +8,7 @@ import {
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   const isDev = process.env.NODE_ENV === "development";
 
-  if (!isDev) {
+  if (isDev) {
     return (
       <NextThemesProvider
         {...props}
