@@ -5,6 +5,13 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import "react-photo-view/dist/react-photo-view.css";
 import TopLoader from "@/components/top-loader";
+import { Inter } from "next/font/google";
+import StoreProvider from "@/lib/store/StoreProvider";
+import { ThemeProvider } from "@/components/theme-provider";
+import ReferralHandler from "@/components/referral-handler";
+import ReferralNotification from "@/components/referral-notification";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Ezaa Shop",
@@ -21,14 +28,25 @@ export default async function RootLayout({
   const { locale } = await params;
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={`flex flex-col min-h-screen`}>
+      <body className={`flex flex-col min-h-screen ${inter.className}`}>
         <TopLoader />
-        <Providers>
-          <AuthWrapper>
-            <Toaster />
-            <div className="flex-1">{children}</div>
-          </AuthWrapper>
-        </Providers>
+        <StoreProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <ReferralHandler />
+            <ReferralNotification />
+            <Providers>
+              <AuthWrapper>
+                <Toaster />
+                <div className="flex-1">{children}</div>
+              </AuthWrapper>
+            </Providers>
+          </ThemeProvider>
+        </StoreProvider>
       </body>
     </html>
   );

@@ -22,9 +22,13 @@ import { RiShoppingBag3Fill} from "react-icons/ri";
 const ProductDetails = ({ id }: { id: number }) => {
   const { userId } = useAppSelector((store) => store.auth);
   const { data: referralData } = useReferralCode(userId || 0);
+  const { pendingReferralCode } = useAppSelector((store) => store.referral);
 
   const currentUrl = window.location.href;
-  const referralCode = referralData?.data?.userReferalCode?.code || "------";
+  const userReferralCode = referralData?.data?.userReferalCode?.code || "------";
+  
+  // Use user's referral code if they're signed in, otherwise use pending referral code
+  const referralCode = userId ? userReferralCode : (pendingReferralCode || "------");
   const referralLink = `${currentUrl}?referral_code=${referralCode}`;
 
   const [copiedField, setCopiedField] = useState("");

@@ -39,7 +39,7 @@ export const footerContent: FooterContent = {
   },
   appLinks: [
     // { name: "App Store", href: "#", icon: FaApple },
-    { name: "Download Apk", href: "https://drive.google.com/file/d/1HUBRyjsgQLZJL9hr-L3J0VwkFuZwuNYn/view?usp=drive_link", icon: IoDownload },
+    { name: "Download Apk", href: "https://drive.google.com/file/d/1aX2oWxd04YZFdvQuy7Cn2pVD7Qv1URFQ/view?usp=sharing", icon: IoDownload },
   ],
   copyright: "Copyright © 2023 Ezaa Shop. All rights reserved.",
   policies: "Terms of Use | Privacy Policy",
