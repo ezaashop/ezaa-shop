@@ -36,6 +36,7 @@ interface ReferralTeamResponse {
   status: string;
 }
 
+
 // ----------- COMPONENT -----------
 const Referrals = () => {
   const { userId } = useAppSelector((state) => state.auth);
