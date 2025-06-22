@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { baseUrl } from "@/config/constants";
+import { baseUrl, publicUrl } from "@/config/constants";
 import { useTotalCommission } from "@/hooks/useCashback";
 import { useAllUserTeams, useReferralCode } from "@/hooks/useReferral";
 import { useAppSelector } from "@/lib/store/hooks";
@@ -42,9 +42,16 @@ const Referrals = () => {
   const { data: referralData } = useReferralCode(userId || 0);
   const { data: allUserTeamsData } = useAllUserTeams(userId || 0);
   const { data: userTotalCommission } = useTotalCommission(userId || 0);
+  const { pendingReferralCode } = useAppSelector((state) => state.referral);
 
-  const referralCode = referralData?.data?.userReferalCode?.code || "------";
-  const referralLink = `${baseUrl}/referral?code=${referralCode}`;
+  const userReferralCode = referralData?.data?.userReferalCode?.code || "------";
+  
+  // Use user's referral code if they're signed in, otherwise use pending referral code
+  const referralCode = userId ? userReferralCode : (pendingReferralCode || "------");
+  
+  // Use current domain for referral link
+  const currentDomain = typeof window !== 'undefined' ? window.location.origin : '';
+  const referralLink = `${currentDomain}/referral?code=${referralCode}`;
 
   // const teams = (allUserTeamsData?.data?.teams ||
   //   {}) as ReferralTeamResponse["data"]["teams"];
