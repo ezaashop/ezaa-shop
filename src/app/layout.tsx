@@ -10,6 +10,8 @@ import StoreProvider from "@/lib/store/StoreProvider";
 import { ThemeProvider } from "@/components/theme-provider";
 import ReferralHandler from "@/components/referral-handler";
 import ReferralNotification from "@/components/referral-notification";
+import { Suspense } from "react";
+import Loader from "@/components/loader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,7 +39,11 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <Suspense    fallback={<Loader />}>
             <ReferralHandler />
+
+          </Suspense>
+
             <ReferralNotification />
             <Providers>
               <AuthWrapper>

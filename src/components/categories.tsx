@@ -53,7 +53,7 @@ const Categories = () => {
           align: "start",
           dragFree: true,
         }}
-        className="w-full -mx-3"
+        className="w-full"
       >
         <CarouselContent className="px-3">
           {categories.data.categories.map((category: Category) => (
@@ -65,8 +65,8 @@ const Categories = () => {
           <div
   className={`flex flex-col items-center rounded-xl transition-all duration-200 ${
     selectedCategoryId === category.id
-      ? "bg-signature/50 border-2 border-solid"
-      : "hover:bg-signature/15 hover:border-1 hover:border-solid bg-muted/53"
+      ? "bg-signature/50 border-2 border-red"
+      : "hover:bg-signature/15 hover:border-1 border-1  border-gray hover:border-red bg-muted/70"
   }`}
 >
   <MyImage
@@ -74,7 +74,7 @@ const Categories = () => {
     alt={category.name}
     width={80}
     height={80}
-    className="w-full h-22 object-contain bg-white transition-transform hover:scale-90 rounded-t-xl"
+    className="w-full h-22 object-contain bg-white transition-transform hover:scale-90 rounded-t-lg"
   />
   <span className="text-xs font-medium gap-2 p-2 text-center text-foreground px-1 truncate w-full">
     {category.name}
