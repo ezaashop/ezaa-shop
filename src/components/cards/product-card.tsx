@@ -8,21 +8,34 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { useAppDispatch } from "@/lib/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { addProduct } from "@/lib/store/slices/cartSlice";
 import { Product } from "@/types";
 import { toast } from "sonner";
 import Favorite from "../favorite";
 import MyImage from "../my-image";
+import { useRouter } from "next/navigation";
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const { id, product_image, name, product_deatils } = product;
   const { selling_price } = product_deatils[0] || {};
   const dispatch = useAppDispatch();
+  const { token, userId } = useAppSelector((store) => store.auth);
+  const { pendingReferralCode } = useAppSelector((store) => store.referral);
+  const router = useRouter();
+
+  // Use -1 as default userId for product detail fetching if user is not registered
+  const effectiveUserId = userId || -1;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
+    if (!token || !userId) {
+      let loginUrl = "/auth/login";
+      if (pendingReferralCode) loginUrl += `?referralCode=${pendingReferralCode}`;
+      router.push(loginUrl);
+      return;
+    }
 
     if (!id || !selling_price) return;
 
@@ -42,13 +55,23 @@ export const ProductCard = ({ product }: { product: Product }) => {
     toast.success("Added to cart!");
   };
 
+  const handleProductClick = (e: React.MouseEvent) => {
+    if (!token || !userId) {
+      e.preventDefault();
+      let loginUrl = "/auth/login";
+      if (pendingReferralCode) loginUrl += `?referralCode=${pendingReferralCode}`;
+      router.push(loginUrl);
+      return;
+    }
+  };
+
   return (
     <div className="w-full bg-secondary p-3 rounded-2xl shadow hover:shadow-md transition-all relative pointer-events-none hover:bg-signature/10 hover:border-1 hover:border-solid">
       <Favorite
         product={product}
         className="absolute top-5 right-5 z-20 pointer-events-auto "
       />
-      <Link href={`/products/${id}`} className="block pointer-events-auto">
+      <Link href={`/products/${id}`} className="block pointer-events-auto" onClick={handleProductClick}>
         <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-white ">
           {product_image.length > 0 ? (
             <Carousel opts={{ loop: true }} autoplay={true}>

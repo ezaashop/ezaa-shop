@@ -19,6 +19,8 @@ const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
   const [checkedStorage, setCheckedStorage] = useState(false);
   const [hasRedirected, setHasRedirected] = useState(false); // prevent multiple redirects
 
+  const PUBLIC_ROUTES = ["/", "/about", "/contact-us", "/privacy-policy", "/terms-conditions"];
+
   // STEP 1: Check localStorage on mount
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -46,8 +48,11 @@ const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
 
     const isAuthenticated = !!token && !!userId;
     const isAuthRoute = pathname?.startsWith("/auth");
+    // List of public routes
+    const publicRoutes = ["/", "/about", "/contact-us", "/privacy-policy", "/terms-conditions"];
+    const isPublicRoute = publicRoutes.some((route) => pathname === route || pathname?.startsWith(route + "/"));
 
-    if (!isAuthenticated && !isAuthRoute) {
+    if (!isAuthenticated && !isAuthRoute && !isPublicRoute) {
       setHasRedirected(true);
       router.replace("/auth/login");
     }

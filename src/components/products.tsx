@@ -13,9 +13,12 @@ const Products = () => {
   const { userId } = useAppSelector((store) => store.auth);
   const { selectedSubCategoryId } = useAppSelector((store) => store.product);
 
+  // Use -1 as default userId for product fetching if user is not registered
+  const effectiveUserId = userId || -1;
+
   const { data, isLoading, isError, error } = useProduct(
     selectedSubCategoryId || 0,
-    userId || 0
+    effectiveUserId
   );
 
   const products = data?.data?.products || [];
