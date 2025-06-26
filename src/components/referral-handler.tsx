@@ -10,30 +10,31 @@ const ReferralHandler = () => {
   const dispatch = useAppDispatch();
   const { userId } = useAppSelector((store) => store.auth);
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
-    // Check for referral codes in URL parameters
-    const referralCode = searchParams.get("referral_code") || searchParams.get("code");
-    
+    // Check for referral codes in URL parameters or path
+    const referralCodeFromQuery = searchParams.get("referral_code") || searchParams.get("code") || searchParams.get("referralCode");
+    let referralCodeFromPath = null;
+    // Match /referralCode=CODE or /?referralCode=CODE
+    const match = pathname.match(/^\/referralCode=([A-Za-z0-9]+)$/);
+    if (match) {
+      referralCodeFromPath = match[1];
+    }
+    const referralCode = referralCodeFromQuery || referralCodeFromPath;
+
     if (referralCode) {
       dispatch(setPendingReferralCode(referralCode));
-      
       if (typeof window !== "undefined") {
         dispatch(setSourceUrl(window.location.href));
-        
-        if (!userId) {
-          router.push(`/auth/signup?referralCode=${referralCode}`);
-        } else {
-          // Clean up URL
-          const url = new URL(window.location.href);
-          url.searchParams.delete("referral_code");
-          url.searchParams.delete("code");
-          window.history.replaceState({}, "", url.toString());
+        // If path is /referralCode=..., redirect to home
+        if (referralCodeFromPath) {
+          router.replace("/");
         }
       }
     }
-  }, [searchParams, userId, dispatch, router]);
+  }, [searchParams, pathname, dispatch, router]);
 
   return null;
 };

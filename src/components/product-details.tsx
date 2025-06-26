@@ -40,7 +40,7 @@ const ProductDetails = ({ id }: { id: number }) => {
 
   const { data, isLoading, isError, error } = useProductDetailByIdAndUser(
     id,
-    userId || 0
+    userId || -1
   );
   console.log(data, "data");
   const [quantity, setQuantity] = useState(1);
@@ -130,7 +130,7 @@ const ProductDetails = ({ id }: { id: number }) => {
             </div>
 
             <div className="flex items-center gap-4 mt-4">
-              <span className="text-green-600 text-sm">Free Delivery</span>
+              <span className="text-green-600 text-sm">100% Cashback</span>
               <span className="text-green-600 text-sm">In Stock</span>
             </div>
 

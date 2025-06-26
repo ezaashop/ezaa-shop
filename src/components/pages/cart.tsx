@@ -9,8 +9,21 @@ import Coupon from "../coupon";
 import { Paragraph, Small } from "../typography";
 import { Separator } from "../ui/separator";
 import { RiShoppingBag3Fill } from "react-icons/ri";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const Cart = () => {
+  const { token, userId } = useAppSelector((store) => store.auth);
+  const { pendingReferralCode } = useAppSelector((store) => store.referral);
+  const router = useRouter();
+  useEffect(() => {
+    if (!token || !userId) {
+      let loginUrl = "/auth/login";
+      if (pendingReferralCode) loginUrl += `?referralCode=${pendingReferralCode}`;
+      router.replace(loginUrl);
+    }
+  }, [token, userId, pendingReferralCode, router]);
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
       <CartItems />

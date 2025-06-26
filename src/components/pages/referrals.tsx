@@ -52,7 +52,7 @@ const Referrals = () => {
   
   // Use current domain for referral link
   const currentDomain = typeof window !== 'undefined' ? window.location.origin : '';
-  const referralLink = `${currentDomain}/referral?code=${referralCode}`;
+  const referralLink = `${currentDomain}/referralCode=${referralCode}`;
 
   // const teams = (allUserTeamsData?.data?.teams ||
   //   {}) as ReferralTeamResponse["data"]["teams"];

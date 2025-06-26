@@ -1,5 +1,10 @@
+"use client";
 import Container from "@/components/container";
 import TeamMemberCard from "@/components/team-member-card";
+import SocialText from "@/components/social-text";
+import SocialFloat from "@/components/social-float";
+import { useIsMobile } from "@/hooks/useIsMobile";
+import { useState, useEffect } from "react";
 
 const AboutPage = () => {
   const teamMembers = [
@@ -16,7 +21,12 @@ const AboutPage = () => {
       image: "/images/team/ceo.png"
     },
   ];
+  const isMobile = useIsMobile();
+  const [mounted, setMounted] = useState(false);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   return (
     <Container title="About Us">
       <div className="space-y-8 sm:space-y-12">
@@ -153,7 +163,10 @@ const AboutPage = () => {
             Sign Up Now
           </button> */}
         </section>
-        </div>
+        {/* Social icons and text */}
+        {mounted && !isMobile && <SocialText />}
+        {mounted && isMobile && <SocialFloat />}
+      </div>
     </Container>
   );
 };

@@ -7,6 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useAppSelector } from "@/lib/store/hooks";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { usePopularProducts } from "@/hooks/useProducts";
 
 const PopularProducts = ({
   total = 12,
@@ -17,19 +18,22 @@ const PopularProducts = ({
   search?: boolean;
   title?: string | boolean;
 }) => {
+  const { token, userId } = useAppSelector((store) => store.auth);
+  const isAuthenticated = !!token && !!userId;
   const {
     selectedSubCategoryId,
-    popularProducts: products,
-    popularProductsLoading: isLoading,
-    popularProductsError: error,
   } = useAppSelector((store) => store.product);
+
+  const { data, isLoading, error } = usePopularProducts(typeof userId === 'number' ? userId : -1);
+  const products = data?.data?.products || [];
 
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredProducts = search
-    ? products.filter((item) =>
-        item.products.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+    ? products.filter((item: any) => {
+        const prod = item.products || item;
+        return prod.name && prod.name.toLowerCase().includes(searchTerm.toLowerCase());
+      })
     : products;
 
   useEffect(() => {
@@ -76,9 +80,12 @@ const PopularProducts = ({
       )}
 
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        {filteredProducts.slice(0, total).map((product) => (
-          <ProductCard key={product.product_id} product={product.products} />
-        ))}
+        {filteredProducts.slice(0, total).map((product: any) => {
+          const prod = product.products || product;
+          return (
+            <ProductCard key={prod.id} product={prod} />
+          );
+        })}
       </div>
     </div>
   );
